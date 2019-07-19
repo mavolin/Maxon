@@ -8,7 +8,7 @@ public abstract class JsonValue {
 
     /**
      * Gets the raw version of the {@code JsonValue}. This will create a short, but not always easy to read String with
-     * the contenets of the respective {@code JsonValue}.
+     * the contents of the respective {@code JsonValue}.
      *
      * @return the raw
      */
@@ -21,6 +21,5 @@ public abstract class JsonValue {
      * @return the pretty printed JSON
      */
     public abstract String getPrettyPrinted();
-
 
 }
