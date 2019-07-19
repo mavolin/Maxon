@@ -10,7 +10,7 @@ public abstract class JsonValue {
      * Gets the raw version of the {@code JsonValue}. This will create a short, but not always easy to read String with
      * the contents of the respective {@code JsonValue}.
      *
-     * @return the raw
+     * @return the raw JSON
      */
     public abstract String getRaw();
 
