@@ -1,7 +1,7 @@
 package com.github.mavolin.jsonvalues;
 
 /**
- * The abstract {@code JsonValue} class represents all JSON values.
+ * The {@code JsonValue} class is an abstract representation of the various JSON values.
  */
 public abstract class JsonValue {
 
