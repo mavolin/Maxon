@@ -160,4 +160,10 @@ public class JsonPrimitive {
     }
 
 
+    public String getAsString() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
