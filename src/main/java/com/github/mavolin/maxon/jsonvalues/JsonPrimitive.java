@@ -124,4 +124,10 @@ public class JsonPrimitive {
     }
 
 
+    public Byte getAsByte() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
