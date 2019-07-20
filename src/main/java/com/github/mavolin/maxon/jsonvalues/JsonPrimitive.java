@@ -136,4 +136,10 @@ public class JsonPrimitive {
     }
 
 
+    public Integer getAsInteger() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }

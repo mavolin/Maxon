@@ -146,11 +146,27 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsShortThrowIllegalTypeRequestExceptionTest() {
+    void getAsShortThrowsIllegalTypeRequestExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
         assertThrows(IllegalTypeRequestException, jsonPrimitive::getAsShort);
+    }
+
+    @Test
+    void getAsIntegerTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(12345);
+
+        assertEquals(1234, jsonPrimitive.getAsInteger());
+    }
+
+    @Test
+    void getAsIntegerThrowsIllegalTypeRequestException() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+
+        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsInteger);
     }
 
 
