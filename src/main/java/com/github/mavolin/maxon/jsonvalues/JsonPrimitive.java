@@ -148,4 +148,10 @@ public class JsonPrimitive {
     }
 
 
+    public Float getAsFloat() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
