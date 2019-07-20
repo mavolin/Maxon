@@ -1,6 +1,6 @@
 package com.github.mavolin.maxon.jsonvalues;
 
-import com.github.mavolin.maxon.exceptions.IllegalTypeRequestException;
+import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -98,11 +98,11 @@ class JsonPrimitiveTest {
 
 
     @Test
-    void getAsBooleanThrowsIllegalTypeRequestExceptionTest() {
+    void getAsBooleanThrowsIllegalTypeRequestedExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Boolean!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsBoolean);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsBoolean);
     }
 
     @Test
@@ -114,11 +114,11 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsCharacterThrowsIllegalTypeRequestExceptionTest() {
+    void getAsCharacterThrowsIllegalTypeRequestedExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Character!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsCharacter);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsCharacter);
     }
 
     @Test
@@ -130,11 +130,11 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsByteThrowsIllegalTypeRequestExceptionTest() {
+    void getAsByteThrowsIllegalTypeRequestedExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsByte);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsByte);
     }
 
     @Test
@@ -146,11 +146,11 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsShortThrowsIllegalTypeRequestExceptionTest() {
+    void getAsShortThrowsIllegalTypeRequestedExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsShort);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsShort);
     }
 
     @Test
@@ -166,7 +166,7 @@ class JsonPrimitiveTest {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsInteger);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsInteger);
     }
 
     @Test
@@ -178,11 +178,11 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsLongThrowsIllegalTypeRequestExceptionTest() {
+    void getAsLongThrowsIllegalTypeRequestedExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsLong);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsLong);
     }
 
     @Test
@@ -198,7 +198,7 @@ class JsonPrimitiveTest {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsFloat);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsFloat);
     }
 
     @Test
@@ -214,7 +214,7 @@ class JsonPrimitiveTest {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsDouble);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsDouble);
     }
 
     @Test
@@ -230,7 +230,7 @@ class JsonPrimitiveTest {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive(321);
 
-        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsString);
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsString);
     }
 
 
