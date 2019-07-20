@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.jsonvalues;
 
+import com.github.mavolin.maxon.exceptions.IllegalTypeRequestException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,6 +86,23 @@ class JsonPrimitiveTest {
         assertFalse(jsonCharacter.isString());
         assertFalse(jsonNumber.isString());
         assertTrue(jsonString.isString());
+    }
+
+    @Test
+    void getAsBooleanTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(true);
+
+        assertTrue(jsonPrimitive.getAsBoolean());
+    }
+
+
+    @Test
+    void getAsBooleanThrowsIllegealTypeRequestExceptionTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Boolean!");
+
+        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsBoolean);
     }
 
 

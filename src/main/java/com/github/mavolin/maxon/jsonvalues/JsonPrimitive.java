@@ -112,4 +112,10 @@ public class JsonPrimitive {
     }
 
 
+    public Boolean getAsBoolean() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
