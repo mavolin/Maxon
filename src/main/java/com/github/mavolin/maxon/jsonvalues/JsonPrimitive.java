@@ -60,29 +60,55 @@ public class JsonPrimitive {
     }
 
 
+    /**
+     * Checks if this {@code JsonPrimitives} value is null.
+     *
+     * @return {@code true} if this {@code JsonPrimitives} value is null; {@code false} otherwise
+     */
     public boolean isNull() {
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        return this.value == null;
    }
 
+    /**
+     * Checks if this {@code JsonPrimitive} represents a Boolean.
+     *
+     * @return {@code true} if this {@code JsonPrimitive} represents a Boolean; {@code false} otherwise
+     */
     public boolean isBoolean() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        return this.value instanceof Boolean;
     }
 
+    /**
+     * Checks if this {@code JsonPrimitive} represents a Character.
+     *
+     * @return {@code true} if this {@code JsonPrimitive} represents a Character; {@code false} otherwise
+     */
     public boolean isCharacter() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        return this.value instanceof Character;
     }
 
+    /**
+     * Checks if this {@code JsonPrimitive} represents a Number.
+     *
+     * @return {@code true} if this {@code JsonPrimitive} represents a Number; {@code false} otherwise
+     */
     public boolean isNumber() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        return this.value instanceof Number;
     }
 
 
+    /**
+     * Checks if this {@code JsonPrimitive} represents a String.
+     *
+     * @return {@code true} if this {@code JsonPrimitive} represents a String; {@code false} otherwise
+     */
     public boolean isString() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        return this.value instanceof String;
     }
 
 
