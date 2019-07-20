@@ -201,5 +201,21 @@ class JsonPrimitiveTest {
         assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsFloat);
     }
 
+    @Test
+    void getAsDoubleTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(1234.56);
+
+        assertEquals(1234.56, jsonPrimitive.getAsDouble());
+    }
+
+    @Test
+    void getAsDoubleThrowsIllegalTypeRequestException() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+
+        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsDouble);
+    }
+
 
 }

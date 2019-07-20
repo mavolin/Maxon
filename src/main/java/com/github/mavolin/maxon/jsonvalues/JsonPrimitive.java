@@ -154,4 +154,10 @@ public class JsonPrimitive {
     }
 
 
+    public Double getAsDouble() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
