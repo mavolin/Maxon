@@ -105,5 +105,21 @@ class JsonPrimitiveTest {
         assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsBoolean);
     }
 
+    @Test
+    void getAsCharacterTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive('m');
+
+        assertEquals('m', jsonPrimitive.getAsCharacter());
+    }
+
+    @Test
+    void getAsCharacterThrowsIllegalTypeRequestExceptionTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Character!");
+
+        assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsCharacter);
+    }
+
 
 }

@@ -118,4 +118,10 @@ public class JsonPrimitive {
     }
 
 
+    public Character getAsCharacter() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
