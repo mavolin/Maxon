@@ -137,5 +137,21 @@ class JsonPrimitiveTest {
         assertThrows(IllegalTypeRequestException.class, jsonPrimitive::getAsByte);
     }
 
+    @Test
+    void getAsShortTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(1234);
+
+        assertEquals((short) 1234, jsonPrimitive.getAsShort());
+    }
+
+    @Test
+    void getAsShortThrowIllegalTypeRequestExceptionTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+
+        assertThrows(IllegalTypeRequestException, jsonPrimitive::getAsShort);
+    }
+
 
 }

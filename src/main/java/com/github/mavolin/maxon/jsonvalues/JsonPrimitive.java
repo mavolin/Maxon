@@ -130,4 +130,10 @@ public class JsonPrimitive {
     }
 
 
+    public Short getAsShort() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
