@@ -142,4 +142,10 @@ public class JsonPrimitive {
     }
 
 
+    public Long getAsLong() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
