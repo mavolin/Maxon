@@ -5,7 +5,7 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 /**
  * {@code JsonPrimitive} represents all four JSON primitive types: Nulls, Booleans, Numbers and Strings. It acts like a
  * wrapper through which the values can be extracted using their respective Java representation. Additionally this will
- * provide support for {@link char chars}, which are represented as a one character JSON String as there is no JSON
+ * provide support for {@link char chars}, which are represented as a one character JSON String, as there is no JSON
  * equivalent.
  */
 public class JsonPrimitive {
