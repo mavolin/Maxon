@@ -98,7 +98,7 @@ class JsonPrimitiveTest {
 
 
     @Test
-    void getAsBooleanThrowsIllegealTypeRequestExceptionTest() {
+    void getAsBooleanThrowsIllegalTypeRequestExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Boolean!");
 
