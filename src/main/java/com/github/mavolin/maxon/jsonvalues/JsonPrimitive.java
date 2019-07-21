@@ -11,7 +11,7 @@ import java.math.BigInteger;
  * provide support for {@link char chars}, which are represented as a one character JSON String, as there is no JSON
  * equivalent.
  */
-public class JsonPrimitive {
+public class JsonPrimitive implements JsonValue {
 
 
     /**
