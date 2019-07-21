@@ -135,9 +135,13 @@ class JsonPrimitiveTest {
     @Test
     void getAsByteThrowsIllegalTypeRequestedExceptionTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(Byte.MAX_VALUE + 1);
+        JsonPrimitive jsonDecimal = new JsonPrimitive(123.4);
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsByte);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsByte);
+        assertThrows(IllegalTypeRequestedException.class, largeJson::getAsByte);
+        assertThrows(IllegalTypeRequestedException.class, jsonDecimal::getAsByte);
     }
 
     @Test
@@ -151,9 +155,13 @@ class JsonPrimitiveTest {
     @Test
     void getAsShortThrowsIllegalTypeRequestedExceptionTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(Short.MAX_VALUE + 1);
+        JsonPrimitive jsonDecimal = new JsonPrimitive(123.4);
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsShort);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsShort);
+        assertThrows(IllegalTypeRequestedException.class, largeJson::getAsShort);
+        assertThrows(IllegalTypeRequestedException.class, jsonDecimal::getAsShort);
     }
 
     @Test
@@ -167,9 +175,13 @@ class JsonPrimitiveTest {
     @Test
     void getAsIntegerThrowsIllegalTypeRequestException() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(Integer.MAX_VALUE + 1L);
+        JsonPrimitive jsonDecimal = new JsonPrimitive(123.4);
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsInteger);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsInteger);
+        assertThrows(IllegalTypeRequestedException.class, largeJson::getAsInteger);
+        assertThrows(IllegalTypeRequestedException.class, jsonDecimal::getAsInteger);
     }
 
     @Test
@@ -183,25 +195,13 @@ class JsonPrimitiveTest {
     @Test
     void getAsLongThrowsIllegalTypeRequestedExceptionTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE));
+        JsonPrimitive jsonDecimal = new JsonPrimitive(123.4);
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsLong);
-    }
-
-    @Test
-    void getAsFloatTest() {
-
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(123.45f);
-
-        assertEquals(123.45f, jsonPrimitive.getAsFloat());
-    }
-
-    @Test
-    void getAsFloatThrowsIllegalTypeRequestException() {
-
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
-
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsFloat);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsLong);
+        assertThrows(IllegalTypeRequestedException.class, largeJson::getAsLong);
+        assertThrows(IllegalTypeRequestedException.class, jsonDecimal::getAsLong);
     }
 
     @Test
@@ -215,9 +215,29 @@ class JsonPrimitiveTest {
     @Test
     void getAsBigIntegerThrowsIllegalTypeRequestedExceptionTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonDecimal = new JsonPrimitive(123.4);
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsBigInteger);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsBigInteger);
+        assertThrows(IllegalTypeRequestedException.class, jsonDecimal::getAsBigInteger);
+    }
+
+    @Test
+    void getAsFloatTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(123.45f);
+
+        assertEquals(123.45f, jsonPrimitive.getAsFloat());
+    }
+
+    @Test
+    void getAsFloatThrowsIllegalTypeRequestException() {
+
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(Float.MAX_VALUE + 1);
+
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsFloat);
+        assertThrows(IllegalTypeRequestedException.class, largeJson::getAsFloat);
     }
 
     @Test
@@ -231,9 +251,11 @@ class JsonPrimitiveTest {
     @Test
     void getAsDoubleThrowsIllegalTypeRequestExceptionTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive jsonString = new JsonPrimitive("This is a String, not a Number!");
+        JsonPrimitive largeJson = new JsonPrimitive(BigDecimal.valueOf(Double.MAX_VALUE).add(BigDecimal.ONE));
 
-        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsDouble);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsDouble);
+        assertThrows(IllegalTypeRequestedException.class, jsonString::getAsDouble);
     }
 
     @Test
