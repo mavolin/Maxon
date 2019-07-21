@@ -3,6 +3,9 @@ package com.github.mavolin.maxon.jsonvalues;
 import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonPrimitiveTest {
@@ -202,6 +205,22 @@ class JsonPrimitiveTest {
     }
 
     @Test
+    void getAsBigIntegerTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(1234567890L);
+
+        assertEquals(BigInteger.valueOf(123457890L), jsonPrimitive.getAsBigInteger());
+    }
+
+    @Test
+    void getAsBigIntegerThrowsIllegalTypeRequestedExceptionTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsBigInteger);
+    }
+
+    @Test
     void getAsDoubleTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive(1234.56);
@@ -210,11 +229,27 @@ class JsonPrimitiveTest {
     }
 
     @Test
-    void getAsDoubleThrowsIllegalTypeRequestException() {
+    void getAsDoubleThrowsIllegalTypeRequestExceptionTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
 
         assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsDouble);
+    }
+
+    @Test
+    void getAsBigDecimalTest() {
+
+        JsonPrimitive jsonNumber = new JsonPrimitive(1234567.890d);
+
+        assertEquals(BigDecimal.valueOf(1234567.890d), jsonNumber.getAsBigDecimal());
+    }
+
+    @Test
+    void getAsBigDecimalThrowsIllegalTypeRequestedExceptionTest() {
+
+        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a String, not a Number!");
+
+        assertThrows(IllegalTypeRequestedException.class, jsonPrimitive::getAsBigDecimal);
     }
 
     @Test

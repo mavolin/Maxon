@@ -2,6 +2,9 @@ package com.github.mavolin.maxon.jsonvalues;
 
 import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * {@code JsonPrimitive} represents all four JSON primitive types: Nulls, Booleans, Numbers and Strings. It acts like a
  * wrapper through which the values can be extracted using their respective Java representation. Additionally this will
@@ -259,6 +262,11 @@ public class JsonPrimitive {
         return ((Number) this.value).longValue();
     }
 
+    public BigInteger getAsBigInteger() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
 
     /**
      * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive's} value is not an
@@ -303,6 +311,11 @@ public class JsonPrimitive {
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).doubleValue();
+    }
+
+    public BigDecimal getAsBigDecimal() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
 
