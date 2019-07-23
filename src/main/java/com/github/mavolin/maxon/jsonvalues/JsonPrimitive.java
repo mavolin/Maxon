@@ -327,8 +327,7 @@ public class JsonPrimitive implements JsonValue {
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, if the dimensions of the number exceed those of {@link
-     *         BigInteger BigInteger} or the requested number is decimal
+     *         value is not an instance of {@link Number Number}, or the requested number is decimal
      */
     public BigInteger getAsBigInteger() {
 
@@ -340,16 +339,8 @@ public class JsonPrimitive implements JsonValue {
 
         BigDecimal num = new BigDecimal(this.value.toString());
 
-        BigDecimal longMin = BigDecimal.valueOf(Long.MIN_VALUE);
-        BigDecimal longMax = BigDecimal.valueOf(Long.MAX_VALUE);
-
         if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
             throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-        if (num.compareTo(longMin) < 0 || num
-                .compareTo(longMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
 
 
         return num.toBigInteger();
@@ -445,18 +436,7 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal doubleMin = BigDecimal.valueOf(Double.MIN_VALUE);
-        BigDecimal doubleMax = BigDecimal.valueOf(Double.MAX_VALUE);
-
-        if (num.compareTo(doubleMin) < 0 || num
-                .compareTo(doubleMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-
-        return num;
+        return this.value instanceof BigDecimal ? (BigDecimal) this.value : new BigDecimal(this.value.toString());
     }
 
 
@@ -477,6 +457,55 @@ public class JsonPrimitive implements JsonValue {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of String");
 
         return (String) this.value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o)
+            return true;
+        if (!(o instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive that = (JsonPrimitive) o;
+
+        if (that.isNull()) {
+
+            return this.isNull();
+
+        } else if (that.isBoolean()) {
+
+            if (!this.isBoolean())
+                return false;
+
+            return that.getAsBoolean().equals(this.getAsBoolean());
+
+        } else if (that.isCharacter()) {
+
+            if (!this.isCharacter())
+                return false;
+
+            return that.getAsCharacter().equals(this.getAsCharacter());
+
+        } else if (that.isNumber()) {
+
+            if (!this.isNumber())
+                return false;
+
+            return that.getAsBigDecimal().equals(this.getAsBigDecimal());
+
+        } else if (that.isString()) {
+
+            if (!this.isString())
+                return false;
+
+            return that.getAsString().equals(this.getAsString());
+
+        } else {
+
+            return false; // unreachable
+
+        }
     }
 
 
