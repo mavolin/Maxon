@@ -52,9 +52,25 @@ public class JsonElement {
         return bool.getAsBoolean();
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link Character Character}.
+     *
+     * @return the {@link Character Character}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not a {@code Character}
+     */
     public Character getAsCharacter() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Character");
+
+        JsonPrimitive character = (JsonPrimitive) this.value;
+
+        if (!character.isCharacter() && !character.isNull())
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Character");
+
+        return character.getAsCharacter();
     }
 
     public Short getAsByte() {
