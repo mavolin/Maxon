@@ -178,9 +178,25 @@ public class JsonElement {
         return bigInteger.getAsBigInteger();
     }
 
-    public Double getAsFloat() {
+    /**
+     * Gets this {@code JsonElement} as a {@link Float Float}.
+     *
+     * @return the {@link Float Float}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code Float}
+     */
+    public Float getAsFloat() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Float");
+
+        JsonPrimitive floatt = (JsonPrimitive) this.value;
+
+        if (!floatt.isCharacter() && !floatt.isNull())
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Float");
+
+        return floatt.getAsFloat();
     }
 
     public Double getAsDouble() {
