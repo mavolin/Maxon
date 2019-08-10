@@ -295,10 +295,5 @@ public class JsonElement {
         return (JsonObject) this.value;
     }
 
-    public <T> T getAsObject(Class<T> clazz) {
-
-        throw new UnsupportedOperationException("Not implemented yet"); // TODO add
-    }
-
 
 }

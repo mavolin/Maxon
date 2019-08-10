@@ -138,11 +138,5 @@ class JsonElementTest {
         assertEquals(jsonObject, jsonElement.getAsJsonObject());
     }
 
-    @Test
-    void getAsObjectTest() {
-
-        // @TODO add
-    }
-
 
 }
