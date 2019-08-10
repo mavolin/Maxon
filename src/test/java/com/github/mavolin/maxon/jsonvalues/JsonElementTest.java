@@ -110,6 +110,28 @@ class JsonElementTest {
     }
 
     @Test
+    void getAsJsonArrayTest() {
+
+        JsonArray jsonArray = new JsonArray();
+        jsonArray.add(1).add(2).add("Hello World");
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonArray);
+        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+
+        assertEquals(jsonArray, jsonElement.getAsJsonArray());
+    }
+
+    @Test
+    void getAsJsonObjectTest() {
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("First", 1).put("second", true).put("Last", 'v');
+        JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonObject);
+        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+
+        assertEquals(jsonObject, jsonElement.getAsJsonObject());
+    }
+
+    @Test
     void getAsObjectTest() {
 
         // @TODO add

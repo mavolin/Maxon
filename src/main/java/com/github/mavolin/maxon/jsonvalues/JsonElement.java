@@ -268,4 +268,16 @@ public class JsonElement {
     }
 
 
+    public JsonArray getAsJsonArray() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
+    public JsonObject getAsJsonObject() {
+
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
