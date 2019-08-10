@@ -228,7 +228,6 @@ public class JsonElement {
      * @throws IllegalTypeRequestedException
      *         if this {@code JsonElement's} value is not an instance of {@code BigDecimal}
      */
-
     public BigDecimal getAsBigDecimal() {
 
         if (!(this.value instanceof JsonPrimitive))
