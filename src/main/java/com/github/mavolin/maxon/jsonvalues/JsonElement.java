@@ -115,9 +115,25 @@ public class JsonElement {
         return shortt.getAsShort();
     }
 
+    /**
+     * Gets this {@code JsonElement} as an {@link Integer Integer}.
+     *
+     * @return the {@link Integer Integer}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code Integer}
+     */
     public Integer getAsInteger() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Integer");
+
+        JsonPrimitive shortt = (JsonPrimitive) this.value;
+
+        if (!shortt.isCharacter() && !shortt.isNull())
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Integer");
+
+        return shortt.getAsInteger();
     }
 
     public Long getAsLong() {
