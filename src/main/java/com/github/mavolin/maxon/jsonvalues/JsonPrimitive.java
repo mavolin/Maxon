@@ -189,7 +189,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).byteValue();
     }
@@ -210,7 +210,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).shortValue();
     }
@@ -231,7 +231,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).intValue();
     }
@@ -252,7 +252,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).longValue();
     }
@@ -273,7 +273,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return (this.value instanceof BigInteger) ? (BigInteger) this.value : new BigInteger(this.value.toString());
     }
@@ -294,7 +294,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).floatValue();
     }
@@ -315,7 +315,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).doubleValue();
     }
@@ -335,7 +335,7 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return this.value instanceof BigDecimal ? (BigDecimal) this.value : new BigDecimal(this.value.toString());
     }

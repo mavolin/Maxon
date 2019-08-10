@@ -668,13 +668,13 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
             @Override
             public boolean hasNext() {
 
-                return JsonArray.this.fields.size() < this.currentIndex;
+                return this.currentIndex < JsonArray.this.fields.size();
             }
 
             @Override
             public JsonElement next() {
 
-                if (JsonArray.this.fields.size() >= this.currentIndex)
+                if (!this.hasNext())
                     throw new NoSuchElementException();
 
                 JsonValue currentValue = JsonArray.this.fields.get(this.currentIndex++);
