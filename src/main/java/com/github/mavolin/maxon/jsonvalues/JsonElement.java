@@ -241,9 +241,25 @@ public class JsonElement {
         return bigDecimal.getAsBigDecimal();
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link String String}.
+     *
+     * @return the {@link String String}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code String}
+     */
     public String getAsString() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a String");
+
+        JsonPrimitive string = (JsonPrimitive) this.value;
+
+        if (!string.isString() && !string.isNull())
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a String");
+
+        return string.getAsString();
     }
 
     public <T> T getAsObject(Class<T> clazz) {
