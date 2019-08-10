@@ -109,5 +109,11 @@ class JsonElementTest {
         assertEquals("This is a test String.", jsonElement.getAsString());
     }
 
+    @Test
+    void getAsObjectTest() {
+
+        // @TODO add
+    }
+
 
 }
