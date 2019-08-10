@@ -278,9 +278,21 @@ public class JsonElement {
         return (JsonArray) this.value;
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link JsonObject JsonObject}.
+     *
+     * @return the {@link JsonObject JsonObject}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code JsonObject}
+     */
+
     public JsonObject getAsJsonObject() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonObject))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonObject");
+
+        return (JsonObject) this.value;
     }
 
     public <T> T getAsObject(Class<T> clazz) {
