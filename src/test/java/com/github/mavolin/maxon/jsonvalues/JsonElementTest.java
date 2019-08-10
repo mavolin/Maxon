@@ -118,8 +118,7 @@ class JsonElementTest {
                 .add(1)
                 .add(2)
                 .add("Hello World");
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonArray);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonElement jsonElement = new JsonElement(jsonArray);
 
         assertEquals(jsonArray, jsonElement.getAsJsonArray());
     }
@@ -132,8 +131,7 @@ class JsonElementTest {
                 .put("First", 1)
                 .put("second", true)
                 .put("Last", 'v');
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonObject);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonElement jsonElement = new JsonElement(jsonObject);
 
         assertEquals(jsonObject, jsonElement.getAsJsonObject());
     }
