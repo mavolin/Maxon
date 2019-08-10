@@ -172,16 +172,13 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Byte Byte}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, if the dimensions of the number exceed those of {@link
-     *         Byte Byte} or the requested number is decimal
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
     public Byte getAsByte() throws IllegalTypeRequestedException {
 
@@ -191,34 +188,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal byteMin = BigDecimal.valueOf(Byte.MIN_VALUE);
-        BigDecimal byteMax = BigDecimal.valueOf(Byte.MAX_VALUE);
-
-        if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
-            throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-        if (num.compareTo(byteMin) < 0 || num
-                .compareTo(byteMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-        return num.byteValue();
+        return ((Number) this.value).byteValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Short Short}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, if the dimensions of the number exceed those of {@link
-     *         Short Short} or the requested number is decimal
+     *         value is not an instance of {@link Number Number} nor {@code null}
      */
     public Short getAsShort() throws IllegalTypeRequestedException {
 
@@ -228,34 +209,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal shortMin = BigDecimal.valueOf(Short.MIN_VALUE);
-        BigDecimal shortMax = BigDecimal.valueOf(Short.MAX_VALUE);
-
-        if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
-            throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-        if (num.compareTo(shortMin) < 0 || num
-                .compareTo(shortMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-        return num.shortValue();
+        return ((Number) this.value).shortValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is not
-     * an instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will
-     * be thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Integer Integer}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, if the dimensions of the number exceed those of {@link
-     *         Integer Integer} or the requested number is decimal
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
     public Integer getAsInteger() throws IllegalTypeRequestedException {
 
@@ -265,34 +230,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal intMin = BigDecimal.valueOf(Integer.MIN_VALUE);
-        BigDecimal intMax = BigDecimal.valueOf(Integer.MAX_VALUE);
-
-        if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
-            throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-        if (num.compareTo(intMin) < 0 || num
-                .compareTo(intMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-        return num.intValue();
+        return ((Number) this.value).intValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Long Long}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, if the dimensions of the number exceed those of {@link
-     *         Long Long} or the requested number is decimal
+     *         value is neither an instance of {@code Number} nor {@code null}
      */
     public Long getAsLong() throws IllegalTypeRequestedException {
 
@@ -302,32 +251,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal longMin = BigDecimal.valueOf(Long.MIN_VALUE);
-        BigDecimal longMax = BigDecimal.valueOf(Long.MAX_VALUE);
-
-        if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
-            throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-        if (num.compareTo(longMin) < 0 || num
-                .compareTo(longMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-        return num.longValue();
+        return ((Number) this.value).longValue();
     }
 
     /**
      * Gets the {@code JsonPrimitive's} value as a {@link BigInteger BigInteger}. If the {@code JsonPrimitive's} value
-     * is not an instance of {@link Number Number} an {@link IllegalTypeRequestedException
-     * IllegalTypeReqeustedException} will be thrown.
+     * is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link BigInteger BigInteger}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}, or the requested number is decimal
+     *         value is neither an instance of {@code Number} nor {@code null}
      */
     public BigInteger getAsBigInteger() {
 
@@ -337,27 +272,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        if (num.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO))
-            throw new IllegalTypeRequestedException("The requested number is a decimal number");
-
-
-        return num.toBigInteger();
+        return (this.value instanceof BigInteger) ? (BigInteger) this.value : new BigInteger(this.value.toString());
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Float Float}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number} or if the dimensions of the number exceed those of
-     *         {@link Byte Byte}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
     public Float getAsFloat() throws IllegalTypeRequestedException {
 
@@ -367,32 +293,18 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal floatMin = BigDecimal.valueOf(Float.MIN_VALUE);
-        BigDecimal floatMax = BigDecimal.valueOf(Float.MAX_VALUE);
-
-        if (num.compareTo(floatMin) < 0 || num
-                .compareTo(floatMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-
-        return num.floatValue();
+        return ((Number) this.value).floatValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Double Double}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number} or if the dimensions of the number exceed those of
-     *         {@link Byte Byte}
+     *         value is neither an instance of {@code Number} nor {@code null}
      */
     public Double getAsDouble() throws IllegalTypeRequestedException {
 
@@ -402,31 +314,17 @@ public class JsonPrimitive implements JsonValue {
         if (!(this.value instanceof Number))
             throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
 
-        BigDecimal num = new BigDecimal(this.value.toString());
-
-        BigDecimal doubleMin = BigDecimal.valueOf(Double.MIN_VALUE);
-        BigDecimal doubleMax = BigDecimal.valueOf(Double.MAX_VALUE);
-
-        if (num.compareTo(doubleMin) < 0 || num
-                .compareTo(doubleMax) > 0) // test if num exceeds the dimensions of the requested type
-            throw new IllegalTypeRequestedException(
-                    "The dimensions of the requested number exceed those of the requested class");
-
-
-        return num.doubleValue();
+        return ((Number) this.value).doubleValue();
     }
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}. If the {@code JsonPrimitive's} value
-     * is not an instance of {@link Number Number} an {@link IllegalTypeRequestedException
-     * IllegalTypeReqeustedException} will be thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number} or if the dimensions of the number exceed those of
-     *         {@link BigInteger BigInteger}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
     public BigDecimal getAsBigDecimal() {
 
@@ -441,9 +339,9 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link String String}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link String String} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link String String}. If the {@code JsonPrimitive's} value is
+     * neither an instance of {@link String String} nor {@code null} an {@link IllegalTypeRequestedException
+     * IllegalTypeReqeustedException} will be thrown.
      *
      * @return the {@code JsonPrimitive's} value as a {@link String String}
      *
