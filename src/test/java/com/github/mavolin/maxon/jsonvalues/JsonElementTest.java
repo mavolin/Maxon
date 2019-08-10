@@ -79,7 +79,7 @@ class JsonElementTest {
         JsonPrimitive jsonPrimitive = new JsonPrimitive(1234.56);
         JsonElement jsonElement = new JsonElement(jsonPrimitive);
 
-        assertEquals(1234.56, jsonElement.getAsFloat());
+        assertEquals(1234.56f, jsonElement.getAsFloat());
     }
 
     @Test
