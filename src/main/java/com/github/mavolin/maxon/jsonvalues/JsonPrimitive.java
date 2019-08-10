@@ -41,7 +41,10 @@ public class JsonPrimitive implements JsonValue {
      */
     public JsonPrimitive(Character character) {
 
-        this.value = String.valueOf(character);
+        if (character == null)
+            this.value = null;
+        else
+            this.value = String.valueOf(character);
     }
 
     /**
@@ -94,7 +97,7 @@ public class JsonPrimitive implements JsonValue {
      */
     public boolean isCharacter() {
 
-        return this.value instanceof Character;
+        return (this.value instanceof String) && ((String) this.value).length() == 1;
     }
 
     /**
@@ -164,7 +167,7 @@ public class JsonPrimitive implements JsonValue {
 
         String str = (String) this.value;
 
-        if (str.length() != 0)
+        if (str.length() != 1)
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
 
         return ((String) this.value).charAt(0);
@@ -350,6 +353,9 @@ public class JsonPrimitive implements JsonValue {
      *         value is not an instance of {@link String String}
      */
     public String getAsString() {
+
+        if (this.value == null)
+            return null;
 
         if (!(this.value instanceof String))
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of String");
