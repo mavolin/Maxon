@@ -262,21 +262,30 @@ public class JsonElement {
         return string.getAsString();
     }
 
-    public <T> T getAsObject(Class<T> clazz) {
-
-        throw new UnsupportedOperationException("Not implemented yet"); // TODO add
-    }
-
-
+    /**
+     * Gets this {@code JsonElement} as a {@link JsonObject JsonArray}.
+     *
+     * @return the {@link JsonObject JsonArray}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code JsonArray}
+     */
     public JsonArray getAsJsonArray() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+        if (!(this.value instanceof JsonArray))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonArray");
 
+        return (JsonArray) this.value;
+    }
 
     public JsonObject getAsJsonObject() {
 
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public <T> T getAsObject(Class<T> clazz) {
+
+        throw new UnsupportedOperationException("Not implemented yet"); // TODO add
     }
 
 
