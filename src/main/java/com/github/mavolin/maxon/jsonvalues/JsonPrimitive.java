@@ -130,7 +130,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is not an instance of {@link Boolean Boolean}
      */
-    public Boolean getAsBoolean() throws IllegalTypeRequestedException {
+    public Boolean getAsBoolean() {
 
         if (this.value == null)
             return null;
@@ -153,7 +153,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is not an instance of {@link Character Character}
      */
-    public Character getAsCharacter() throws IllegalTypeRequestedException {
+    public Character getAsCharacter() {
 
         if (this.value == null)
             return null;
@@ -180,7 +180,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Byte getAsByte() throws IllegalTypeRequestedException {
+    public Byte getAsByte() {
 
         if (this.value == null)
             return null;
@@ -201,7 +201,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is not an instance of {@link Number Number} nor {@code null}
      */
-    public Short getAsShort() throws IllegalTypeRequestedException {
+    public Short getAsShort() {
 
         if (this.value == null)
             return null;
@@ -222,7 +222,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Integer getAsInteger() throws IllegalTypeRequestedException {
+    public Integer getAsInteger() {
 
         if (this.value == null)
             return null;
@@ -243,7 +243,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is neither an instance of {@code Number} nor {@code null}
      */
-    public Long getAsLong() throws IllegalTypeRequestedException {
+    public Long getAsLong() {
 
         if (this.value == null)
             return null;
@@ -285,7 +285,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Float getAsFloat() throws IllegalTypeRequestedException {
+    public Float getAsFloat() {
 
         if (this.value == null)
             return null;
@@ -306,7 +306,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is neither an instance of {@code Number} nor {@code null}
      */
-    public Double getAsDouble() throws IllegalTypeRequestedException {
+    public Double getAsDouble() {
 
         if (this.value == null)
             return null;
@@ -349,7 +349,7 @@ public class JsonPrimitive implements JsonValue {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitives}
      *         value is not an instance of {@link String String}
      */
-    public String getAsString() throws IllegalTypeRequestedException {
+    public String getAsString() {
 
         if (!(this.value instanceof String))
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of String");
