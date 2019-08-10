@@ -88,7 +88,7 @@ public class JsonElement {
 
         JsonPrimitive bytee = (JsonPrimitive) this.value;
 
-        if (!bytee.isCharacter() && !bytee.isNull())
+        if (!bytee.isNumber() && !bytee.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Byte");
 
         return bytee.getAsByte();
@@ -109,7 +109,7 @@ public class JsonElement {
 
         JsonPrimitive shortt = (JsonPrimitive) this.value;
 
-        if (!shortt.isCharacter() && !shortt.isNull())
+        if (!shortt.isNumber() && !shortt.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Short");
 
         return shortt.getAsShort();
@@ -130,7 +130,7 @@ public class JsonElement {
 
         JsonPrimitive shortt = (JsonPrimitive) this.value;
 
-        if (!shortt.isCharacter() && !shortt.isNull())
+        if (!shortt.isNumber() && !shortt.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Integer");
 
         return shortt.getAsInteger();
@@ -151,7 +151,7 @@ public class JsonElement {
 
         JsonPrimitive longg = (JsonPrimitive) this.value;
 
-        if (!longg.isCharacter() && !longg.isNull())
+        if (!longg.isNumber() && !longg.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Long");
 
         return longg.getAsLong();
@@ -172,7 +172,7 @@ public class JsonElement {
 
         JsonPrimitive bigInteger = (JsonPrimitive) this.value;
 
-        if (!bigInteger.isCharacter() && !bigInteger.isNull())
+        if (!bigInteger.isNumber() && !bigInteger.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigInteger");
 
         return bigInteger.getAsBigInteger();
@@ -193,7 +193,7 @@ public class JsonElement {
 
         JsonPrimitive floatt = (JsonPrimitive) this.value;
 
-        if (!floatt.isCharacter() && !floatt.isNull())
+        if (!floatt.isNumber() && !floatt.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Float");
 
         return floatt.getAsFloat();
@@ -214,7 +214,7 @@ public class JsonElement {
 
         JsonPrimitive doublee = (JsonPrimitive) this.value;
 
-        if (!doublee.isCharacter() && !doublee.isNull())
+        if (!doublee.isNumber() && !doublee.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Double");
 
         return doublee.getAsDouble();
@@ -236,7 +236,7 @@ public class JsonElement {
 
         JsonPrimitive bigDecimal = (JsonPrimitive) this.value;
 
-        if (!bigDecimal.isCharacter() && !bigDecimal.isNull())
+        if (!bigDecimal.isNumber() && !bigDecimal.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigDecimal");
 
         return bigDecimal.getAsBigDecimal();
