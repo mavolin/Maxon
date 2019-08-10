@@ -37,17 +37,17 @@ public class JsonElement {
      * @return the {@link Boolean Boolean}
      *
      * @throws IllegalTypeRequestedException
-     *         if this {@code JsonElement's} value is not a {@code Boolean}
+     *         if this {@code JsonElement's} value is not an instance of {@code Boolean}
      */
     public Boolean getAsBoolean() throws IllegalTypeRequestedException {
 
         if (!(this.value instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Boolean");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Boolean");
 
         JsonPrimitive bool = (JsonPrimitive) this.value;
 
         if (!bool.isBoolean() && !bool.isNull())
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Boolean");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Boolean");
 
         return bool.getAsBoolean();
     }
@@ -58,17 +58,17 @@ public class JsonElement {
      * @return the {@link Character Character}
      *
      * @throws IllegalTypeRequestedException
-     *         if this {@code JsonElement's} value is not a {@code Character}
+     *         if this {@code JsonElement's} value is not an instance of {@code Character}
      */
     public Character getAsCharacter() {
 
         if (!(this.value instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Character");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Character");
 
         JsonPrimitive character = (JsonPrimitive) this.value;
 
         if (!character.isCharacter() && !character.isNull())
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Character");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Character");
 
         return character.getAsCharacter();
     }
@@ -79,17 +79,17 @@ public class JsonElement {
      * @return the {@link Byte Byte}
      *
      * @throws IllegalTypeRequestedException
-     *         if this {@code JsonElement's} value is not a {@code Byte}
+     *         if this {@code JsonElement's} value is not an instance of {@code Byte}
      */
     public Byte getAsByte() {
 
         if (!(this.value instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Byte");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Byte");
 
         JsonPrimitive bytee = (JsonPrimitive) this.value;
 
         if (!bytee.isCharacter() && !bytee.isNull())
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Byte");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Byte");
 
         return bytee.getAsByte();
     }
@@ -100,17 +100,17 @@ public class JsonElement {
      * @return the {@link Short Short}
      *
      * @throws IllegalTypeRequestedException
-     *         if this {@code JsonElement's} value is not a {@code Short}
+     *         if this {@code JsonElement's} value is not an instance of {@code Short}
      */
     public Short getAsShort() {
 
         if (!(this.value instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Short");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Short");
 
         JsonPrimitive shortt = (JsonPrimitive) this.value;
 
         if (!shortt.isCharacter() && !shortt.isNull())
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Short");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Short");
 
         return shortt.getAsShort();
     }
@@ -126,12 +126,12 @@ public class JsonElement {
     public Integer getAsInteger() {
 
         if (!(this.value instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Integer");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Integer");
 
         JsonPrimitive shortt = (JsonPrimitive) this.value;
 
         if (!shortt.isCharacter() && !shortt.isNull())
-            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Integer");
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Integer");
 
         return shortt.getAsInteger();
     }
