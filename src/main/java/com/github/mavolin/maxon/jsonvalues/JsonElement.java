@@ -139,7 +139,7 @@ public class JsonElement {
     /**
      * Gets this {@code JsonElement} as a {@link Long Long}.
      *
-     * @return the {@link Short Long}
+     * @return the {@link Long Long}
      *
      * @throws IllegalTypeRequestedException
      *         if this {@code JsonElement's} value is not an instance of {@code Long}
