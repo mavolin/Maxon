@@ -220,9 +220,26 @@ public class JsonElement {
         return doublee.getAsDouble();
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link BigDecimal BigDecimal}.
+     *
+     * @return the {@link BigDecimal BigDecimal}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code BigDecimal}
+     */
+
     public BigDecimal getAsBigDecimal() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigDecimal");
+
+        JsonPrimitive bigDecimal = (JsonPrimitive) this.value;
+
+        if (!bigDecimal.isCharacter() && !bigDecimal.isNull())
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigDecimal");
+
+        return bigDecimal.getAsBigDecimal();
     }
 
     public String getAsString() {
