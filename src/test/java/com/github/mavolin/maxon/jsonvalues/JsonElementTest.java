@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JsonElementTest {
 
@@ -113,7 +114,10 @@ class JsonElementTest {
     void getAsJsonArrayTest() {
 
         JsonArray jsonArray = new JsonArray();
-        jsonArray.add(1).add(2).add("Hello World");
+        jsonArray
+                .add(1)
+                .add(2)
+                .add("Hello World");
         JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonArray);
         JsonElement jsonElement = new JsonElement(jsonPrimitive);
 
@@ -124,7 +128,10 @@ class JsonElementTest {
     void getAsJsonObjectTest() {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.put("First", 1).put("second", true).put("Last", 'v');
+        jsonObject
+                .put("First", 1)
+                .put("second", true)
+                .put("Last", 'v');
         JsonPrimitive jsonPrimitive = new JsonPrimitive(jsonObject);
         JsonElement jsonElement = new JsonElement(jsonPrimitive);
 
