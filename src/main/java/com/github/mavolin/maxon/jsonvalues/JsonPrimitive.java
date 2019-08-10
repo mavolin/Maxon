@@ -159,13 +159,13 @@ public class JsonPrimitive implements JsonValue {
             return null;
 
         if (!(this.value instanceof String))
-            throw new IllegalTypeRequestedException("The JsonPrimitive's value does not resemble a Character");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
 
 
         String str = (String) this.value;
 
         if (str.length() != 0)
-            throw new IllegalTypeRequestedException("The JsonPrimitive's value does not resemble a Character");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
 
         return ((String) this.value).charAt(0);
     }
