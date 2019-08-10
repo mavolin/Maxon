@@ -73,9 +73,25 @@ public class JsonElement {
         return character.getAsCharacter();
     }
 
-    public Short getAsByte() {
+    /**
+     * Gets this {@code JsonElement} as a {@link Byte Byte}.
+     *
+     * @return the {@link Byte Byte}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not a {@code Byte}
+     */
+    public Byte getAsByte() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Byte");
+
+        JsonPrimitive bytee = (JsonPrimitive) this.value;
+
+        if (!bytee.isCharacter() && !bytee.isNull())
+            throw new IllegalTypeRequestedException("The value of this JsonElement is not a Byte");
+
+        return bytee.getAsByte();
     }
 
     public Short getAsShort() {
