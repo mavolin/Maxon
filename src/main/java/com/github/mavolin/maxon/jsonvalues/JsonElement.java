@@ -157,9 +157,25 @@ public class JsonElement {
         return longg.getAsLong();
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link BigInteger BigInteger}.
+     *
+     * @return the {@link BigInteger BigInteger}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code BigInteger}
+     */
     public BigInteger getAsBigInteger() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigInteger");
+
+        JsonPrimitive bigInteger = (JsonPrimitive) this.value;
+
+        if (!bigInteger.isCharacter() && !bigInteger.isNull())
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigInteger");
+
+        return bigInteger.getAsBigInteger();
     }
 
     public Double getAsFloat() {
