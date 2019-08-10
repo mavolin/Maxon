@@ -136,9 +136,25 @@ public class JsonElement {
         return shortt.getAsInteger();
     }
 
+    /**
+     * Gets this {@code JsonElement} as a {@link Long Long}.
+     *
+     * @return the {@link Short Long}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code Long}
+     */
     public Long getAsLong() {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!(this.value instanceof JsonPrimitive))
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Long");
+
+        JsonPrimitive longg = (JsonPrimitive) this.value;
+
+        if (!longg.isCharacter() && !longg.isNull())
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a Long");
+
+        return longg.getAsLong();
     }
 
     public BigInteger getAsBigInteger() {
