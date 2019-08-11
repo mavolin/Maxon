@@ -12,6 +12,62 @@ class JsonElementTest {
 
 
     @Test
+    void isNullTest() {
+
+        JsonElement jsonElement = new JsonElement(null);
+
+        assertTrue(jsonElement.isNull());
+    }
+
+    @Test
+    void isBooleanTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonPrimitive(false));
+
+        assertTrue(jsonElement.isBoolean());
+    }
+
+    @Test
+    void isCharacterTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonPrimitive('a'));
+
+        assertTrue(jsonElement.isCharacter());
+    }
+
+    @Test
+    void isNumberTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonPrimitive(132));
+
+        assertTrue(jsonElement.isNumber());
+    }
+
+    @Test
+    void isStringTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonPrimitive("Hello World"));
+
+        assertTrue(jsonElement.isString());
+    }
+
+    @Test
+    void isJsonArrayTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonArray());
+
+        assertTrue(jsonElement.isJsonArray());
+    }
+
+    @Test
+    void isJsonObjectTest() {
+
+        JsonElement jsonElement = new JsonElement(new JsonObject());
+
+        assertTrue(jsonElement.isJsonObject());
+    }
+
+    @Test
     void getAsBooleanTest() {
 
         JsonPrimitive jsonPrimitive = new JsonPrimitive(true);
