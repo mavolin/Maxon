@@ -2,15 +2,22 @@ package com.github.mavolin.maxon.jsonvalues;
 
 import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * {@code JsonPrimitive} represents all four JSON primitive types: Nulls, Booleans, Numbers and Strings. It acts like a
  * wrapper through which the values can be extracted using their respective Java representation. Additionally this will
  * provide support for {@link char chars}, which are represented as a one character JSON String, as there is no JSON
  * equivalent.
  */
-public class JsonPrimitive {
+public class JsonPrimitive implements JsonValue {
 
 
+    /**
+     * The constant NULL representing a JSON {@code null}.
+     */
+    public static final JsonPrimitive NULL = new JsonPrimitive((String) null);
     /**
      * The value of this {@code JsonPrimitive}. This is of one of the following classes: {@link Boolean Boolean}, {@link
      * Number Number} or {@link String String} or it is {@code null}.
@@ -38,7 +45,10 @@ public class JsonPrimitive {
      */
     public JsonPrimitive(Character character) {
 
-        this.value = String.valueOf(character);
+        if (character == null)
+            this.value = null;
+        else
+            this.value = String.valueOf(character);
     }
 
     /**
@@ -91,7 +101,7 @@ public class JsonPrimitive {
      */
     public boolean isCharacter() {
 
-        return this.value instanceof Character;
+        return (this.value instanceof String) && ((String) this.value).length() == 1;
     }
 
     /**
@@ -127,7 +137,7 @@ public class JsonPrimitive {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
      *         value is not an instance of {@link Boolean Boolean}
      */
-    public Boolean getAsBoolean() throws IllegalTypeRequestedException {
+    public Boolean getAsBoolean() {
 
         if (this.value == null)
             return null;
@@ -148,168 +158,204 @@ public class JsonPrimitive {
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Boolean Boolean}
+     *         value is not an instance of {@link Character Character}
      */
-    public Character getAsCharacter() throws IllegalTypeRequestedException {
+    public Character getAsCharacter() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof String))
-            throw new IllegalTypeRequestedException("The JsonPrimitive's value does not resemble a Character");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
 
 
         String str = (String) this.value;
 
-        if (str.length() != 0)
-            throw new IllegalTypeRequestedException("The JsonPrimitive's value does not resemble a Character");
+        if (str.length() != 1)
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
 
         return ((String) this.value).charAt(0);
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Byte Byte}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Byte getAsByte() throws IllegalTypeRequestedException {
+    public Byte getAsByte() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).byteValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Short Short}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is not an instance of {@link Number Number} nor {@code null}
      */
-    public Short getAsShort() throws IllegalTypeRequestedException {
+    public Short getAsShort() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).shortValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is not
-     * an instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will
-     * be thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is
+     * {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Integer Integer}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Integer getAsInteger() throws IllegalTypeRequestedException {
+    public Integer getAsInteger() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).intValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Long Long}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is neither an instance of {@code Number} nor {@code null}
      */
-    public Long getAsLong() throws IllegalTypeRequestedException {
+    public Long getAsLong() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).longValue();
     }
 
+    /**
+     * Gets the {@code JsonPrimitive's} value as a {@link BigInteger BigInteger}. If the {@code JsonPrimitive's} value
+     * is {@code null}, {@code null} will be returned.
+     *
+     * @return the {@code JsonPrimitive's} value as a {@link BigInteger BigInteger}
+     *
+     * @throws IllegalTypeRequestedException
+     *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
+     *         value is neither an instance of {@code Number} nor {@code null}
+     */
+    public BigInteger getAsBigInteger() {
+
+        if (this.value == null)
+            return null;
+
+        if (!(this.value instanceof Number))
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+
+        return (this.value instanceof BigInteger) ? (BigInteger) this.value : new BigInteger(this.value.toString());
+    }
+
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive} is {@code null},
+     * {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Float Float}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
      */
-    public Float getAsFloat() throws IllegalTypeRequestedException {
+    public Float getAsFloat() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).floatValue();
     }
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link Number Number} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive} is {@code null},
+     * {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Double Double}
      *
      * @throws IllegalTypeRequestedException
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
-     *         value is not an instance of {@link Number Number}
+     *         value is neither an instance of {@code Number} nor {@code null}
      */
-    public Double getAsDouble() throws IllegalTypeRequestedException {
+    public Double getAsDouble() {
 
         if (this.value == null)
             return null;
 
         if (!(this.value instanceof Number))
-            throw new IllegalArgumentException("The JsonPrimitive's value is not an instance of Number");
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
 
         return ((Number) this.value).doubleValue();
     }
 
+    /**
+     * Gets the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}. If the {@code JsonPrimitive} is {@code
+     * null}, {@code null} will be returned.
+     *
+     * @return the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}
+     *
+     * @throws IllegalTypeRequestedException
+     *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitive's}
+     *         value is neither an instance of {@link Number Number} nor {@code null}
+     */
+    public BigDecimal getAsBigDecimal() {
+
+        if (this.value == null)
+            return null;
+
+        if (!(this.value instanceof Number))
+            throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+
+        return this.value instanceof BigDecimal ? (BigDecimal) this.value : new BigDecimal(this.value.toString());
+    }
+
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link String String}. If the {@code JsonPrimitive's} value is not an
-     * instance of {@link String String} an {@link IllegalTypeRequestedException IllegalTypeReqeustedException} will be
-     * thrown.
+     * Gets the {@code JsonPrimitive's} value as a {@link String String}. If the {@code JsonPrimitive's} value is
+     * neither an instance of {@link String String} nor {@code null} an {@link IllegalTypeRequestedException
+     * IllegalTypeReqeustedException} will be thrown.
      *
      * @return the {@code JsonPrimitive's} value as a {@link String String}
      *
@@ -317,12 +363,64 @@ public class JsonPrimitive {
      *         an {@link IllegalTypeRequestedException IllegalTypeRequestedException} if the {@code JsonPrimitives}
      *         value is not an instance of {@link String String}
      */
-    public String getAsString() throws IllegalTypeRequestedException {
+    public String getAsString() {
+
+        if (this.value == null)
+            return null;
 
         if (!(this.value instanceof String))
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of String");
 
         return (String) this.value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o)
+            return true;
+        if (!(o instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive that = (JsonPrimitive) o;
+
+        if (that.isNull()) {
+
+            return this.isNull();
+
+        } else if (that.isBoolean()) {
+
+            if (!this.isBoolean())
+                return false;
+
+            return that.getAsBoolean().equals(this.getAsBoolean());
+
+        } else if (that.isCharacter()) {
+
+            if (!this.isCharacter())
+                return false;
+
+            return that.getAsCharacter().equals(this.getAsCharacter());
+
+        } else if (that.isNumber()) {
+
+            if (!this.isNumber())
+                return false;
+
+            return that.getAsBigDecimal().equals(this.getAsBigDecimal());
+
+        } else if (that.isString()) {
+
+            if (!this.isString())
+                return false;
+
+            return that.getAsString().equals(this.getAsString());
+
+        } else {
+
+            return false; // unreachable
+
+        }
     }
 
 
