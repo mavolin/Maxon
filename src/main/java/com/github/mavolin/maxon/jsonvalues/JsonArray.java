@@ -5,6 +5,7 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -637,6 +638,23 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         for (int index = startIndex; index < endIndex; index++)
             this.remove(startIndex); // removes startIndex to compensate for shifting
+    }
+
+    /**
+     * Performs the {@link Function Function} for the element belonging to the specified index and replaces the old
+     * element with the
+     * result of the {@link Function Function}.
+     *
+     * @param index the index of the element for which the {@link Function Function} is to be performed
+     * @param function
+     *         the function
+     */
+    public void perform(int index, Function<JsonElement, JsonValue> function) {
+
+        JsonElement oldElement = this.fields.get(index);
+        JsonElement newElement = new JsonElement(function.apply(oldElement));
+
+        this.fields.add(index, newElement);
     }
 
     /**
