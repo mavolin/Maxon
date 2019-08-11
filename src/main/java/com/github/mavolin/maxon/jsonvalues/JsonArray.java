@@ -4,7 +4,10 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -16,6 +19,7 @@ import java.util.stream.StreamSupport;
 public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
 
+    private static final String INVALID_TYPE_REQUEST_ERR_TMPL = "The element at the index %d does not resemble a %s";
     /**
      * Holds the fields of the {@code JsonArray}.
      */
@@ -319,7 +323,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Boolean");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Boolean"));
 
         return ((JsonPrimitive) jsonValue).getAsBoolean();
     }
@@ -341,7 +345,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Character");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Character"));
 
         return ((JsonPrimitive) jsonValue).getAsCharacter();
     }
@@ -362,7 +366,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Byte");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Byte"));
 
         return ((JsonPrimitive) jsonValue).getAsByte();
     }
@@ -383,7 +387,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Short");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Short"));
 
         return ((JsonPrimitive) jsonValue).getAsShort();
     }
@@ -404,7 +408,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Integer");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Integer"));
 
         return ((JsonPrimitive) jsonValue).getAsInteger();
     }
@@ -425,7 +429,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Long");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Long"));
 
         return ((JsonPrimitive) jsonValue).getAsLong();
     }
@@ -446,8 +450,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a " +
-                                                            "BigInteger");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigInteger"));
 
         return ((JsonPrimitive) jsonValue).getAsBigInteger();
     }
@@ -468,7 +471,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Float");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Float"));
 
         return ((JsonPrimitive) jsonValue).getAsFloat();
     }
@@ -489,7 +492,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a Double");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Double"));
 
         return ((JsonPrimitive) jsonValue).getAsDouble();
     }
@@ -511,8 +514,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a " +
-                                                            "BigDecimal");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigDecimal"));
 
         return ((JsonPrimitive) jsonValue).getAsBigDecimal();
     }
@@ -533,7 +535,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonPrimitive))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a String");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "String"));
 
         return ((JsonPrimitive) jsonValue).getAsString();
     }
@@ -554,7 +556,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonArray))
-            throw new IllegalTypeRequestedException("The element at the specified index does not resemble a JsonArray");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonArray"));
 
         return (JsonArray) jsonValue;
     }
@@ -575,8 +577,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         JsonValue jsonValue = this.fields.get(index);
 
         if (!(jsonValue instanceof JsonObject))
-            throw new IllegalTypeRequestedException(
-                    "The element at the specified index does not resemble a JsonObject");
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonObject"));
 
         return (JsonObject) jsonValue;
     }
