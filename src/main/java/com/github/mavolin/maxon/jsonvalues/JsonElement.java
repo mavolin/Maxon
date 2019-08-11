@@ -4,6 +4,7 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * A {@code JsonElement} is the Object used by {@link JsonArray JsonArrays} and {@link JsonObject JsonObjects} in their
@@ -27,7 +28,7 @@ public class JsonElement {
      */
     public JsonElement(JsonValue value) {
 
-        this.value = value;
+        this.value = Objects.requireNonNullElse(value, JsonPrimitive.NULL);
     }
 
 
