@@ -2,9 +2,9 @@ package com.github.mavolin.maxon.exceptions;
 
 /**
  * A {@code IllegalTypeRequestedException} is thrown whenever a getter method is called for an {@link Object Object},
- * that is not of the return type of the called getter and it would not be reasonable to convert to the desired {@link
- * Class Class}. For example if {@code getAsString()} would be called, but the {@link Object Object} this is being
- * called on is of the type {@code Boolean Boolean} a {@code IllegalTypeRequestedException} would be thrown.
+ * that is not of the return type of the called getter. For example if {@code getAsString()} would be called, but the
+ * element that this is being called on is of the type {@code Boolean Boolean}. Then a {@code
+ * IllegalTypeRequestedException} would be thrown.
  */
 public class IllegalTypeRequestedException extends RuntimeException {
 
