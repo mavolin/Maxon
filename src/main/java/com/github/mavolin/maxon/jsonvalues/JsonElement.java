@@ -32,6 +32,101 @@ public class JsonElement {
 
 
     /**
+     * Checks if the {@code JsonElement} is JSON null
+     *
+     * @return {@code true} if the {@code JsonElement} is null; {@code false} otherwise
+     */
+    public boolean isNull() {
+
+        if (!(this.value instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+        return jsonPrimitive.isNull();
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@code boolean}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@code boolean}; {@code false} otherwise
+     */
+    public boolean isBoolean() {
+
+        if (!(this.value instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+        return jsonPrimitive.isBoolean();
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@code character}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@code character}; {@code false} otherwise
+     */
+    public boolean isCharacter() {
+
+        if (!(this.value instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+        return jsonPrimitive.isCharacter();
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@link Number Number}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@link Number}; {@code false} otherwise
+     */
+    public boolean isNumber() {
+
+        if (!(this.value instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+        return jsonPrimitive.isNumber();
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@link String String}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@link String}; {@code false} otherwise
+     */
+    public boolean isString() {
+
+        if (!(this.value instanceof JsonPrimitive))
+            return false;
+
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+        return jsonPrimitive.isString();
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@link JsonArray JsonArray}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@link JsonArray}; {@code false} otherwise
+     */
+    public boolean isJsonArray() {
+
+        return this.value instanceof JsonArray;
+    }
+
+    /**
+     * Checks if the {@code JsonElement} represents a {@link JsonObject JsonObject}.
+     *
+     * @return {@code true} if the {@code JsonElement} represents a {@link JsonObject}; {@code false} otherwise
+     */
+    public boolean isJsonObject() {
+
+        return this.value instanceof JsonObject;
+    }
+
+    /**
      * Gets this {@code JsonElement} as a {@link Boolean Boolean}.
      *
      * @return the {@link Boolean Boolean}
