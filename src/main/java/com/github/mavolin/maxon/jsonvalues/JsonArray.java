@@ -39,7 +39,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(Boolean bool) {
 
-        this.fields.add(new JsonPrimitive(bool));
+        this.add(new JsonPrimitive(bool));
 
         return this;
     }
@@ -54,7 +54,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(Character character) {
 
-        this.fields.add(new JsonPrimitive(character));
+        this.add(new JsonPrimitive(character));
 
         return this;
     }
@@ -69,7 +69,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(Number num) {
 
-        this.fields.add(new JsonPrimitive(num));
+        this.add(new JsonPrimitive(num));
 
         return this;
     }
@@ -84,7 +84,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(String string) {
 
-        this.fields.add(new JsonPrimitive(string));
+        this.add(new JsonPrimitive(string));
 
         return this;
     }
@@ -99,7 +99,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(JsonValue jsonValue) {
 
-        this.fields.add(jsonValue);
+        this.add(jsonValue);
 
         return this;
     }
@@ -118,7 +118,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(int index, Boolean bool) {
 
-        this.fields.add(index, new JsonPrimitive(bool));
+        this.add(index, new JsonPrimitive(bool));
 
         return this;
     }
@@ -136,7 +136,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(int index, Character character) {
 
-        this.fields.add(index, new JsonPrimitive(character));
+        this.add(index, new JsonPrimitive(character));
 
         return this;
     }
@@ -154,7 +154,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(int index, Number num) {
 
-        this.fields.add(index, new JsonPrimitive(num));
+        this.add(index, new JsonPrimitive(num));
 
         return this;
     }
@@ -172,7 +172,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(int index, String string) {
 
-        this.fields.add(index, new JsonPrimitive(string));
+        this.add(index, new JsonPrimitive(string));
 
         return this;
     }
