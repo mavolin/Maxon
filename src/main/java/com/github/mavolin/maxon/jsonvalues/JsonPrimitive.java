@@ -15,6 +15,10 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
+     * The constant NULL representing a JSON {@code null}.
+     */
+    public static final JsonPrimitive NULL = new JsonPrimitive((String) null);
+    /**
      * The value of this {@code JsonPrimitive}. This is of one of the following classes: {@link Boolean Boolean}, {@link
      * Number Number} or {@link String String} or it is {@code null}.
      */
@@ -175,7 +179,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Byte Byte}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Byte Byte}
      *
@@ -196,7 +201,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Short Short}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Short Short}
      *
@@ -217,7 +223,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Integer Integer}. If the {@code JsonPrimitive's} value is
+     * {@code null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Integer Integer}
      *
@@ -238,7 +245,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Long Long}. If the {@code JsonPrimitive's} value is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Long Long}
      *
@@ -280,7 +288,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Float Float}. If the {@code JsonPrimitive} is {@code null},
+     * {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Float Float}
      *
@@ -301,7 +310,8 @@ public class JsonPrimitive implements JsonValue {
 
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link Double Double}. If the {@code JsonPrimitive} is {@code null},
+     * {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link Double Double}
      *
@@ -321,7 +331,8 @@ public class JsonPrimitive implements JsonValue {
     }
 
     /**
-     * Gets the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}. If the {@code JsonPrimitive} is {@code null}, {@code null} will be returned.
+     * Gets the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}. If the {@code JsonPrimitive} is {@code
+     * null}, {@code null} will be returned.
      *
      * @return the {@code JsonPrimitive's} value as a {@link BigDecimal BigDecimal}
      *
