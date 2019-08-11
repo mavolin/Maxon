@@ -325,7 +325,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Boolean"));
 
-        return ((JsonPrimitive) jsonValue).getAsBoolean();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Boolean"));
+
+        return jsonPrimitive.getAsBoolean();
     }
 
 
@@ -347,7 +352,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Character"));
 
-        return ((JsonPrimitive) jsonValue).getAsCharacter();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Character"));
+
+        return jsonPrimitive.getAsCharacter();
     }
 
     /**
@@ -368,7 +378,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Byte"));
 
-        return ((JsonPrimitive) jsonValue).getAsByte();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Byte"));
+
+        return jsonPrimitive.getAsByte();
     }
 
     /**
@@ -389,7 +404,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Short"));
 
-        return ((JsonPrimitive) jsonValue).getAsShort();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Short"));
+
+        return jsonPrimitive.getAsShort();
     }
 
     /**
@@ -410,7 +430,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Integer"));
 
-        return ((JsonPrimitive) jsonValue).getAsInteger();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Integer"));
+
+        return jsonPrimitive.getAsInteger();
     }
 
     /**
@@ -431,7 +456,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Long"));
 
-        return ((JsonPrimitive) jsonValue).getAsLong();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Long"));
+
+        return jsonPrimitive.getAsLong();
     }
 
     /**
@@ -452,7 +482,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigInteger"));
 
-        return ((JsonPrimitive) jsonValue).getAsBigInteger();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigInteger"));
+
+        return jsonPrimitive.getAsBigInteger();
     }
 
     /**
@@ -473,7 +508,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Float"));
 
-        return ((JsonPrimitive) jsonValue).getAsFloat();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Float"));
+
+        return jsonPrimitive.getAsFloat();
     }
 
     /**
@@ -494,7 +534,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Double"));
 
-        return ((JsonPrimitive) jsonValue).getAsDouble();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Double"));
+
+        return jsonPrimitive.getAsDouble();
     }
 
     /**
@@ -516,7 +561,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigDecimal"));
 
-        return ((JsonPrimitive) jsonValue).getAsBigDecimal();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigDecimal"));
+
+        return jsonPrimitive.getAsBigDecimal();
     }
 
     /**
@@ -537,7 +587,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         if (!(jsonValue instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "String"));
 
-        return ((JsonPrimitive) jsonValue).getAsString();
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+
+        if (!jsonPrimitive.isString() && !jsonPrimitive.isNull())
+            throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "String"));
+
+        return jsonPrimitive.getAsString();
     }
 
     /**
