@@ -103,7 +103,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(JsonValue jsonValue) {
 
-        this.add(jsonValue);
+        this.fields.add(jsonValue);
 
         return this;
     }
