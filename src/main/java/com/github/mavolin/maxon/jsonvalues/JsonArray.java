@@ -4,10 +4,7 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -194,7 +191,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonArray add(int index, JsonValue jsonValue) {
 
-        this.fields.add(index, jsonValue);
+        this.fields.add(index, Objects.requireNonNullElse(jsonValue, new JsonPrimitive((String) null)));
 
         return this;
     }
@@ -301,7 +298,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public JsonElement set(int index, JsonValue jsonValue) {
 
-        JsonValue val = this.fields.set(index, jsonValue);
+        JsonValue val = this.fields.set(index, Objects.requireNonNullElse(jsonValue, new JsonPrimitive((String) null)));
 
         return new JsonElement(val);
     }
