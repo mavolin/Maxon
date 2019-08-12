@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
 
-    private static final String INVALID_TYPE_REQUEST_ERR_TMPL = "The element at the index %d does not resemble a %s";
+    private static final String INVALID_TYPE_REQUEST_ERR_TMPL = "The element at index %d does not resemble a %s";
     /**
      * Holds the fields of the {@code JsonArray}.
      */
@@ -342,7 +342,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isBoolean() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Boolean"));
 
         return jsonElement.getAsBoolean();
@@ -364,7 +364,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isCharacter() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Character"));
 
         return jsonElement.getAsCharacter();
@@ -575,7 +575,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (jsonElement.isJsonArray())
+        if (!jsonElement.isJsonArray() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonArray"));
 
         return jsonElement.getAsJsonArray();
@@ -596,7 +596,7 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (jsonElement.isJsonObject())
+        if (!jsonElement.isJsonObject() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonObject"));
 
         return jsonElement.getAsJsonObject();

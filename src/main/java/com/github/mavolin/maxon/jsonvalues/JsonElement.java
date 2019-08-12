@@ -140,12 +140,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Boolean");
 
-        JsonPrimitive bool = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!bool.isBoolean() && !bool.isNull())
+        if (!jsonPrimitive.isBoolean() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Boolean");
 
-        return bool.getAsBoolean();
+        return jsonPrimitive.getAsBoolean();
     }
 
     /**
@@ -161,12 +161,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Character");
 
-        JsonPrimitive character = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!character.isCharacter() && !character.isNull())
+        if (!jsonPrimitive.isCharacter() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Character");
 
-        return character.getAsCharacter();
+        return jsonPrimitive.getAsCharacter();
     }
 
     /**
@@ -182,12 +182,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Byte");
 
-        JsonPrimitive bytee = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!bytee.isNumber() && !bytee.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Byte");
 
-        return bytee.getAsByte();
+        return jsonPrimitive.getAsByte();
     }
 
     /**
@@ -203,12 +203,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Short");
 
-        JsonPrimitive shortt = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!shortt.isNumber() && !shortt.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Short");
 
-        return shortt.getAsShort();
+        return jsonPrimitive.getAsShort();
     }
 
     /**
@@ -224,12 +224,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Integer");
 
-        JsonPrimitive shortt = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!shortt.isNumber() && !shortt.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Integer");
 
-        return shortt.getAsInteger();
+        return jsonPrimitive.getAsInteger();
     }
 
     /**
@@ -245,12 +245,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Long");
 
-        JsonPrimitive longg = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!longg.isNumber() && !longg.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Long");
 
-        return longg.getAsLong();
+        return jsonPrimitive.getAsLong();
     }
 
     /**
@@ -266,12 +266,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigInteger");
 
-        JsonPrimitive bigInteger = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!bigInteger.isNumber() && !bigInteger.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigInteger");
 
-        return bigInteger.getAsBigInteger();
+        return jsonPrimitive.getAsBigInteger();
     }
 
     /**
@@ -287,12 +287,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Float");
 
-        JsonPrimitive floatt = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!floatt.isNumber() && !floatt.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Float");
 
-        return floatt.getAsFloat();
+        return jsonPrimitive.getAsFloat();
     }
 
     /**
@@ -308,12 +308,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Double");
 
-        JsonPrimitive doublee = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!doublee.isNumber() && !doublee.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Double");
 
-        return doublee.getAsDouble();
+        return jsonPrimitive.getAsDouble();
     }
 
     /**
@@ -329,12 +329,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigDecimal");
 
-        JsonPrimitive bigDecimal = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!bigDecimal.isNumber() && !bigDecimal.isNull())
+        if (!jsonPrimitive.isNumber() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a BigDecimal");
 
-        return bigDecimal.getAsBigDecimal();
+        return jsonPrimitive.getAsBigDecimal();
     }
 
     /**
@@ -350,12 +350,12 @@ public class JsonElement {
         if (!(this.value instanceof JsonPrimitive))
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a String");
 
-        JsonPrimitive string = (JsonPrimitive) this.value;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
 
-        if (!string.isString() && !string.isNull())
+        if (!jsonPrimitive.isString() && !jsonPrimitive.isNull())
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a String");
 
-        return string.getAsString();
+        return jsonPrimitive.getAsString();
     }
 
     /**
@@ -368,10 +368,21 @@ public class JsonElement {
      */
     public JsonArray getAsJsonArray() {
 
-        if (!(this.value instanceof JsonArray))
-            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonArray");
+        if (this.value instanceof JsonPrimitive) {
 
-        return (JsonArray) this.value;
+            JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+            if (jsonPrimitive.isNull())
+                return null;
+            else
+                throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonArray");
+        } else if (this.value instanceof JsonArray) {
+
+            return (JsonArray) this.value;
+        } else {
+
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonArray");
+        }
     }
 
     /**
@@ -385,10 +396,21 @@ public class JsonElement {
 
     public JsonObject getAsJsonObject() {
 
-        if (!(this.value instanceof JsonObject))
-            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonObject");
+        if (this.value instanceof JsonPrimitive) {
 
-        return (JsonObject) this.value;
+            JsonPrimitive jsonPrimitive = (JsonPrimitive) this.value;
+
+            if (jsonPrimitive.isNull())
+                return null;
+            else
+                throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonObject");
+        } else if (this.value instanceof JsonObject) {
+
+            return (JsonObject) this.value;
+        } else {
+
+            throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonObject");
+        }
     }
 
 

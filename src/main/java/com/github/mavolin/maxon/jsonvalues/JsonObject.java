@@ -330,7 +330,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isCharacter() && !jsonElement.isNull())
+        if (!jsonElement.isCharacter() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Character"));
 
         return jsonElement.getAsCharacter();
@@ -355,7 +355,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Short"));
 
         return jsonElement.getAsShort();
@@ -380,7 +380,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Integer"));
 
         return jsonElement.getAsInteger();
@@ -405,7 +405,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Long"));
 
         return jsonElement.getAsLong();
@@ -430,7 +430,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "BigInteger"));
 
         return jsonElement.getAsBigInteger();
@@ -455,7 +455,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Float"));
 
         return jsonElement.getAsFloat();
@@ -480,7 +480,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Double"));
 
         return jsonElement.getAsDouble();
@@ -505,7 +505,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "BigDecimal"));
 
         return jsonElement.getAsBigDecimal();
@@ -530,7 +530,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isString() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "String"));
 
         return jsonElement.getAsString();
@@ -555,7 +555,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isJsonArray())
+        if (!jsonElement.isJsonArray() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "JsonArray"));
 
         return jsonElement.getAsJsonArray();
@@ -580,7 +580,7 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (jsonElement.isJsonObject())
+        if (!jsonElement.isJsonObject() && !jsonElement.isNull())
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "JsonObject"));
 
         return jsonElement.getAsJsonObject();
