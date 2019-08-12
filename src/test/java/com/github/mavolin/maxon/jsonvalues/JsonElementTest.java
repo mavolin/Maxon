@@ -1,12 +1,12 @@
 package com.github.mavolin.maxon.jsonvalues;
 
+import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JsonElementTest {
 
@@ -70,100 +70,188 @@ class JsonElementTest {
     @Test
     void getAsBooleanTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(true);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive bool = new JsonPrimitive(true);
+        JsonElement boolElement = new JsonElement(bool);
 
-        assertTrue(jsonElement.getAsBoolean());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Boolean) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Boolean");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertTrue(boolElement.getAsBoolean());
+        assertNull(nullElement.getAsBoolean());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsBoolean);
     }
 
     @Test
     void getAsCharacterTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive('m');
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive character = new JsonPrimitive('a');
+        JsonElement characterElement = new JsonElement(character);
 
-        assertEquals('m', jsonElement.getAsCharacter());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Character) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+        
+        JsonPrimitive string = new JsonPrimitive("Not a Character");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals('a', characterElement.getAsCharacter());
+        assertNull(nullElement.getAsCharacter());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsCharacter);
     }
 
     @Test
     void getAsByteTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(123);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive bytePrimitive = new JsonPrimitive(123);
+        JsonElement byteElement = new JsonElement(bytePrimitive);
 
-        assertEquals((byte) 123, jsonElement.getAsByte());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Byte) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Byte");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals((byte) 123, byteElement.getAsByte());
+        assertNull(nullElement.getAsByte());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsByte);
     }
 
     @Test
     void getAsShortTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(1234);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive shortPrimitive = new JsonPrimitive(1234);
+        JsonElement shortElement = new JsonElement(shortPrimitive);
 
-        assertEquals((short) 1234, jsonElement.getAsShort());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Short) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Short");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals((short) 1234, shortElement.getAsShort());
+        assertNull(nullElement.getAsShort());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsShort);
     }
 
     @Test
     void getAsIntegerTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(12345);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive integer = new JsonPrimitive(12345);
+        JsonElement integerElement = new JsonElement(integer);
 
-        assertEquals(12345, jsonElement.getAsInteger());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Integer) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Integer");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(12345, integerElement.getAsInteger());
+        assertNull(nullElement.getAsInteger());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsInteger);
     }
 
     @Test
     void getAsLongTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(123456);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive longPrimitive = new JsonPrimitive(123456);
+        JsonElement longElement = new JsonElement(longPrimitive);
 
-        assertEquals(123456L, jsonElement.getAsLong());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Long) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Long");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(123456L, longElement.getAsLong());
+        assertNull(nullElement.getAsLong());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsLong);
     }
 
     @Test
     void getAsBigIntegerTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(new BigInteger("123456"));
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive bigInteger = new JsonPrimitive(new BigInteger("123456"));
+        JsonElement bigIntegerElement = new JsonElement(bigInteger);
 
-        assertEquals(new BigInteger("123456"), jsonElement.getAsBigInteger());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((BigInteger) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a BigInteger");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(new BigInteger("123456"), bigIntegerElement.getAsBigInteger());
+        assertNull(nullElement.getAsBigInteger());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsBigInteger);
     }
 
     @Test
     void getAsFloatTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(1234.56);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive floatPrimitive = new JsonPrimitive(1234.56);
+        JsonElement floatElement = new JsonElement(floatPrimitive);
 
-        assertEquals(1234.56f, jsonElement.getAsFloat());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Float) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Float");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(1234.56f, floatElement.getAsFloat());
+        assertNull(nullElement.getAsFloat());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsFloat);
     }
 
     @Test
     void getAsDoubleTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(12345.67);
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive doublePrimitive = new JsonPrimitive(12345.67);
+        JsonElement doubleElement = new JsonElement(doublePrimitive);
 
-        assertEquals(12345.67, jsonElement.getAsDouble());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((Double) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a Double");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(12345.67, doubleElement.getAsDouble());
+        assertNull(nullElement.getAsDouble());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsDouble);
     }
 
     @Test
     void getAsBigDecimalTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive(new BigDecimal("12345.6789"));
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive bigDecimal = new JsonPrimitive(new BigDecimal("12345.6789"));
+        JsonElement bigDecimalElement = new JsonElement(bigDecimal);
 
-        assertEquals(new BigDecimal("12345.6789"), jsonElement.getAsBigDecimal());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((BigDecimal) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive string = new JsonPrimitive("Not a BigDecimal");
+        JsonElement stringElement = new JsonElement(string);
+
+        assertEquals(new BigDecimal("12345.6789"), bigDecimalElement.getAsBigDecimal());
+        assertNull(nullElement.getAsBigDecimal());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsBigDecimal);
     }
 
     @Test
     void getAsStringTest() {
 
-        JsonPrimitive jsonPrimitive = new JsonPrimitive("This is a test String.");
-        JsonElement jsonElement = new JsonElement(jsonPrimitive);
+        JsonPrimitive string = new JsonPrimitive("This is a test String.");
+        JsonElement stringElement = new JsonElement(string);
 
-        assertEquals("This is a test String.", jsonElement.getAsString());
+        JsonPrimitive nullPrimitive = new JsonPrimitive((String) null);
+        JsonElement nullElement = new JsonElement(nullPrimitive);
+
+        JsonPrimitive number = new JsonPrimitive(123);
+        JsonElement numberElement = new JsonElement(number);
+
+        assertEquals("This is a test String.", stringElement.getAsString());
+        assertNull(nullElement.getAsString());
+        assertThrows(IllegalTypeRequestedException.class, numberElement::getAsString);
     }
 
     @Test
@@ -174,9 +262,16 @@ class JsonElementTest {
                 .add(1)
                 .add(2)
                 .add("Hello World");
-        JsonElement jsonElement = new JsonElement(jsonArray);
+        JsonElement jsonArrayElement = new JsonElement(jsonArray);
 
-        assertEquals(jsonArray, jsonElement.getAsJsonArray());
+        JsonPrimitive string = new JsonPrimitive("Not a JsonObject");
+        JsonElement stringElement = new JsonElement(string);
+
+        JsonElement nullElement = new JsonElement(null);
+
+        assertEquals(jsonArray, jsonArrayElement.getAsJsonArray());
+        assertNull(nullElement.getAsJsonArray());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsJsonArray);
     }
 
     @Test
@@ -189,7 +284,14 @@ class JsonElementTest {
                 .put("Last", 'v');
         JsonElement jsonElement = new JsonElement(jsonObject);
 
+        JsonPrimitive string = new JsonPrimitive("Not a JsonObject");
+        JsonElement stringElement = new JsonElement(string);
+
+        JsonElement nullElement = new JsonElement(null);
+
         assertEquals(jsonObject, jsonElement.getAsJsonObject());
+        assertNull(nullElement.getAsJsonObject());
+        assertThrows(IllegalTypeRequestedException.class, stringElement::getAsJsonObject);
     }
 
 
