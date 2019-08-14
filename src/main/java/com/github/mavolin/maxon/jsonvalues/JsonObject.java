@@ -50,8 +50,9 @@ public class JsonObject implements JsonValue {
      */
     public JsonObject put(String key, Boolean bool) {
 
-        if (key == null)
+        if (key == null) {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
+        }
 
         this.put(key, new JsonPrimitive(bool));
 
@@ -137,10 +138,12 @@ public class JsonObject implements JsonValue {
      */
     public JsonObject put(String key, JsonValue jsonValue) {
 
-        if (key == null)
+        if (key == null) {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
+        }
 
-        this.fields.put(key, Objects.requireNonNullElse(new JsonElement(jsonValue), new JsonElement(JsonPrimitive.NULL)));
+        this.fields.put(key,
+                        Objects.requireNonNullElse(new JsonElement(jsonValue), new JsonElement(JsonPrimitive.NULL)));
 
         return this;
     }
@@ -245,11 +248,13 @@ public class JsonObject implements JsonValue {
      */
     public JsonObject putOnce(String key, JsonValue jsonValue) {
 
-        if (key == null)
+        if (key == null) {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
+        }
 
-        if (!this.fields.containsKey(key))
+        if (!this.fields.containsKey(key)) {
             this.fields.put(key, Objects.requireNonNullElse(new JsonElement(jsonValue), new JsonElement(jsonValue)));
+        }
 
         return this;
     }
@@ -280,8 +285,9 @@ public class JsonObject implements JsonValue {
      */
     public JsonElement remove(String key) {
 
-        if (key == null)
+        if (key == null) {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
+        }
 
         return this.fields.remove(key);
     }
@@ -305,8 +311,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isBoolean() && !jsonElement.isNull())
+        if (!jsonElement.isBoolean() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Boolean"));
+        }
 
         return jsonElement.getAsBoolean();
     }
@@ -330,8 +337,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isCharacter() && !jsonElement.isNull())
+        if (!jsonElement.isCharacter() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Character"));
+        }
 
         return jsonElement.getAsCharacter();
     }
@@ -355,8 +363,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Short"));
+        }
 
         return jsonElement.getAsShort();
     }
@@ -380,8 +389,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Integer"));
+        }
 
         return jsonElement.getAsInteger();
     }
@@ -405,8 +415,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Long"));
+        }
 
         return jsonElement.getAsLong();
     }
@@ -430,8 +441,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "BigInteger"));
+        }
 
         return jsonElement.getAsBigInteger();
     }
@@ -455,8 +467,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Float"));
+        }
 
         return jsonElement.getAsFloat();
     }
@@ -480,8 +493,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "Double"));
+        }
 
         return jsonElement.getAsDouble();
     }
@@ -505,8 +519,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "BigDecimal"));
+        }
 
         return jsonElement.getAsBigDecimal();
     }
@@ -530,8 +545,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isString() && !jsonElement.isNull())
+        if (!jsonElement.isString() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "String"));
+        }
 
         return jsonElement.getAsString();
     }
@@ -555,8 +571,9 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isJsonArray() && !jsonElement.isNull())
+        if (!jsonElement.isJsonArray() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "JsonArray"));
+        }
 
         return jsonElement.getAsJsonArray();
     }
@@ -580,16 +597,16 @@ public class JsonObject implements JsonValue {
 
         JsonElement jsonElement = this.checkKeyGet(key);
 
-        if (!jsonElement.isJsonObject() && !jsonElement.isNull())
+        if (!jsonElement.isJsonObject() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(ILLEGAL_TYPE_REQUEST_ERR_TMPL, key, "JsonObject"));
+        }
 
         return jsonElement.getAsJsonObject();
     }
 
     /**
      * Performs the {@link Function Function} for the element belonging to the specified key and replaces the old
-     * element with the
-     * result of the {@link Function Function}
+     * element with the result of the {@link Function Function}
      *
      * @param key
      *         the key of the element on which the {@link Function Function} is to be performed
@@ -610,17 +627,13 @@ public class JsonObject implements JsonValue {
     }
 
     /**
-     * Returns a {@link Set} view of the keys contained in this {@code JsonObject}.
-     * The set is backed by the {@code JsonObject}, so changes to the {@code JsonObject} are
-     * reflected in the set, and vice-versa.  If the {@code JsonObject} is modified
-     * while an iteration over the set is in progress (except through
-     * the iterator's own {@code remove} operation), the results of
-     * the iteration are undefined.  The set supports element removal,
-     * which removes the corresponding {@code JsonObject}ping from the {@code JsonObject}, via the
-     * {@code Iterator.remove}, {@code Set.remove},
-     * {@code removeAll}, {@code retainAll}, and {@code clear}
-     * operations.  It does not support the {@code add} or {@code addAll}
-     * operations.
+     * Returns a {@link Set} view of the keys contained in this {@code JsonObject}. The set is backed by the {@code
+     * JsonObject}, so changes to the {@code JsonObject} are reflected in the set, and vice-versa.  If the {@code
+     * JsonObject} is modified while an iteration over the set is in progress (except through the iterator's own {@code
+     * remove} operation), the results of the iteration are undefined.  The set supports element removal, which removes
+     * the corresponding {@code JsonObject}ping from the {@code JsonObject}, via the {@code Iterator.remove}, {@code
+     * Set.remove}, {@code removeAll}, {@code retainAll}, and {@code clear} operations.  It does not support the {@code
+     * add} or {@code addAll} operations.
      *
      * @return a set view of the keys contained in this {@code JsonObject}
      */
@@ -630,17 +643,13 @@ public class JsonObject implements JsonValue {
     }
 
     /**
-     * Returns a {@link Collection} view of the values contained in this {@code JsonObject}.
-     * The collection is backed by the {@code JsonObject}, so changes to the {@code JsonObject} are
-     * reflected in the collection, and vice-versa.  If the {@code JsonObject} is
-     * modified while an iteration over the collection is in progress
-     * (except through the iterator's own {@code remove} operation),
-     * the results of the iteration are undefined.  The collection
-     * supports element removal, which removes the corresponding
-     * {@code JsonObject}ping from the {@code JsonObject}, via the {@code Iterator.remove},
-     * {@code Collection.remove}, {@code removeAll},
-     * {@code retainAll} and {@code clear} operations.  It does not
-     * support the {@code add} or {@code addAll} operations.
+     * Returns a {@link Collection} view of the values contained in this {@code JsonObject}. The collection is backed by
+     * the {@code JsonObject}, so changes to the {@code JsonObject} are reflected in the collection, and vice-versa.  If
+     * the {@code JsonObject} is modified while an iteration over the collection is in progress (except through the
+     * iterator's own {@code remove} operation), the results of the iteration are undefined.  The collection supports
+     * element removal, which removes the corresponding {@code JsonObject}ping from the {@code JsonObject}, via the
+     * {@code Iterator.remove}, {@code Collection.remove}, {@code removeAll}, {@code retainAll} and {@code clear}
+     * operations.  It does not support the {@code add} or {@code addAll} operations.
      *
      * @return a collection view of the values contained in this {@code JsonObject}
      */
@@ -650,18 +659,14 @@ public class JsonObject implements JsonValue {
     }
 
     /**
-     * Returns a {@link Set} view of the {@code JsonObject}pings contained in this {@code JsonObject}.
-     * The set is backed by the {@code JsonObject}, so changes to the {@code JsonObject} are
-     * reflected in the set, and vice-versa.  If the {@code JsonObject} is modified
-     * while an iteration over the set is in progress (except through
-     * the iterator's own {@code remove} operation, or through the
-     * {@code setValue} operation on a {@code JsonObject} entry returned by the
-     * iterator) the results of the iteration are undefined.  The set
-     * supports element removal, which removes the corresponding
-     * {@code JsonObject}ping from the {@code JsonObject}, via the {@code Iterator.remove},
-     * {@code Set.remove}, {@code removeAll}, {@code retainAll} and
-     * {@code clear} operations.  It does not support the
-     * {@code add} or {@code addAll} operations.
+     * Returns a {@link Set} view of the {@code JsonObject}pings contained in this {@code JsonObject}. The set is backed
+     * by the {@code JsonObject}, so changes to the {@code JsonObject} are reflected in the set, and vice-versa.  If the
+     * {@code JsonObject} is modified while an iteration over the set is in progress (except through the iterator's own
+     * {@code remove} operation, or through the {@code setValue} operation on a {@code JsonObject} entry returned by the
+     * iterator) the results of the iteration are undefined.  The set supports element removal, which removes the
+     * corresponding {@code JsonObject}ping from the {@code JsonObject}, via the {@code Iterator.remove}, {@code
+     * Set.remove}, {@code removeAll}, {@code retainAll} and {@code clear} operations.  It does not support the {@code
+     * add} or {@code addAll} operations.
      *
      * @return a set view of the {@code JsonObject}pings contained in this {@code JsonObject}
      */
@@ -712,6 +717,17 @@ public class JsonObject implements JsonValue {
     }
 
     /**
+     * Returns a {@link String String} representation of this {@code JsonObject}.
+     *
+     * @return a {@link String String} representation of this {@code JsonObject}
+     */
+    @Override
+    public String toString() {
+
+        return this.fields.toString();
+    }
+
+    /**
      * Checks, whether or not this {@code JsonObject} is equal to the provided {@code Object o}.
      *
      * @param o
@@ -722,10 +738,12 @@ public class JsonObject implements JsonValue {
     @Override
     public boolean equals(Object o) {
 
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof JsonObject))
+        }
+        if (!(o instanceof JsonObject)) {
             return false;
+        }
 
         JsonObject that = (JsonObject) o;
 
@@ -755,13 +773,15 @@ public class JsonObject implements JsonValue {
      */
     private JsonElement checkKeyGet(String key) {
 
-        if (key == null)
+        if (key == null) {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
+        }
 
         JsonElement jsonElement = this.fields.get(key);
 
-        if (jsonElement == null)
+        if (jsonElement == null) {
             throw new InvalidKeyException("The provided key does not belong to a mapping");
+        }
 
         return jsonElement;
     }

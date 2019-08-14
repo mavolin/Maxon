@@ -45,10 +45,11 @@ public class JsonPrimitive implements JsonValue {
      */
     public JsonPrimitive(Character character) {
 
-        if (character == null)
+        if (character == null) {
             this.value = null;
-        else
+        } else {
             this.value = String.valueOf(character);
+        }
     }
 
     /**
@@ -139,11 +140,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Boolean getAsBoolean() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Boolean))
+        if (!(this.value instanceof Boolean)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Boolean");
+        }
 
         return (Boolean) this.value;
     }
@@ -162,17 +165,20 @@ public class JsonPrimitive implements JsonValue {
      */
     public Character getAsCharacter() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof String))
+        if (!(this.value instanceof String)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
+        }
 
 
         String str = (String) this.value;
 
-        if (str.length() != 1)
+        if (str.length() != 1) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Character");
+        }
 
         return ((String) this.value).charAt(0);
     }
@@ -190,11 +196,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Byte getAsByte() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).byteValue();
     }
@@ -212,11 +220,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Short getAsShort() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).shortValue();
     }
@@ -234,11 +244,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Integer getAsInteger() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).intValue();
     }
@@ -256,11 +268,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Long getAsLong() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).longValue();
     }
@@ -277,11 +291,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public BigInteger getAsBigInteger() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return (this.value instanceof BigInteger) ? (BigInteger) this.value : new BigInteger(this.value.toString());
     }
@@ -299,11 +315,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Float getAsFloat() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).floatValue();
     }
@@ -321,11 +339,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public Double getAsDouble() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return ((Number) this.value).doubleValue();
     }
@@ -342,11 +362,13 @@ public class JsonPrimitive implements JsonValue {
      */
     public BigDecimal getAsBigDecimal() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof Number))
+        if (!(this.value instanceof Number)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of Number");
+        }
 
         return this.value instanceof BigDecimal ? (BigDecimal) this.value : new BigDecimal(this.value.toString());
     }
@@ -365,22 +387,45 @@ public class JsonPrimitive implements JsonValue {
      */
     public String getAsString() {
 
-        if (this.value == null)
+        if (this.value == null) {
             return null;
+        }
 
-        if (!(this.value instanceof String))
+        if (!(this.value instanceof String)) {
             throw new IllegalTypeRequestedException("The JsonPrimitive's value is not an instance of String");
+        }
 
         return (String) this.value;
     }
 
+    /**
+     * Returns a {@link String String} representation of this {@code JsonPrimitive}.
+     *
+     * @return a {@link String String} representation of this {@code JsonPrimitive}
+     */
+    @Override
+    public String toString() {
+
+        return this.value.toString();
+    }
+
+    /**
+     * Checks, whether or not this {@code JsonPrimitive} is equal to the provided {@code Object o}.
+     *
+     * @param o
+     *         the {@link Object} that is to be compared with this {@code JsonPrimitive}
+     *
+     * @return {@code true} if {@code Object o} and this {@code JsonPrimitive} are equal; {@code false} otherwise
+     */
     @Override
     public boolean equals(Object o) {
 
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof JsonPrimitive))
+        }
+        if (!(o instanceof JsonPrimitive)) {
             return false;
+        }
 
         JsonPrimitive that = (JsonPrimitive) o;
 
@@ -390,29 +435,33 @@ public class JsonPrimitive implements JsonValue {
 
         } else if (that.isBoolean()) {
 
-            if (!this.isBoolean())
+            if (!this.isBoolean()) {
                 return false;
+            }
 
             return that.getAsBoolean().equals(this.getAsBoolean());
 
         } else if (that.isCharacter()) {
 
-            if (!this.isCharacter())
+            if (!this.isCharacter()) {
                 return false;
+            }
 
             return that.getAsCharacter().equals(this.getAsCharacter());
 
         } else if (that.isNumber()) {
 
-            if (!this.isNumber())
+            if (!this.isNumber()) {
                 return false;
+            }
 
             return that.getAsBigDecimal().equals(this.getAsBigDecimal());
 
         } else if (that.isString()) {
 
-            if (!this.isString())
+            if (!this.isString()) {
                 return false;
+            }
 
             return that.getAsString().equals(this.getAsString());
 
