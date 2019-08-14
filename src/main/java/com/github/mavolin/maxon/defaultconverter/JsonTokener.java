@@ -81,7 +81,7 @@ public class JsonTokener {
      */
     public boolean hasNext() {
 
-        return this.currentIndex >= this.json.length;
+        return this.currentIndex < this.json.length;
     }
 
     /**
