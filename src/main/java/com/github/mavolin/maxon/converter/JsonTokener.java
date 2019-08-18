@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.defaultconverter;
+package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.exceptions.MalformedJsonException;
@@ -30,7 +30,7 @@ public class JsonTokener {
     public JsonTokener(String json) {
 
         this.json = json.toCharArray();
-        this.currentIndex = 0;
+        this.currentIndex = -1;
     }
 
 
@@ -93,7 +93,7 @@ public class JsonTokener {
 
         this.currentIndex++;
 
-        return this.json[this.currentIndex - 1];
+        return this.json[this.currentIndex];
     }
 
     /**

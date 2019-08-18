@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.defaultconverter;
+package com.github.mavolin.maxon.converter;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +15,7 @@ class JsonTokenerTest {
         jsonTokener.skipCommentAndWhitespace();
 
         assertEquals(7, jsonTokener.getIndex());
+        assertEquals('e', jsonTokener.next());
     }
 
 
