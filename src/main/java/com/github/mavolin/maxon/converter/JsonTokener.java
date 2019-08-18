@@ -97,22 +97,6 @@ public class JsonTokener {
     }
 
     /**
-     * Checks if {@link #hasNext()} returns {@code true}. Should that be not the case, a {@link JsonParsingException
-     * JsonParsingException}* is thrown. If {@link #hasNext()} returns {@code true}, the {@code char} returned by {@link
-     * #next()} is returned.
-     *
-     * @return the char
-     */
-    public char checkAndNext() {
-
-        if (!this.hasNext()) {
-            throw new JsonParsingException(END_REACHED_ERR_MSG);
-        }
-
-        return this.next();
-    }
-
-    /**
      * Returns a String filled with length times the upcoming characters
      *
      * @param length
@@ -133,6 +117,22 @@ public class JsonTokener {
         }
 
         return stringBuilder.toString();
+    }
+
+    /**
+     * Checks if {@link #hasNext()} returns {@code true}. Should that be not the case, a {@link JsonParsingException
+     * JsonParsingException}* is thrown. If {@link #hasNext()} returns {@code true}, the {@code char} returned by {@link
+     * #next()} is returned.
+     *
+     * @return the char
+     */
+    public char checkAndNext() {
+
+        if (!this.hasNext()) {
+            throw new JsonParsingException(END_REACHED_ERR_MSG);
+        }
+
+        return this.next();
     }
 
     /**
