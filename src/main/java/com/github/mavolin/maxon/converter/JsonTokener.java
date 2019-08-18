@@ -1,7 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
-import com.github.mavolin.maxon.exceptions.JsonParsingException;
 
 import java.math.BigDecimal;
 
@@ -47,8 +46,7 @@ public class JsonTokener {
                     this.skipNewline(); // skipping to next line
                     this.skipCommentAndWhitespace(); // and skipping next lines whitespaces and comments
                 } else { // not a comment
-                    this.back(); // going back to current char
-                    this.back(); // and finally back to the '/'
+                    this.currentIndex -= 2;
                 }
 
                 break; // breaking since a non-whitespace character was found
@@ -142,7 +140,7 @@ public class JsonTokener {
      */
     public char nextNoIncrement() {
 
-        return this.json[this.currentIndex];
+        return this.json[this.currentIndex + 1];
     }
 
     /**
@@ -440,7 +438,7 @@ public class JsonTokener {
     }
 
     /**
-     * Gets the current index.
+     * Gets the index of the current character. Returns {@code -1} if no character has been retrieved yet.
      *
      * @return the current index
      */
