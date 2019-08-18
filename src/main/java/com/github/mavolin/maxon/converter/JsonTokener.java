@@ -1,7 +1,7 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
-import com.github.mavolin.maxon.exceptions.MalformedJsonException;
+import com.github.mavolin.maxon.exceptions.JsonParsingException;
 
 import java.math.BigDecimal;
 
@@ -81,7 +81,7 @@ public class JsonTokener {
      */
     public boolean hasNext() {
 
-        return this.currentIndex < this.json.length;
+        return this.currentIndex < this.json.length - 1;
     }
 
     /**
@@ -126,7 +126,7 @@ public class JsonTokener {
 
         for (int i = 0; i < length; i++) {
             if (!this.hasNext()) {
-                throw new MalformedJsonException(UNEXPECTED_END_ERR_MSG);
+                throw new JsonParsingException(UNEXPECTED_END_ERR_MSG);
             }
 
             stringBuilder.append(this.next());
@@ -173,20 +173,20 @@ public class JsonTokener {
 
         if (next == 't') { // expecting true
             if (!this.next(3).equals("rue")) {
-                throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
+                throw new JsonParsingException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
                                                                (this.currentIndex - 3)));
             } else {
                 return true;
             }
         } else if (next == 'f') { // expecting false
             if (!this.next(4).equals("alse")) {
-                throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
+                throw new JsonParsingException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
                                                                (this.currentIndex - 3)));
             } else {
                 return false;
             }
         } else {
-            throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
+            throw new JsonParsingException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
         }
     }
 
@@ -208,7 +208,7 @@ public class JsonTokener {
         switch (next) {
             case '\n':
             case '\r':
-                throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
+                throw new JsonParsingException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
             case '\\':
                 switch (this.checkAndNext()) {
                     case '"':
@@ -243,7 +243,7 @@ public class JsonTokener {
                         c = Character.toChars(uniHexInDec)[0];
                         break;
                     default:
-                        throw new MalformedJsonException("Unknown control character \\" + this.json[this.currentIndex] + "at index " + this.currentIndex);
+                        throw new JsonParsingException("Unknown control character \\" + this.json[this.currentIndex] + "at index " + this.currentIndex);
                 }
                 break;
             case '"':
@@ -254,7 +254,7 @@ public class JsonTokener {
         }
 
         if (this.checkAndNext() != '\"') {
-            throw new MalformedJsonException("Expected one character long String, but the String seems to continue " +
+            throw new JsonParsingException("Expected one character long String, but the String seems to continue " +
                                                      "at index " + this.currentIndex);
         }
 
@@ -285,7 +285,7 @@ public class JsonTokener {
         if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
             stringBuilder.append(next);
         } else {
-            throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
+            throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
         }
         
         while (true) {
@@ -307,7 +307,7 @@ public class JsonTokener {
             if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                 stringBuilder.append(next);
             } else {
-                throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
+                throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
             }
 
             while (true) {
@@ -335,7 +335,7 @@ public class JsonTokener {
             if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                 stringBuilder.append(next);
             } else {
-                throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
+                throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
             }
 
             while (true) {
@@ -377,7 +377,7 @@ public class JsonTokener {
             switch (next) {
                 case '\n':
                 case '\r':
-                    throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
+                    throw new JsonParsingException(String.format(UNEXPECTED_CHAR_ERR_TMPL, next, this.currentIndex));
                 case '\\':
                     switch (this.checkAndNext()) {
                         case '"':
@@ -414,7 +414,7 @@ public class JsonTokener {
                             stringBuilder.append(c);
                             break;
                         default:
-                            throw new MalformedJsonException("Unknown control character \\" + this.json[this.currentIndex] + "at index " + this.currentIndex);
+                            throw new JsonParsingException("Unknown control character \\" + this.json[this.currentIndex] + "at index " + this.currentIndex);
                     }
                     break;
                 case '"':
@@ -424,7 +424,7 @@ public class JsonTokener {
             }
         }
 
-        throw new MalformedJsonException(UNEXPECTED_END_ERR_MSG);
+        throw new JsonParsingException(UNEXPECTED_END_ERR_MSG);
     }
 
     /**
@@ -472,7 +472,7 @@ public class JsonTokener {
             str += this.next(3); // getting the 3 remaining characters that would form null
 
             if (!str.equals("null")) {
-                throw new MalformedJsonException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
+                throw new JsonParsingException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
                                                                (this.currentIndex - 3)));
             } else {
                 return true;

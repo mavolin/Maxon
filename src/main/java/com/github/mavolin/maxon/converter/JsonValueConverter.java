@@ -1,6 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
-import com.github.mavolin.maxon.exceptions.MalformedJsonException;
+import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
@@ -30,7 +30,7 @@ public class JsonValueConverter {
         jsonTokener.skipCommentAndWhitespace();
 
         if (jsonTokener.hasNext()) {
-            throw new MalformedJsonException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, jsonTokener.next(),
+            throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, jsonTokener.next(),
                                                            jsonTokener.getIndex()));
         }
 
@@ -77,7 +77,7 @@ public class JsonValueConverter {
             case '{':
                 return this.getAsJsonObject(jsonTokener);
             default:
-                throw new MalformedJsonException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
+                throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
                                                                jsonTokener.getIndex() + 1));
         }
     }
@@ -100,7 +100,7 @@ public class JsonValueConverter {
         boolean first = true;
 
         if (next != '[')
-            throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, '[', next, jsonTokener.getIndex()));
+            throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, '[', next, jsonTokener.getIndex()));
 
         while (jsonTokener.hasNext()) {
             jsonTokener.skipCommentAndWhitespace();
@@ -113,7 +113,7 @@ public class JsonValueConverter {
                 next = jsonTokener.checkAndNext();
 
                 if (next != ',') {
-                    throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
+                    throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
                                                                    jsonTokener.getIndex()));
                 }
 
@@ -125,7 +125,7 @@ public class JsonValueConverter {
             first = false;
         }
 
-        throw new MalformedJsonException("Unexpected end of JSON object");
+        throw new JsonParsingException("Unexpected end of JSON object");
     }
 
     /**
@@ -145,7 +145,7 @@ public class JsonValueConverter {
         boolean first = true;
 
         if (next != '{') {
-            throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, '{', next, jsonTokener.getIndex()));
+            throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, '{', next, jsonTokener.getIndex()));
         }
 
         while (jsonTokener.hasNext()) {
@@ -159,7 +159,7 @@ public class JsonValueConverter {
                 next = jsonTokener.checkAndNext();
 
                 if (next != ',') {
-                    throw new MalformedJsonException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
+                    throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
                                                                    jsonTokener.getIndex()));
                 }
 
@@ -172,7 +172,7 @@ public class JsonValueConverter {
 
             next = jsonTokener.checkAndNext();
             if (next != ':') {
-                throw new MalformedJsonException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next, jsonTokener.getIndex()));
+                throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next, jsonTokener.getIndex()));
             }
 
             jsonTokener.skipCommentAndWhitespace();
@@ -184,7 +184,7 @@ public class JsonValueConverter {
             first = false;
         }
 
-        throw new MalformedJsonException("Unexpected end of JSON object");
+        throw new JsonParsingException("Unexpected end of JSON object");
     }
 
 }
