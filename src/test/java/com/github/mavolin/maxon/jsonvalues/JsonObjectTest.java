@@ -53,9 +53,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", true)
+                .put("null", (Boolean) null)
                 .put("2", "This is not a Boolean");
 
         assertTrue(jsonObject.getAsBoolean("1"));
+        assertNull(jsonObject.getAsBoolean("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsBoolean("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -69,9 +71,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", 'a')
+                .put("null", (Character) null)
                 .put("2", "This is not a Character");
 
         assertEquals('a', jsonObject.getAsCharacter("1"));
+        assertNull(jsonObject.getAsCharacter("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsCharacter("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -85,9 +89,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", (short) 123)
+                .put("null", (Short) null)
                 .put("2", "This is not a Short");
 
         assertEquals((short) 123, jsonObject.getAsShort("1"));
+        assertNull(jsonObject.getAsShort("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsShort("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -101,9 +107,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", 123)
+                .put("null", (Integer) null)
                 .put("2", "This is not a Integer");
 
         assertEquals((short) 123, jsonObject.getAsInteger("1"));
+        assertNull(jsonObject.getAsInteger("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsInteger("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -117,9 +125,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", 123L)
+                .put("null", (Long) null)
                 .put("2", "This is not a Long");
 
         assertEquals(123L, jsonObject.getAsLong("1"));
+        assertNull(jsonObject.getAsLong("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsLong("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -133,9 +143,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", BigInteger.valueOf(123))
+                .put("null", (BigInteger) null)
                 .put("2", "This is not a BigInteger");
 
         assertEquals(BigInteger.valueOf(123), jsonObject.getAsBigInteger("1"));
+        assertNull(jsonObject.getAsBigInteger("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsBigInteger("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -149,9 +161,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", 123.45f)
+                .put("null", (Float) null)
                 .put("2", "This is not a Float");
 
         assertEquals(123.45f, jsonObject.getAsFloat("1"));
+        assertNull(jsonObject.getAsFloat("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsFloat("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -165,9 +179,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", 123.45f)
+                .put("null", (Double) null)
                 .put("2", "This is not a Double");
 
         assertEquals(123.45f, jsonObject.getAsDouble("1"));
+        assertNull(jsonObject.getAsDouble("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsDouble("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -181,9 +197,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", BigDecimal.valueOf(123.45))
+                .put("null", (BigDecimal) null)
                 .put("2", "This is not a BigDecimal");
 
         assertEquals(BigDecimal.valueOf(123.45), jsonObject.getAsBigDecimal("1"));
+        assertNull(jsonObject.getAsBigDecimal("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsBigDecimal("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -197,9 +215,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", "Hello World")
+                .put("null", (String) null)
                 .put("2", 123);
 
         assertEquals("Hello World", jsonObject.getAsString("1"));
+        assertNull(jsonObject.getAsString("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsString("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -213,9 +233,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", new JsonArray())
+                .put("null", (JsonArray) null)
                 .put("2", "This is not a JsonArray");
 
         assertEquals(new JsonArray(), jsonObject.getAsJsonArray("1"));
+        assertNull(jsonObject.getAsJsonArray("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsJsonArray("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->
@@ -229,9 +251,11 @@ class JsonObjectTest {
 
         jsonObject
                 .put("1", new JsonObject())
+                .put("null", (JsonObject) null)
                 .put("2", "This is not a JsonObject");
 
         assertEquals(new JsonObject(), jsonObject.getAsJsonObject("1"));
+        assertNull(jsonObject.getAsJsonObject("null"));
         assertThrows(InvalidKeyException.class, () ->
                 jsonObject.getAsJsonObject("Some invalid key"));
         assertThrows(IllegalTypeRequestedException.class, () ->

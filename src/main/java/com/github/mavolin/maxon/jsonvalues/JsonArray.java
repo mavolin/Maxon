@@ -4,7 +4,10 @@ import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -16,7 +19,7 @@ import java.util.stream.Stream;
 public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
 
-    private static final String INVALID_TYPE_REQUEST_ERR_TMPL = "The element at the index %d does not resemble a %s";
+    private static final String INVALID_TYPE_REQUEST_ERR_TMPL = "The element at index %d does not resemble a %s";
     /**
      * Holds the fields of the {@code JsonArray}.
      */
@@ -310,8 +313,8 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
     }
 
     /**
-     * Replaces the element at the specified index with the passed {@link JsonElement JsonElement}. Returns the element that
-     * was previously saved at the specified index.
+     * Replaces the element at the specified index with the passed {@link JsonElement JsonElement}. Returns the element
+     * that was previously saved at the specified index.
      *
      * @param index
      *         the index
@@ -342,8 +345,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isBoolean() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Boolean"));
+        }
 
         return jsonElement.getAsBoolean();
     }
@@ -364,8 +368,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isCharacter() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Character"));
+        }
 
         return jsonElement.getAsCharacter();
     }
@@ -385,8 +390,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Byte"));
+        }
 
         return jsonElement.getAsByte();
     }
@@ -406,8 +412,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Short"));
+        }
 
         return jsonElement.getAsShort();
     }
@@ -427,8 +434,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Integer"));
+        }
 
         return jsonElement.getAsInteger();
     }
@@ -448,8 +456,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Long"));
+        }
 
         return jsonElement.getAsLong();
     }
@@ -469,8 +478,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigInteger"));
+        }
 
         return jsonElement.getAsBigInteger();
     }
@@ -490,8 +500,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Float"));
+        }
 
         return jsonElement.getAsFloat();
     }
@@ -511,8 +522,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "Double"));
+        }
 
         return jsonElement.getAsDouble();
     }
@@ -533,8 +545,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (!jsonElement.isNumber() && !jsonElement.isNull())
+        if (!jsonElement.isNumber() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "BigDecimal"));
+        }
 
         return jsonElement.getAsBigDecimal();
     }
@@ -554,8 +567,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-       if (!jsonElement.isString() && !jsonElement.isNull())
+        if (!jsonElement.isString() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "String"));
+        }
 
         return jsonElement.getAsString();
     }
@@ -575,8 +589,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (jsonElement.isJsonArray())
+        if (!jsonElement.isJsonArray() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonArray"));
+        }
 
         return jsonElement.getAsJsonArray();
     }
@@ -596,8 +611,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
         JsonElement jsonElement = this.fields.get(index);
 
-        if (jsonElement.isJsonObject())
+        if (!jsonElement.isJsonObject() && !jsonElement.isNull()) {
             throw new IllegalTypeRequestedException(String.format(INVALID_TYPE_REQUEST_ERR_TMPL, index, "JsonObject"));
+        }
 
         return jsonElement.getAsJsonObject();
     }
@@ -633,8 +649,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
      */
     public void removeInRange(int startIndex, int endIndex) {
 
-        if (startIndex > endIndex)
+        if (startIndex > endIndex) {
             throw new IllegalArgumentException("The start index is bigger than the end index");
+        }
 
         for (int index = startIndex; index < endIndex; index++)
             this.remove(startIndex); // removes startIndex to compensate for shifting
@@ -642,10 +659,10 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
 
     /**
      * Performs the {@link Function Function} for the element belonging to the specified index and replaces the old
-     * element with the
-     * result of the {@link Function Function}.
+     * element with the result of the {@link Function Function}.
      *
-     * @param index the index of the element for which the {@link Function Function} is to be performed
+     * @param index
+     *         the index of the element for which the {@link Function Function} is to be performed
      * @param function
      *         the function
      */
@@ -713,6 +730,17 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
     }
 
     /**
+     * Returns a {@link String String} representation of this {@code JsonArray}.
+     *
+     * @return a {@link String String} representation of this {@code JsonArray}
+     */
+    @Override
+    public String toString() {
+
+        return this.fields.toString();
+    }
+
+    /**
      * Checks whether or not this {@code JsonArray} is equal to the provided {@link Object Object}.
      *
      * @param o
@@ -723,10 +751,12 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
     @Override
     public boolean equals(Object o) {
 
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof JsonArray))
+        }
+        if (!(o instanceof JsonArray)) {
             return false;
+        }
 
         JsonArray that = (JsonArray) o;
 
