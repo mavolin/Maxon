@@ -7,10 +7,10 @@ import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
 /**
- * The {@code JsonValueConverter} is the converter used by JSONCONVERTER to transform {@link String Strings} of JSON
+ * The {@code JsonValueConverter} is the converter used by {@link com.github.mavolin.maxon.Maxon Maxon} to transform
+ * {@link String Strings} of JSON
  * data to their Java representations and vice-versa.
  */
-// TODO JSON converter reference
 public class JsonValueConverter {
 
 
@@ -26,11 +26,49 @@ public class JsonValueConverter {
      *
      * @return the Java representation of the JSON value
      */
+    @SuppressWarnings("unchecked")
     public JsonValue getFromJson(String source) {
 
         JsonTokener jsonTokener = new JsonTokener(source);
+        jsonTokener.skipCommentAndWhitespace();
 
         JsonValue extractedValue = this.extract(jsonTokener);
+
+        jsonTokener.skipCommentAndWhitespace();
+
+        if (jsonTokener.hasNext()) {
+            throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, jsonTokener.next(),
+                                                         jsonTokener.getIndex()));
+        }
+
+        return extractedValue;
+    }
+
+    /**
+     * Converts a JSON value saved in the passed {@link String String} to its Java representation
+     *
+     * @param source
+     *         the JSON value
+     *
+     * @return the Java representation of the JSON value
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getFromJson(String source, Class<T> clazz) {
+
+        JsonTokener jsonTokener = new JsonTokener(source);
+        jsonTokener.skipCommentAndWhitespace();
+
+        JsonValue extractedValue;
+
+        if (clazz.isAssignableFrom(JsonPrimitive.class)) {
+            extractedValue = this.getJsonPrimitiveFromJson(jsonTokener);
+        } else if (clazz.isAssignableFrom(JsonArray.class)) {
+            extractedValue = this.getJsonArrayFromJson(jsonTokener);
+        } else if (clazz.isAssignableFrom(JsonObject.class)) {
+            extractedValue = this.getJsonObjectFromJson(jsonTokener);
+        } else {
+            throw new JsonParsingException("Unsupported class " + clazz.getName());
+        }
 
         jsonTokener.skipCommentAndWhitespace();
 
@@ -39,7 +77,7 @@ public class JsonValueConverter {
                                                            jsonTokener.getIndex()));
         }
 
-        return extractedValue;
+        return (T) extractedValue;
     }
 
 
@@ -55,9 +93,46 @@ public class JsonValueConverter {
 
         jsonTokener.skipCommentAndWhitespace();
 
-        char next = jsonTokener.next();
+        char next = jsonTokener.checkAndNextNoIncrement();
 
-        jsonTokener.back();
+        switch (next) {
+            case 't':
+            case 'f':
+            case '-':
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '"':
+                return this.getJsonPrimitiveFromJson(jsonTokener);
+            case '[':
+                return this.getJsonArrayFromJson(jsonTokener);
+            case '{':
+                return this.getJsonObjectFromJson(jsonTokener);
+            default:
+                throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
+                                                               jsonTokener.getIndex() + 1));
+        }
+    }
+
+    /**
+     * Extracts the JSON primitive beginning at the next char of the passed {@link JsonTokener JsonTokener} and returns
+     * its Java representation.
+     *
+     * @param jsonTokener
+     *         the {@link JsonTokener JsonTokener}
+     *
+     * @return the extracted {@link JsonPrimitive JsonPrimitive}
+     */
+    private JsonPrimitive getJsonPrimitiveFromJson(JsonTokener jsonTokener) {
+
+        char next = jsonTokener.checkAndNextNoIncrement();
 
         switch (next) {
             case 't':
@@ -77,13 +152,9 @@ public class JsonValueConverter {
                 return new JsonPrimitive(jsonTokener.nextNumber());
             case '"':
                 return new JsonPrimitive(jsonTokener.nextString());
-            case '[':
-                return this.getJsonArrayFromJson(jsonTokener);
-            case '{':
-                return this.getJsonObjectFromJson(jsonTokener);
             default:
                 throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
-                                                               jsonTokener.getIndex() + 1));
+                                                             jsonTokener.getIndex() + 1));
         }
     }
 
