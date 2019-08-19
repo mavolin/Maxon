@@ -264,13 +264,9 @@ public class JsonTokener {
         if (this.isNull())
             return null;
 
-        char next = this.checkAndNext();
+        char next;
 
         StringBuilder stringBuilder = new StringBuilder();
-
-        if (next != '"') {
-            throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "'\"'", next, this.currentIndex));
-        }
 
         // check for decimal sign
         if (this.checkAndNextNoIncrement() == '-') {
@@ -279,7 +275,7 @@ public class JsonTokener {
 
         next = this.checkAndNext();
 
-        // checking  if at least one digit is present
+        // checking if at least one digit is present
         if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
             stringBuilder.append(next);
         } else {
@@ -297,8 +293,8 @@ public class JsonTokener {
         }
         
         // checking if decimal places exist
-        if (this.checkAndNextNoIncrement() == '.') {
-            stringBuilder.append(this.next());
+        if (next == '.') {
+            stringBuilder.append(".");
 
             next = this.checkAndNext();
 
@@ -320,14 +316,14 @@ public class JsonTokener {
         }
         
         // checking for exponent
-        if (this.checkAndNextNoIncrement() == 'e' || this.checkAndNextNoIncrement() == 'E') {
-            stringBuilder.append(this.next());
+        if (next == 'e' || next == 'E') {
+            stringBuilder.append(next);
             
             next = this.checkAndNext();
             
             if (next == '-' || next == '+') { // if decimal sign is present add it
                 stringBuilder.append(next);
-                this.checkAndNext();
+                next = this.checkAndNext();
             }
 
             if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
@@ -342,6 +338,7 @@ public class JsonTokener {
                 if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                     stringBuilder.append(next);
                 } else {
+                    this.back();
                     break;
                 }
             }

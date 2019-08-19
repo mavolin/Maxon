@@ -94,13 +94,69 @@ class JsonTokenerTest {
         JsonTokener falseTokener = new JsonTokener("false");
         JsonTokener misspelledFalseTokener = new JsonTokener("falst");
         JsonTokener misspelledTrueTokener = new JsonTokener("truk");
-        JsonTokener notABooleanTokener = new JsonTokener("asdf");
+        JsonTokener notABooleanTokener = new JsonTokener("antiBool");
 
         assertTrue(trueTokener.nextBoolean());
         assertFalse(falseTokener.nextBoolean());
         assertThrows(JsonParsingException.class, misspelledFalseTokener::nextBoolean);
         assertThrows(JsonParsingException.class, misspelledTrueTokener::nextBoolean);
         assertThrows(JsonParsingException.class, notABooleanTokener::nextBoolean);
+    }
+
+    @Test
+    void nextCharacterTest() {
+
+        JsonTokener aTokener = new JsonTokener("\"a\"");
+        JsonTokener emptyStringTokener = new JsonTokener("\"\"");
+        JsonTokener missingFirstQuote = new JsonTokener("a\"");
+        JsonTokener missingLastQuote = new JsonTokener("\"a");
+
+        assertEquals('a', aTokener.nextCharacter());
+        assertThrows(JsonParsingException.class, emptyStringTokener::nextCharacter);
+        assertThrows(JsonParsingException.class, missingFirstQuote::nextCharacter);
+        assertThrows(JsonParsingException.class, missingLastQuote::nextCharacter);
+    }
+
+    @Test
+    void nextCharacterIllegalCharTest() {
+
+        JsonTokener newlineTokener = new JsonTokener("\n");
+        JsonTokener carriageReturnTokener = new JsonTokener("\r");
+
+        assertThrows(JsonParsingException.class, newlineTokener::nextCharacter);
+        assertThrows(JsonParsingException.class, carriageReturnTokener::nextCharacter);
+    }
+
+    @Test
+    void nextCharacterControlCharTest() {
+
+        JsonTokener quoteTokener = new JsonTokener("\"\\\"\"");
+        JsonTokener backslashTokener = new JsonTokener("\"\\\\\"");
+        JsonTokener forwardSlashTokener = new JsonTokener("\"\\/\"");
+        JsonTokener backspaceTokener = new JsonTokener("\"\\b\"");
+        JsonTokener formFeedTokener = new JsonTokener("\"\\f\"");
+        JsonTokener newlineTokener = new JsonTokener("\"\\n\"");
+        JsonTokener carriageReturnTokener = new JsonTokener("\"\\r\"");
+        JsonTokener tabTokener = new JsonTokener("\"\\t\"");
+        JsonTokener unicodeTokener = new JsonTokener("\"\\u23FB\"");
+        JsonTokener illegalControlCharTokener = new JsonTokener("\"\\m\"");
+
+        assertEquals('"', quoteTokener.nextCharacter());
+        assertEquals('\\', backslashTokener.nextCharacter());
+        assertEquals('/', forwardSlashTokener.nextCharacter());
+        assertEquals('\b', backspaceTokener.nextCharacter());
+        assertEquals('\f', formFeedTokener.nextCharacter());
+        assertEquals('\n', newlineTokener.nextCharacter());
+        assertEquals('\r', carriageReturnTokener.nextCharacter());
+        assertEquals('\t', tabTokener.nextCharacter());
+        assertEquals('\u23fb', unicodeTokener.nextCharacter());
+        assertThrows(JsonParsingException.class, illegalControlCharTokener::nextCharacter);
+    }
+
+    @Test
+    void nextNumberTest() {
+
+        new JsonTokener("-")
     }
 
 
