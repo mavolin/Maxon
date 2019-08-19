@@ -3,6 +3,8 @@ package com.github.mavolin.maxon.converter;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonTokenerTest {
@@ -46,8 +48,13 @@ class JsonTokenerTest {
 
         JsonTokener jsonTokener = new JsonTokener("12");
 
+        assertEquals(-1, jsonTokener.getIndex());
+
         assertEquals('1', jsonTokener.next());
+        assertEquals(0, jsonTokener.getIndex());
+
         assertEquals('2', jsonTokener.next());
+        assertEquals(1, jsonTokener.getIndex());
     }
 
     @Test
@@ -156,7 +163,93 @@ class JsonTokenerTest {
     @Test
     void nextNumberTest() {
 
-        new JsonTokener("-")
+        JsonTokener negativeNumTokener = new JsonTokener("-1");
+        JsonTokener nonNegativeNumTokener = new JsonTokener("1");
+        JsonTokener doubleDigitTokener = new JsonTokener("12");
+        JsonTokener decimalTokener = new JsonTokener("1.2");
+        JsonTokener doubleDecimalTokener = new JsonTokener("1.23");
+        JsonTokener smallExponentTokener = new JsonTokener("1e2");
+        JsonTokener bigExponentTokener = new JsonTokener("1E2");
+        JsonTokener positiveExponentTokener = new JsonTokener("1e+2");
+        JsonTokener negativeExponentTokener = new JsonTokener("1e-2");
+        JsonTokener doubleExponentTokener = new JsonTokener("1e23");
+
+        assertEquals(BigDecimal.valueOf(-1), negativeNumTokener.nextNumber());
+        assertEquals(1, negativeExponentTokener.getIndex()); // check that cursor is on the one, to prepare for
+        // next() call
+        assertEquals(BigDecimal.valueOf(1), nonNegativeNumTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(12), doubleDigitTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(1.2), decimalTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(1.23), doubleDecimalTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(100), smallExponentTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(100), bigExponentTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(100), positiveExponentTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(0.01), negativeExponentTokener.nextNumber());
+        assertEquals(BigDecimal.valueOf(1e23), doubleDecimalTokener.nextNumber());
+    }
+
+    @Test
+    void nextNumberIllegalCharTest() {
+
+        JsonTokener illegalFirstDigit = new JsonTokener("m");
+        JsonTokener illegalSecondDigit = new JsonTokener("1m");
+        JsonTokener missingFirstDigit = new JsonTokener(".12");
+        JsonTokener illegalFirstDecimal = new JsonTokener("1.m");
+        JsonTokener illegalSecondDecimal = new JsonTokener("1.2m");
+        JsonTokener illegalFirstExponent = new JsonTokener("1em");
+        JsonTokener illegalSecondExponent = new JsonTokener("1e2m");
+
+        assertThrows(JsonParsingException.class, illegalFirstDigit::nextNumber);
+        assertThrows(JsonParsingException.class, illegalSecondDigit::nextNumber);
+        assertThrows(JsonParsingException.class, missingFirstDigit::nextNumber);
+        assertThrows(JsonParsingException.class, illegalFirstDecimal::nextNumber);
+        assertThrows(JsonParsingException.class, illegalSecondDecimal::nextNumber);
+        assertThrows(JsonParsingException.class, illegalFirstExponent::nextNumber);
+        assertThrows(JsonParsingException.class, illegalSecondExponent::nextNumber);
+    }
+
+    @Test
+    void nextStringTest() {
+
+        JsonTokener helloWorldTokener = new JsonTokener("Hello World!");
+        JsonTokener newlineTokener = new JsonTokener("\n");
+        JsonTokener carriageReturnTokener = new JsonTokener("\r");
+        JsonTokener controlCharacter = new JsonTokener("\\\", \\\\, \\/, \\b, \\f, \\n, \\r, \\t, \\u23fb");
+        JsonTokener illegalControlCharacter = new JsonTokener("\\m");
+
+        assertEquals("Hello World!", helloWorldTokener.nextString());
+        assertThrows(JsonParsingException.class, newlineTokener::nextString);
+        assertThrows(JsonParsingException.class, carriageReturnTokener::nextString);
+        assertEquals("\", \\, /, \b, \f, \n, \r, \t, \u23fb", controlCharacter.nextString());
+        assertThrows(JsonParsingException.class, illegalControlCharacter::nextString);
+    }
+
+    @Test
+    void backTest() {
+
+        JsonTokener jsonTokener = new JsonTokener("a");
+
+        jsonTokener.next();
+        assertEquals(0, jsonTokener.getIndex());
+
+        jsonTokener.back();
+        assertEquals(-1, jsonTokener.getIndex());
+
+        assertThrows(IndexOutOfBoundsException.class, jsonTokener::back);
+    }
+
+    @Test
+    void getIndexTest() {
+
+        JsonTokener jsonTokener = new JsonTokener("abc");
+
+        assertEquals(-1, jsonTokener.getIndex());
+
+        jsonTokener.next();
+        assertEquals(0, jsonTokener.getIndex());
+
+        jsonTokener.next();
+        assertEquals(1, jsonTokener.getIndex());
     }
 
 
