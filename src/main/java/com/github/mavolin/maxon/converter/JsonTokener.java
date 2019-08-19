@@ -427,9 +427,11 @@ public class JsonTokener {
      */
     public void back() {
 
-        if (this.currentIndex > -1) {
-            this.currentIndex--;
+        if (this.currentIndex == -1) {
+            throw new IndexOutOfBoundsException("The index cannot be further decreased");
         }
+
+        this.currentIndex--;
     }
 
     /**
