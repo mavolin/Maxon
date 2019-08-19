@@ -338,13 +338,13 @@ public class JsonTokener {
                 if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                     stringBuilder.append(next);
                 } else {
-                    this.back();
                     break;
                 }
             }
 
         }
 
+        this.back();
 
         return new BigDecimal(stringBuilder.toString());
     }
@@ -423,15 +423,13 @@ public class JsonTokener {
     }
 
     /**
-     * Returns the last character and decrements the index by one.
-     *
-     * @return the last char
+     * Decrements the index by one until the beginning of the JSON is reached.
      */
-    public char back() {
+    public void back() {
 
-        this.currentIndex--;
-
-        return this.json[this.currentIndex];
+        if (this.currentIndex > -1) {
+            this.currentIndex--;
+        }
     }
 
     /**
