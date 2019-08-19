@@ -78,9 +78,9 @@ public class JsonValueConverter {
             case '"':
                 return new JsonPrimitive(jsonTokener.nextString());
             case '[':
-                return this.getAsJsonArray(jsonTokener);
+                return this.getJsonArrayFromJson(jsonTokener);
             case '{':
-                return this.getAsJsonObject(jsonTokener);
+                return this.getJsonObjectFromJson(jsonTokener);
             default:
                 throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
                                                                jsonTokener.getIndex() + 1));
@@ -97,7 +97,7 @@ public class JsonValueConverter {
      *
      * @return the extracted {@link JsonArray JsonArray}
      */
-    private JsonArray getAsJsonArray(JsonTokener jsonTokener) {
+    private JsonArray getJsonArrayFromJson(JsonTokener jsonTokener) {
 
         JsonArray jsonArray = new JsonArray();
 
@@ -143,7 +143,7 @@ public class JsonValueConverter {
      *
      * @return the extracted {@link JsonObject JsonObject}
      */
-    private JsonObject getAsJsonObject(JsonTokener jsonTokener) {
+    private JsonObject getJsonObjectFromJson(JsonTokener jsonTokener) {
 
         JsonObject jsonObject = new JsonObject();
 
