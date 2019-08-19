@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 public class JsonTokener {
 
 
-    private static final String UNEXPECTED_END_ERR_MSG = "The String ended unexpectedly";
-    private static final String END_REACHED_ERR_MSG = "The end of the JSON is already reached";
+    private static final String UNEXPECTED_END_ERR_MSG = "The JSON ended unexpectedly";
     private static final String UNEXPECTED_CHAR_SET_ERR_TMPL = "Unexpected character set starting at index %d";
     private static final String UNEXPECTED_CHAR_ERR_TMPL = "Unexpected character '%s' at index %d";
     private static final String EXPECTED_CHAR_ERR_TMPL = "Expected %s but found '%s' at index %d";
@@ -127,7 +126,7 @@ public class JsonTokener {
     public char checkAndNext() {
 
         if (!this.hasNext()) {
-            throw new JsonParsingException(END_REACHED_ERR_MSG);
+            throw new JsonParsingException(UNEXPECTED_END_ERR_MSG);
         }
 
         return this.next();
@@ -151,7 +150,7 @@ public class JsonTokener {
     public char checkAndNextNoIncrement() {
 
         if (!this.hasNext()) {
-            throw new JsonParsingException(END_REACHED_ERR_MSG);
+            throw new JsonParsingException(UNEXPECTED_END_ERR_MSG);
         }
 
         return this.nextNoIncrement();
@@ -282,69 +281,73 @@ public class JsonTokener {
             throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
         }
         
-        while (true) {
-            next = this.checkAndNext();
+        while (this.hasNext()) {
+            next = this.next();
 
             if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                 stringBuilder.append(next);
             } else {
+                this.back();
                 break;
             }
         }
         
         // checking if decimal places exist
-        if (next == '.') {
-            stringBuilder.append(".");
+        if (this.hasNext()) {
+            if (this.nextNoIncrement() == '.') {
+                stringBuilder.append(this.next());
 
-            next = this.checkAndNext();
-
-            if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
-                stringBuilder.append(next);
-            } else {
-                throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
-            }
-
-            while (true) {
                 next = this.checkAndNext();
 
                 if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                     stringBuilder.append(next);
                 } else {
-                    break;
+                    throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
+                }
+
+                while (this.hasNext()) {
+                    next = this.next();
+
+                    if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
+                        stringBuilder.append(next);
+                    } else {
+                        this.back();
+                        break;
+                    }
                 }
             }
         }
         
         // checking for exponent
-        if (next == 'e' || next == 'E') {
-            stringBuilder.append(next);
-            
-            next = this.checkAndNext();
-            
-            if (next == '-' || next == '+') { // if decimal sign is present add it
-                stringBuilder.append(next);
-                next = this.checkAndNext();
-            }
+        if (this.hasNext()) {
+            if (this.nextNoIncrement() == 'e' || this.nextNoIncrement() == 'E') {
+                stringBuilder.append(this.next());
 
-            if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
-                stringBuilder.append(next);
-            } else {
-                throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
-            }
-
-            while (true) {
                 next = this.checkAndNext();
+
+                if (next == '-' || next == '+') { // if decimal sign is present add it
+                    stringBuilder.append(next);
+                    next = this.checkAndNext();
+                }
 
                 if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
                     stringBuilder.append(next);
                 } else {
-                    break;
+                    throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, "number", next, this.currentIndex));
+                }
+
+                while (this.hasNext()) {
+                    next = this.next();
+
+                    if (next == '0' || next == '1' || next == '2' || next == '3' || next == '4' || next == '5' || next == '6' || next == '7' || next == '8' || next == '9') {
+                        stringBuilder.append(next);
+                    } else {
+                        this.back();
+                        break;
+                    }
                 }
             }
-
         }
-
-        this.back();
 
         return new BigDecimal(stringBuilder.toString());
     }
