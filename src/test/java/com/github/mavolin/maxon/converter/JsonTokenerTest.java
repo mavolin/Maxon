@@ -23,16 +23,6 @@ class JsonTokenerTest {
     }
 
     @Test
-    void skipWhitespaceTest() {
-
-        JsonTokener jsonTokener = new JsonTokener(" \t\r\n");
-
-        jsonTokener.skipWhitespace();
-
-        assertEquals(3, jsonTokener.getIndex());
-    }
-
-    @Test
     void hasNextTest() {
 
         JsonTokener jsonTokener = new JsonTokener(" ");

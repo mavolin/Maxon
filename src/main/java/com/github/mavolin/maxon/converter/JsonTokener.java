@@ -57,21 +57,6 @@ public class JsonTokener {
     }
 
     /**
-     * Skis all whitespace characters
-     */
-    public void skipWhitespace() {
-
-        while (this.hasNext()) {
-            char next = this.next();
-
-            if (next != ' ' && next != '\t' && next != '\n' && next != '\r') {
-                this.back();
-                break;
-            }
-        }
-    }
-
-    /**
      * Checks if the end of the JSON is reached or if there are still characters left, that haven't been parsed.
      *
      * @return {@code true} if the JSON's current char is not the last; {@code false} otherwise

@@ -6,11 +6,16 @@ import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
+/**
+ * The {@code JsonValueConverter} is the converter used by JSONCONVERTER to transform {@link String Strings} of JSON
+ * data to their Java representations and vice-versa.
+ */
+// TODO JSON converter reference
 public class JsonValueConverter {
 
 
     private static final String UNEXPECTED_TOKEN_ERR_TMPL = "Unexpected token '%s' at index %d";
-    private static final String EXPECTED_CHAR_ERR_TMPL = "Expected %s but found '%s' at index %d";
+    private static final String EXPECTED_CHAR_ERR_TMPL = "Expected '%s' but found '%s' at index %d";
 
 
     /**
@@ -46,7 +51,7 @@ public class JsonValueConverter {
      *
      * @return the {@link JsonValue JsonValue}
      */
-    public JsonValue extract(JsonTokener jsonTokener) {
+    private JsonValue extract(JsonTokener jsonTokener) {
 
         jsonTokener.skipCommentAndWhitespace();
 
@@ -105,7 +110,8 @@ public class JsonValueConverter {
         while (jsonTokener.hasNext()) {
             jsonTokener.skipCommentAndWhitespace();
 
-            if (jsonTokener.nextNoIncrement() == '[') {
+            if (jsonTokener.nextNoIncrement() == ']') {
+                jsonTokener.next();
                 return jsonArray;
             }
 
@@ -117,7 +123,7 @@ public class JsonValueConverter {
                                                                    jsonTokener.getIndex()));
                 }
 
-                jsonTokener.skipWhitespace();
+                jsonTokener.skipCommentAndWhitespace();
             }
 
             jsonArray.add(this.extract(jsonTokener));
@@ -152,6 +158,7 @@ public class JsonValueConverter {
             jsonTokener.skipCommentAndWhitespace();
 
             if (jsonTokener.nextNoIncrement() == '}') { // check for end of object
+                jsonTokener.next();
                 return jsonObject;
             }
 
@@ -163,7 +170,7 @@ public class JsonValueConverter {
                                                                    jsonTokener.getIndex()));
                 }
 
-                jsonTokener.skipWhitespace();
+                jsonTokener.skipCommentAndWhitespace();
             }
 
             String key = jsonTokener.nextString(); // extract the key
