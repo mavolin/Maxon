@@ -125,7 +125,6 @@ class DateTimeConverterTest {
         assertEquals(localDateTime, dateTimeConverter.getFromJson(localDateTimeJson, LocalDateTime.class));
         assertEquals(offsetDateTime, dateTimeConverter.getFromJson(offsetDateTimeJson, OffsetDateTime.class));
         assertEquals(zonedDateTime, dateTimeConverter.getFromJson(zonedDateTimeJson, ZonedDateTime.class));
-        assertNull(dateTimeConverter.getFromJson(JsonPrimitive.NULL, LocalTime.class));
         assertThrows(JsonParsingException.class, () ->
                 dateTimeConverter.getFromJson(new JsonArray(), LocalTime.class));
         assertThrows(JsonParsingException.class, () ->
