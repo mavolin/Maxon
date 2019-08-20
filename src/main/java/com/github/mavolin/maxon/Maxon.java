@@ -83,7 +83,7 @@ public class Maxon {
         this.ignoreNull = maxonConfigurator.ignoreNull;
 
         this.registerConverter(new PrimitivesConverter());
-        this.registerConverter(new AtomicNumberConverter());
+        this.registerConverter(new AtomicObjectConverter());
         this.registerConverter(new DateTimeConverter(maxonConfigurator.dateFormatConfiguration));
     }
 

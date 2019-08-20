@@ -12,11 +12,11 @@ import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import java.util.concurrent.atomic.*;
 
 /**
- * The {@code AtomicNumberConverter} is used to provide a way of converting the different atomic numbers found in Java's
+ * The {@code AtomicObjectConverter} is used to provide a way of converting the different atomic numbers found in Java's
  * {@link java.util.concurrent java.util.concurrent} package.
  */
 @Converts({AtomicBoolean.class, AtomicInteger.class, AtomicIntegerArray.class, AtomicLong.class, AtomicLongArray.class})
-public class AtomicNumberConverter implements JsonConverter {
+public class AtomicObjectConverter implements JsonConverter {
 
 
     private static final String PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS = "The provided JsonValue does not resemble a " +
