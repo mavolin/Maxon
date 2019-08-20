@@ -8,9 +8,8 @@ import java.lang.annotation.Target;
 /**
  * The {@code Converts} annotation is used to specify the {@link Class Classes} that can be converted by a
  * {@link JsonConverter JsonConverter}, that is annotated with this annotation. Note that this annotation is required
- * in order to register a {@link JsonConverter JsonConverter} at a JSONCONVERTER.
+ * in order to register a {@link JsonConverter JsonConverter} at a {@link com.github.mavolin.maxon.Maxon Maxon}.
  */
-// TODO add reference
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Converts {

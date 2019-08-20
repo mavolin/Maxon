@@ -11,14 +11,13 @@ public interface JsonConverter {
 
     /**
      * Converts the passed {@link Object Object} to a {@link JsonValue JsonValue}, which is then processed further by
-     * the JSONCONVERTER.
+     * {@link com.github.mavolin.maxon.Maxon Maxon}
      *
      * @param source
      *         the {@link Object Object} that is to be converted
      *
      * @return the converted {@link Object Object}
      */
-    // TODO add reference to converter object
     JsonValue getAsJson(Object source);
 
     /**
