@@ -111,8 +111,9 @@ public class JsonPrinter {
             return printJsonObjectNoWhitespace(jsonObject, ignoreNull);
         } else if (printStyle == PrintStyle.SINGLE_WHITESPACE) {
             return printJsonObjectSingleWhitespace(jsonObject, ignoreNull);
+        } else {
+            return printJsonObjectPrettyPrinted(jsonObject, whitespaceChar, whitespaceCharQty, ignoreNull, 0);
         }
-        return null;
     }
 
     private static String printJsonArrayNoWhitespace(JsonArray jsonArray, boolean ignoreNull) {
@@ -210,7 +211,7 @@ public class JsonPrinter {
                                                           ignoreNull, indentLvl + 1);
             } else {
                 stringValue = printJsonObjectPrettyPrinted((JsonObject) jsonValue, whitespaceChar, whitespaceCharQty,
-                                                           ignoreNull, indentLvl + 1);
+                                                           ignoreNull, indentLvl++);
             }
 
             arrayBuilder.append(stringValue);
@@ -219,6 +220,7 @@ public class JsonPrinter {
         }
 
         arrayBuilder
+                .append("\n")
                 .append(bracketIndent)
                 .append("]");
 
@@ -276,7 +278,7 @@ public class JsonPrinter {
             JsonElement value = entry.getValue();
 
             if (value.isNull() && ignoreNull) {
-                break;
+                continue;
             }
             if (!first) {
                 objectBuilder.append(", ");
@@ -310,7 +312,54 @@ public class JsonPrinter {
     private static String printJsonObjectPrettyPrinted(JsonObject jsonObject, char whitespaceChar,
                                                        int whitespaceCharQty, boolean ignoreNull, int indentLvl) {
 
-        return null;
+        String bracketIndent = generateIndent(indentLvl * whitespaceCharQty, whitespaceChar);
+        String contentIndent = generateIndent(indentLvl * whitespaceCharQty + indentLvl, whitespaceChar);
+
+        StringBuilder objectBuilder = new StringBuilder("{\n" + contentIndent);
+        boolean first = true;
+
+        for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            String key = entry.getKey();
+            JsonElement value = entry.getValue();
+
+            if (value.isNull() && ignoreNull) {
+                continue;
+            }
+            if (!first) {
+                objectBuilder
+                        .append(",\n")
+                        .append(contentIndent);
+            }
+
+            objectBuilder
+                    .append("\"")
+                    .append(key)
+                    .append("\" :");
+
+            JsonValue jsonValue = value.getAsJsonValue();
+            String stringValue;
+
+            if (jsonValue instanceof JsonPrimitive) {
+                stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
+            } else if (jsonValue instanceof JsonArray) {
+                stringValue = printJsonArrayPrettyPrinted((JsonArray) jsonValue, whitespaceChar, whitespaceCharQty,
+                                                          ignoreNull, indentLvl++);
+            } else {
+                stringValue = printJsonObjectPrettyPrinted((JsonObject) jsonValue, whitespaceChar, whitespaceCharQty,
+                                                           ignoreNull, indentLvl++);
+            }
+
+            objectBuilder.append(stringValue);
+
+            first = false;
+        }
+
+        objectBuilder
+                .append("\n")
+                .append(bracketIndent)
+                .append("}");
+
+        return objectBuilder.toString();
     }
 
     private static String generateIndent(int qty, char whitespaceChar) {
