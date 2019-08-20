@@ -168,9 +168,9 @@ public class JsonPrinter {
             if (jsonValue instanceof JsonPrimitive) {
                 stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
             } else if (jsonValue instanceof JsonArray) {
-                stringValue = printJsonArrayNoWhitespace((JsonArray) jsonValue, ignoreNull);
+                stringValue = printJsonArraySingleWhitespace((JsonArray) jsonValue, ignoreNull);
             } else {
-                stringValue = printJsonObjectNoWhitespace((JsonObject) jsonValue, ignoreNull);
+                stringValue = printJsonObjectSingleWhitespace((JsonObject) jsonValue, ignoreNull);
             }
             arrayBuilder.append(stringValue);
 
