@@ -11,7 +11,7 @@ public interface JsonConverter {
 
     /**
      * Converts the passed {@link Object Object} to a {@link JsonValue JsonValue}, which is then processed further by
-     * {@link com.github.mavolin.maxon.Maxon Maxon}
+     * {@link com.github.mavolin.maxon.Maxon Maxon}.
      *
      * @param source
      *         the {@link Object Object} that is to be converted
@@ -22,7 +22,7 @@ public interface JsonConverter {
 
     /**
      * Extracts information from the passed {@link JsonElement JsonElement} and builds a new {@link Object Object} of
-     * the type {@code T} out of it
+     * the type {@code T} out of it.
      *
      * @param <T>
      *         the type of the {@link Object Object} that is to be produced
