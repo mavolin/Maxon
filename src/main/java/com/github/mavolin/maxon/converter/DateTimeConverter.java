@@ -145,7 +145,7 @@ public class DateTimeConverter implements JsonConverter {
     private JsonPrimitive getLocalTimeAsJson(LocalTime date, DateTimeFormatter dateTimeFormatter) {
 
         if (dateTimeFormatter == null) {
-            return new JsonPrimitive(date.toString());
+            return new JsonPrimitive(DateTimeFormatter.ISO_LOCAL_TIME.format(date));
         } else {
             return new JsonPrimitive(dateTimeFormatter.format(date));
         }
@@ -165,7 +165,7 @@ public class DateTimeConverter implements JsonConverter {
     private JsonPrimitive getLocalDateAsJson(LocalDate date, DateTimeFormatter dateTimeFormatter) {
 
         if (dateTimeFormatter == null) {
-            return new JsonPrimitive(date.toString());
+            return new JsonPrimitive(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
         } else {
             return new JsonPrimitive(dateTimeFormatter.format(date));
         }
@@ -185,7 +185,7 @@ public class DateTimeConverter implements JsonConverter {
     private JsonPrimitive getLocalDateTimeAsJson(LocalDateTime date, DateTimeFormatter dateTimeFormatter) {
 
         if (dateTimeFormatter == null) {
-            return new JsonPrimitive(date.toString());
+            return new JsonPrimitive(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(date));
         } else {
             return new JsonPrimitive(dateTimeFormatter.format(date));
         }
@@ -205,7 +205,7 @@ public class DateTimeConverter implements JsonConverter {
     private JsonPrimitive getOffsetDateTimeAsJson(OffsetDateTime date, DateTimeFormatter dateTimeFormatter) {
 
         if (dateTimeFormatter == null) {
-            return new JsonPrimitive(date.toString());
+            return new JsonPrimitive(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(date));
         } else {
             return new JsonPrimitive(dateTimeFormatter.format(date));
         }
@@ -225,7 +225,7 @@ public class DateTimeConverter implements JsonConverter {
     private JsonPrimitive getZonedDateTimeAsJson(ZonedDateTime date, DateTimeFormatter dateTimeFormatter) {
 
         if (dateTimeFormatter == null) {
-            return new JsonPrimitive(date.toString());
+            return new JsonPrimitive(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(date));
         } else {
             return new JsonPrimitive(dateTimeFormatter.format(date));
         }
