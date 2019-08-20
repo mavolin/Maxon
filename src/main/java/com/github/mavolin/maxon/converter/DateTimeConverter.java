@@ -59,7 +59,7 @@ public class DateTimeConverter {
      *
      * @param <T>
      *         the type parameter
-     * @param jsonValue
+     * @param source
      *         the {@link JsonValue JsonValue}
      * @param clazz
      *         the {@link Class Class}
@@ -69,12 +69,12 @@ public class DateTimeConverter {
      * @return the extracted {@link Object Object} of the type {@code T}.
      */
     @SuppressWarnings("unchecked")
-    public <T> T getFromJson(JsonValue jsonValue, Class<T> clazz, DateFormatConfiguration dateFormatConfiguration) {
+    public <T> T getFromJson(JsonValue source, Class<T> clazz, DateFormatConfiguration dateFormatConfiguration) {
 
-        if (!(jsonValue instanceof JsonPrimitive)) {
+        if (!(source instanceof JsonPrimitive)) {
             throw new JsonParsingException("The passed JsonValue does not resemble a " + clazz.getName());
         }
-        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonValue;
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
         if (jsonPrimitive.isNull()) {
             return null;
