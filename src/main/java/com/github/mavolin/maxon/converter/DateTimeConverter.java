@@ -94,7 +94,7 @@ public class DateTimeConverter implements JsonConverter {
             return null;
         }
         if (!jsonPrimitive.isString()) {
-            throw new IllegalTypeRequestedException("The provided JsonValue does not resemble a " + clazz.getName());
+            throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
         }
         String date = jsonPrimitive.getAsString();
 
@@ -114,7 +114,7 @@ public class DateTimeConverter implements JsonConverter {
         } else if (clazz.isAssignableFrom(Date.class)) {
             return (T) this.getDateFromJson(date, this.dateFormatConfiguration.dateFormat);
         } else {
-            throw new IllegalTypeRequestedException(clazz.getName() + " is not convertible with this converter");
+            throw new JsonParsingException(clazz.getName() + " is not convertible with this converter");
         }
     }
 
