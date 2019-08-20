@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.converter;
+package com.github.mavolin.maxon.parsing;
 
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;

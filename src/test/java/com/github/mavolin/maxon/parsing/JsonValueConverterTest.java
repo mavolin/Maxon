@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.converter;
+package com.github.mavolin.maxon.parsing;
 
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
