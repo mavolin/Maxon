@@ -26,7 +26,6 @@ public class JsonValueConverter {
      *
      * @return the Java representation of the JSON value
      */
-    @SuppressWarnings("unchecked")
     public JsonValue getFromJson(String source) {
 
         JsonTokener jsonTokener = new JsonTokener(source);
