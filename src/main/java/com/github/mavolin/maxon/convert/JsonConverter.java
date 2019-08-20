@@ -21,7 +21,7 @@ public interface JsonConverter {
     JsonValue getAsJson(Object source);
 
     /**
-     * Extracts information from the passed {@link JsonElement JsonElement} and builds a new {@link Object Object} of
+     * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of
      * the type {@code T} out of it.
      *
      * @param <T>
