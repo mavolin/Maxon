@@ -1,7 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.convert.JsonConverter;
-import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
