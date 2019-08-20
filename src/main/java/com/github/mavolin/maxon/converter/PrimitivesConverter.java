@@ -49,7 +49,7 @@ public class PrimitivesConverter implements JsonConverter {
         } else if (source instanceof String) {
             return new JsonPrimitive((String) source);
         } else {
-            throw new JsonParsingException(source.getClass().getName() + " is not convertible by this converter");
+            throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
         }
     }
 
@@ -74,7 +74,7 @@ public class PrimitivesConverter implements JsonConverter {
         }
         JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
-        
+
         if (clazz.isAssignableFrom(Boolean.class) || clazz.isAssignableFrom(boolean.class)) {
             if (!jsonPrimitive.isBoolean()) {
                 throw new IllegalTypeRequestedException(
@@ -142,8 +142,7 @@ public class PrimitivesConverter implements JsonConverter {
             }
             return (T) jsonPrimitive.getAsString();
         } else {
-            throw new JsonParsingException("The provided class is not of one of the parsable types of this " +
-                                           "JsonConverter");
+            throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
         }
     }
 

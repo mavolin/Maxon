@@ -50,7 +50,7 @@ public class DateTimeConverter {
         } else if (source instanceof Date) {
             return this.getDateAsJson((Date) source, dateFormatConfiguration.dateFormat);
         } else {
-            throw new JsonParsingException(source.getClass().getName() + " is not convertible by this converter");
+            throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
         }
     }
 
@@ -101,7 +101,7 @@ public class DateTimeConverter {
         } else if (clazz.isAssignableFrom(Date.class)) {
             return (T) this.getDateFromJson(date, dateFormatConfiguration.dateFormat);
         } else {
-            throw new IllegalTypeRequestedException(clazz.getName() + " is not convertible by this converter");
+            throw new IllegalTypeRequestedException(clazz.getName() + " is not convertible with this converter");
         }
     }
 
