@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
+import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
@@ -19,36 +20,51 @@ import java.util.Objects;
  * java.time.LocalDateTime LocalDateTime}, {@link OffsetDateTime OffsetDateTime} and {@link ZonedDateTime
  * ZonedDateTime}, as well as {@link Date Date}.
  */
-public class DateTimeConverter {
+public class DateTimeConverter implements JsonConverter {
 
+
+    /**
+     * The {@link DateFormatConfiguration DateFormatConfiguration}
+     */
+    private final DateFormatConfiguration dateFormatConfiguration;
+
+
+    /**
+     * Instantiates a new {@code DateTimeConverter}, that uses the passed {@link DateFormatConfiguration
+     * DateFormatConfiguration}
+     *
+     * @param dateFormatConfiguration
+     *         the date {@link DateFormatConfiguration DateFormatConfiguration}
+     */
+    public DateTimeConverter(DateFormatConfiguration dateFormatConfiguration) {
+
+        this.dateFormatConfiguration = dateFormatConfiguration;
+    }
 
     /**
      * Converts the given {@link Object Object} to its JSON representation.
      *
      * @param source
      *         the {@link Object Object} that is to be converted
-     * @param dateFormatConfiguration
-     *         the {@link DateFormatConfiguration DateFormatConfiguration}
-     *
      * @return the JSON representation
      */
-    public JsonValue getAsJson(Object source, DateFormatConfiguration dateFormatConfiguration) {
+    public JsonValue getAsJson(Object source) {
 
         if (source instanceof Instant) {
             return this.getInstantAsJson((Instant) source);
         } else if (source instanceof LocalTime) {
-            return this.getLocalTimeAsJson((LocalTime) source, dateFormatConfiguration.localTimeFormatter);
+            return this.getLocalTimeAsJson((LocalTime) source, this.dateFormatConfiguration.localTimeFormatter);
         } else if (source instanceof LocalDate) {
-            return this.getLocalDateAsJson((LocalDate) source, dateFormatConfiguration.localDateFormatter);
+            return this.getLocalDateAsJson((LocalDate) source, this.dateFormatConfiguration.localDateFormatter);
         } else if (source instanceof LocalDateTime) {
-            return this.getLocalDateTimeAsJson((LocalDateTime) source, dateFormatConfiguration.localDateTimeFormatter);
+            return this.getLocalDateTimeAsJson((LocalDateTime) source, this.dateFormatConfiguration.localDateTimeFormatter);
         } else if (source instanceof OffsetDateTime) {
             return this.getOffsetDateTimeAsJson((OffsetDateTime) source,
-                                                dateFormatConfiguration.offsetDateTimeFormatter);
+                                                this.dateFormatConfiguration.offsetDateTimeFormatter);
         } else if (source instanceof ZonedDateTime) {
-            return this.getZonedDateTimeAsJson((ZonedDateTime) source, dateFormatConfiguration.zonedDateTimeFormatter);
+            return this.getZonedDateTimeAsJson((ZonedDateTime) source, this.dateFormatConfiguration.zonedDateTimeFormatter);
         } else if (source instanceof Date) {
-            return this.getDateAsJson((Date) source, dateFormatConfiguration.dateFormat);
+            return this.getDateAsJson((Date) source, this.dateFormatConfiguration.dateFormat);
         } else {
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
         }
@@ -64,13 +80,10 @@ public class DateTimeConverter {
      *         the {@link JsonValue JsonValue}
      * @param clazz
      *         the {@link Class Class}
-     * @param dateFormatConfiguration
-     *         the {@link DateFormatConfiguration DateFormatConfiguration}
-     *
      * @return the extracted {@link Object Object} of the type {@code T}.
      */
     @SuppressWarnings("unchecked")
-    public <T> T getFromJson(JsonValue source, Class<T> clazz, DateFormatConfiguration dateFormatConfiguration) {
+    public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
         if (!(source instanceof JsonPrimitive)) {
             throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
@@ -89,17 +102,17 @@ public class DateTimeConverter {
         if (clazz.isAssignableFrom(Instant.class)) {
             return (T) this.getInstantFromJson(date);
         } else if (clazz.isAssignableFrom(LocalTime.class)) {
-            return (T) this.getLocalTimeFromJson(date, dateFormatConfiguration.localTimeFormatter);
+            return (T) this.getLocalTimeFromJson(date, this.dateFormatConfiguration.localTimeFormatter);
         } else if (clazz.isAssignableFrom(LocalDate.class)) {
-            return (T) this.getLocalDateFromJson(date, dateFormatConfiguration.localDateFormatter);
+            return (T) this.getLocalDateFromJson(date, this.dateFormatConfiguration.localDateFormatter);
         } else if (clazz.isAssignableFrom(LocalDateTime.class)) {
-            return (T) this.getLocalDateTimeFromJson(date, dateFormatConfiguration.localDateTimeFormatter);
+            return (T) this.getLocalDateTimeFromJson(date, this.dateFormatConfiguration.localDateTimeFormatter);
         } else if (clazz.isAssignableFrom(OffsetDateTime.class)) {
-            return (T) this.getOffsetDateTimeFromJson(date, dateFormatConfiguration.offsetDateTimeFormatter);
+            return (T) this.getOffsetDateTimeFromJson(date, this.dateFormatConfiguration.offsetDateTimeFormatter);
         } else if (clazz.isAssignableFrom(ZonedDateTime.class)) {
-            return (T) this.getZonedDateTimeFromJson(date, dateFormatConfiguration.zonedDateTimeFormatter);
+            return (T) this.getZonedDateTimeFromJson(date, this.dateFormatConfiguration.zonedDateTimeFormatter);
         } else if (clazz.isAssignableFrom(Date.class)) {
-            return (T) this.getDateFromJson(date, dateFormatConfiguration.dateFormat);
+            return (T) this.getDateFromJson(date, this.dateFormatConfiguration.dateFormat);
         } else {
             throw new IllegalTypeRequestedException(clazz.getName() + " is not convertible with this converter");
         }
