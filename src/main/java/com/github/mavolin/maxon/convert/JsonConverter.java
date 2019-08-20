@@ -28,12 +28,12 @@ public interface JsonConverter {
      *         the type of the {@link Object Object} that is to be produced
      * @param source
      *         the JSON representation of the {@link Object Object}
-     * @param origin
+     * @param clazz
      *         the {@link Class Class} of the {@link Object Object}
      *
      * @return the extracted {@link Object Object}
      */
-    <T> T getFromJson(JsonElement source, Class<T> origin);
+    <T> T getFromJson(JsonElement source, Class<T> clazz);
 
 
 }
