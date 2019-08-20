@@ -72,7 +72,7 @@ public class DateTimeConverter {
     public <T> T getFromJson(JsonValue source, Class<T> clazz, DateFormatConfiguration dateFormatConfiguration) {
 
         if (!(source instanceof JsonPrimitive)) {
-            throw new JsonParsingException("The passed JsonValue does not resemble a " + clazz.getName());
+            throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
         }
         JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
@@ -80,7 +80,7 @@ public class DateTimeConverter {
             return null;
         }
         if (!jsonPrimitive.isString()) {
-            throw new JsonParsingException("The passed JsonValue does not resemble a " + clazz.getName());
+            throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
         }
         String date = jsonPrimitive.getAsString();
 
