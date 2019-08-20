@@ -1,5 +1,7 @@
 package com.github.mavolin.maxon;
 
+import com.github.mavolin.maxon.datetime.DateFormatConfiguration;
+
 import java.time.format.DateTimeFormatter;
 
 public class MaxonConfigurator {
