@@ -3,7 +3,6 @@ package com.github.mavolin.maxon.utils;
 import com.github.mavolin.maxon.jsonvalues.*;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * The {@code JsonPrinter} class is a utility class, used to print JSONs in their {@link String String} representation
@@ -11,6 +10,10 @@ import java.util.stream.Collectors;
  */
 public class JsonPrinter {
 
+
+    private JsonPrinter() {
+        // private to prevent instantiation
+    }
 
     /**
      * Returns the {@link JsonPrimitive JsonPrimitve} in its JSON form.
@@ -55,13 +58,38 @@ public class JsonPrinter {
         }
     }
 
+    /**
+     * Returns a {@link String String} printed with the data of the passed {@link JsonArray JsonArray} in the specified
+     * style.
+     *
+     * @param jsonArray
+     *         the {@link JsonArray JsonArray}
+     * @param whitespaceChar
+     *         the whitespace char
+     * @param whitespaceCharQty
+     *         the quantity of whitespace chars to use when producing indent
+     * @param ignoreNull
+     *         ignore {@code nulls}?
+     * @param printStyle
+     *         the {@link PrintStyle PrintStyle}
+     *
+     * @return the styled {@link JsonObject JsonObject}
+     */
     public static String printJsonArray(JsonArray jsonArray, char whitespaceChar, int whitespaceCharQty,
                                         boolean ignoreNull, PrintStyle printStyle) {
-        return null;
+
+        if (printStyle == PrintStyle.NO_WHITESPACE) {
+            return printJsonArrayNoWhitespace(jsonArray, ignoreNull);
+        } else if (printStyle == PrintStyle.SINGLE_WHITESPACE) {
+            return printJsonArraySingleWhitespace(jsonArray, ignoreNull);
+        } else {
+            return printJsonArrayPrettyPrinted(jsonArray, whitespaceChar, whitespaceCharQty, ignoreNull, 0);
+        }
     }
 
     /**
-     * Returns a {@link JsonObject JsonObject} printed with the specified style.
+     * Returns a {@link String String} printed with the data of the passed {@link JsonObject JsonObject} in the
+     * specified style.
      *
      * @param jsonObject
      *         the {@link JsonObject JsonObject}
@@ -74,15 +102,17 @@ public class JsonPrinter {
      * @param printStyle
      *         the {@link PrintStyle PrintStyle}
      *
-     * @return the style {@link JsonObject JsonObject}
+     * @return the styled {@link JsonObject JsonObject}
      */
     public static String printJsonObject(JsonObject jsonObject, char whitespaceChar, int whitespaceCharQty,
                                          boolean ignoreNull, PrintStyle printStyle) {
 
-        if (printStyle == PrintStyle.NO_WHITESPACE)
+        if (printStyle == PrintStyle.NO_WHITESPACE) {
             return printJsonObjectNoWhitespace(jsonObject, ignoreNull);
-        else if (printStyle == PrintStyle.SINGLE_WHITESPACE)
-            return printJsonObjectSingleWhitespace(jsonObject, whitespaceChar, ignoreNull);
+        } else if (printStyle == PrintStyle.SINGLE_WHITESPACE) {
+            return printJsonObjectSingleWhitespace(jsonObject, ignoreNull);
+        }
+        return null;
     }
 
     private static String printJsonArrayNoWhitespace(JsonArray jsonArray, boolean ignoreNull) {
@@ -113,7 +143,84 @@ public class JsonPrinter {
             first = false;
         }
 
-        arrayBuilder.append("[");
+        arrayBuilder.append("]");
+
+        return arrayBuilder.toString();
+    }
+
+    private static String printJsonArraySingleWhitespace(JsonArray jsonArray, boolean ignoreNull) {
+
+        StringBuilder arrayBuilder = new StringBuilder("[");
+        boolean first = true;
+
+        for (JsonElement value : jsonArray) {
+            if (value.isNull() && ignoreNull) {
+                continue;
+            }
+            if (!first) {
+                arrayBuilder.append(", ");
+            }
+
+            JsonValue jsonValue = value.getAsJsonValue();
+            String stringValue;
+
+            if (jsonValue instanceof JsonPrimitive) {
+                stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
+            } else if (jsonValue instanceof JsonArray) {
+                stringValue = printJsonArrayNoWhitespace((JsonArray) jsonValue, ignoreNull);
+            } else {
+                stringValue = printJsonObjectNoWhitespace((JsonObject) jsonValue, ignoreNull);
+            }
+            arrayBuilder.append(stringValue);
+
+            first = false;
+        }
+
+        arrayBuilder.append("]");
+
+        return arrayBuilder.toString();
+    }
+
+    private static String printJsonArrayPrettyPrinted(JsonArray jsonArray, char whitespaceChar, int whitespaceCharQty,
+                                                      boolean ignoreNull, int indentLvl) {
+
+        String bracketIndent = generateIndent(whitespaceCharQty * indentLvl, whitespaceChar);
+        String contentIndent = generateIndent(whitespaceCharQty * indentLvl + whitespaceCharQty, whitespaceChar);
+
+        StringBuilder arrayBuilder = new StringBuilder("[\n" + contentIndent);
+        boolean first = true;
+
+        for (JsonElement value : jsonArray) {
+            if (value.isNull() && ignoreNull) {
+                continue;
+            }
+            if (!first) {
+                arrayBuilder
+                        .append(",\n")
+                        .append(contentIndent);
+            }
+
+            JsonValue jsonValue = value.getAsJsonValue();
+            String stringValue;
+
+            if (jsonValue instanceof JsonPrimitive) {
+                stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
+            } else if (jsonValue instanceof JsonArray) {
+                stringValue = printJsonArrayPrettyPrinted((JsonArray) jsonValue, whitespaceChar, whitespaceCharQty,
+                                                          ignoreNull, indentLvl + 1);
+            } else {
+                stringValue = printJsonObjectPrettyPrinted((JsonObject) jsonValue, whitespaceChar, whitespaceCharQty,
+                                                           ignoreNull, indentLvl + 1);
+            }
+
+            arrayBuilder.append(stringValue);
+
+            first = false;
+        }
+
+        arrayBuilder
+                .append(bracketIndent)
+                .append("]");
 
         return arrayBuilder.toString();
     }
@@ -159,8 +266,8 @@ public class JsonPrinter {
         return objectBuilder.toString();
     }
 
-    private static String printJsonObjectSingleWhitespace(JsonObject jsonObject, char whitespaceChar,
-                                                          boolean ignoreNull) {
+    private static String printJsonObjectSingleWhitespace(JsonObject jsonObject, boolean ignoreNull) {
+
         StringBuilder objectBuilder = new StringBuilder("{");
         boolean first = true;
 
@@ -186,9 +293,9 @@ public class JsonPrinter {
             if (jsonValue instanceof JsonPrimitive) {
                 stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
             } else if (jsonValue instanceof JsonArray) {
-                stringValue = printJsonArrayNoWhitespace((JsonArray) jsonValue, ignoreNull);
+                stringValue = printJsonArraySingleWhitespace((JsonArray) jsonValue, ignoreNull);
             } else {
-                stringValue = printJsonObjectNoWhitespace((JsonObject) jsonValue, ignoreNull);
+                stringValue = printJsonObjectSingleWhitespace((JsonObject) jsonValue, ignoreNull);
             }
             objectBuilder.append(stringValue);
 
@@ -198,6 +305,17 @@ public class JsonPrinter {
         objectBuilder.append("}");
 
         return objectBuilder.toString();
+    }
+
+    private static String printJsonObjectPrettyPrinted(JsonObject jsonObject, char whitespaceChar,
+                                                       int whitespaceCharQty, boolean ignoreNull, int indentLvl) {
+
+        return null;
+    }
+
+    private static String generateIndent(int qty, char whitespaceChar) {
+
+        return String.valueOf(whitespaceChar).repeat(qty);
     }
 
 
