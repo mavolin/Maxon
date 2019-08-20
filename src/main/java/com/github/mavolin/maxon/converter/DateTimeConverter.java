@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
+import com.github.mavolin.maxon.exceptions.IllegalTypeRequestedException;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
@@ -80,7 +81,7 @@ public class DateTimeConverter {
             return null;
         }
         if (!jsonPrimitive.isString()) {
-            throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
+            throw new IllegalTypeRequestedException("The provided JsonValue does not resemble a " + clazz.getName());
         }
         String date = jsonPrimitive.getAsString();
 
@@ -100,7 +101,7 @@ public class DateTimeConverter {
         } else if (clazz.isAssignableFrom(Date.class)) {
             return (T) this.getDateFromJson(date, dateFormatConfiguration.dateFormat);
         } else {
-            throw new JsonParsingException(clazz.getName() + " is not convertible by this converter");
+            throw new IllegalTypeRequestedException(clazz.getName() + " is not convertible by this converter");
         }
     }
 
