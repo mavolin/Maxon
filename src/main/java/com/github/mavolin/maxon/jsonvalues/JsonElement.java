@@ -418,7 +418,6 @@ public class JsonElement {
      * @throws IllegalTypeRequestedException
      *         if this {@code JsonElement's} value is not an instance of {@code JsonObject}
      */
-
     public JsonObject getAsJsonObject() {
 
         if (this.value instanceof JsonPrimitive) {
@@ -434,6 +433,19 @@ public class JsonElement {
         } else {
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a JsonObject");
         }
+    }
+
+    /**
+     * Gets this {@code JsonElement} as a {@link JsonValue JsonValue}.
+     *
+     * @return the {@link JsonValue JsonOValue}
+     *
+     * @throws IllegalTypeRequestedException
+     *         if this {@code JsonElement's} value is not an instance of {@code JsonValue}
+     */
+    public JsonValue getAsJsonValue() {
+
+        return this.value;
     }
 
     /**
