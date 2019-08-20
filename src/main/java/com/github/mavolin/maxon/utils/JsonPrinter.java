@@ -211,7 +211,7 @@ public class JsonPrinter {
                                                           ignoreNull, indentLvl + 1);
             } else {
                 stringValue = printJsonObjectPrettyPrinted((JsonObject) jsonValue, whitespaceChar, whitespaceCharQty,
-                                                           ignoreNull, indentLvl++);
+                                                           ignoreNull, indentLvl + 1);
             }
 
             arrayBuilder.append(stringValue);
@@ -313,7 +313,7 @@ public class JsonPrinter {
                                                        int whitespaceCharQty, boolean ignoreNull, int indentLvl) {
 
         String bracketIndent = generateIndent(indentLvl * whitespaceCharQty, whitespaceChar);
-        String contentIndent = generateIndent(indentLvl * whitespaceCharQty + indentLvl, whitespaceChar);
+        String contentIndent = generateIndent(indentLvl * whitespaceCharQty + whitespaceCharQty, whitespaceChar);
 
         StringBuilder objectBuilder = new StringBuilder("{\n" + contentIndent);
         boolean first = true;
@@ -334,7 +334,7 @@ public class JsonPrinter {
             objectBuilder
                     .append("\"")
                     .append(key)
-                    .append("\" :");
+                    .append("\": ");
 
             JsonValue jsonValue = value.getAsJsonValue();
             String stringValue;
@@ -343,10 +343,10 @@ public class JsonPrinter {
                 stringValue = printJsonPrimitive((JsonPrimitive) jsonValue);
             } else if (jsonValue instanceof JsonArray) {
                 stringValue = printJsonArrayPrettyPrinted((JsonArray) jsonValue, whitespaceChar, whitespaceCharQty,
-                                                          ignoreNull, indentLvl++);
+                                                          ignoreNull, indentLvl + 1);
             } else {
                 stringValue = printJsonObjectPrettyPrinted((JsonObject) jsonValue, whitespaceChar, whitespaceCharQty,
-                                                           ignoreNull, indentLvl++);
+                                                           ignoreNull, indentLvl + 1);
             }
 
             objectBuilder.append(stringValue);
