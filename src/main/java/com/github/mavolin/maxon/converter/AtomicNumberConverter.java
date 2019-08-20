@@ -87,7 +87,7 @@ public class AtomicNumberConverter implements JsonConverter {
         else if (clazz.isAssignableFrom(AtomicLong.class))
             return (T) this.getAtomicLongFromJson(source);
         else if (clazz.isAssignableFrom(AtomicLongArray.class))
-            return (T) this.getAtomicLongFromJson(source);
+            return (T) this.getAtomicLongArrayFromJson(source);
         else
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
     }
