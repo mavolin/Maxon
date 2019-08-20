@@ -3,6 +3,7 @@ package com.github.mavolin.maxon.converter;
 import com.github.mavolin.maxon.Maxon;
 import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.convert.JsonParser;
+import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
 import java.util.HashMap;
@@ -54,9 +55,17 @@ public class JsonParserConversionManager implements JsonConverter {
      * @return the converted {@link Object Object}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public JsonValue getAsJson(Object source) {
 
-        return null;
+        Class<?> clazz = source.getClass();
+
+        if (!this.parser.containsKey(clazz))
+            throw new JsonParsingException("There is no JsonParser registered for the specified class");
+
+        JsonParser jsonParser = this.parser.get(clazz);
+
+        return jsonParser.getAsJson(source);
     }
 
     /**
@@ -71,9 +80,15 @@ public class JsonParserConversionManager implements JsonConverter {
      * @return the extracted {@link Object Object}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
-        return null;
+        if (!this.parser.containsKey(clazz))
+            throw new JsonParsingException("There is no JsonParser registered for the specified class");
+
+        JsonParser jsonParser = this.parser.get(clazz);
+
+        return (T) jsonParser.getFromJson(source);
     }
 
 
