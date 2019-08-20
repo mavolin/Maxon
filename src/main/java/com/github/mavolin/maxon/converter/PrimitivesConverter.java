@@ -135,7 +135,7 @@ public class PrimitivesConverter implements JsonConverter {
             }
             return (T) jsonPrimitive.getAsBigDecimal();
         } else if (clazz.isAssignableFrom(String.class)) {
-            if (!jsonPrimitive.isNumber()) {
+            if (!jsonPrimitive.isString()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
