@@ -8,14 +8,14 @@ import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
 /**
  * The {@code JsonValueConverter} is the converter used by {@link com.github.mavolin.maxon.Maxon Maxon} to transform
- * {@link String Strings} of JSON
- * data to their Java representations and vice-versa.
+ * {@link String Strings} of JSON data to their Java representations and vice-versa.
  */
 public class JsonValueConverter {
 
 
     private static final String UNEXPECTED_TOKEN_ERR_TMPL = "Unexpected token '%s' at index %d";
     private static final String EXPECTED_CHAR_ERR_TMPL = "Expected '%s' but found '%s' at index %d";
+    private static final String UNEXPECTED_CHAR_SET_ERR_TMPL = "Unexpected character set starting at index %d";
 
 
     /**
@@ -73,7 +73,7 @@ public class JsonValueConverter {
 
         if (jsonTokener.hasNext()) {
             throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, jsonTokener.next(),
-                                                           jsonTokener.getIndex()));
+                                                         jsonTokener.getIndex()));
         }
 
         return (T) extractedValue;
@@ -109,6 +109,7 @@ public class JsonValueConverter {
             case '8':
             case '9':
             case '"':
+            case 'n':
                 return this.getJsonPrimitiveFromJson(jsonTokener);
             case '[':
                 return this.getJsonArrayFromJson(jsonTokener);
@@ -116,7 +117,7 @@ public class JsonValueConverter {
                 return this.getJsonObjectFromJson(jsonTokener);
             default:
                 throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
-                                                               jsonTokener.getIndex() + 1));
+                                                             jsonTokener.getIndex() + 1));
         }
     }
 
@@ -151,6 +152,13 @@ public class JsonValueConverter {
                 return new JsonPrimitive(jsonTokener.nextNumber());
             case '"':
                 return new JsonPrimitive(jsonTokener.nextString());
+            case 'n':
+                if (jsonTokener.next(4).equals("null")) {
+                    return JsonPrimitive.NULL;
+                } else {
+                    throw new JsonParsingException(String.format(UNEXPECTED_CHAR_SET_ERR_TMPL,
+                                                                 jsonTokener.getIndex() - 4));
+                }
             default:
                 throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, next,
                                                              jsonTokener.getIndex() + 1));
@@ -159,8 +167,8 @@ public class JsonValueConverter {
 
 
     /**
-     * Extracts the JSON array beginning at the next char of the passed {@link JsonTokener JsonTokener} and returns
-     * its Java representation.
+     * Extracts the JSON array beginning at the next char of the passed {@link JsonTokener JsonTokener} and returns its
+     * Java representation.
      *
      * @param jsonTokener
      *         the {@link JsonTokener JsonTokener}
@@ -174,8 +182,9 @@ public class JsonValueConverter {
         char next = jsonTokener.checkAndNext();
         boolean first = true;
 
-        if (next != '[')
+        if (next != '[') {
             throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, '[', next, jsonTokener.getIndex()));
+        }
 
         while (jsonTokener.hasNext()) {
             jsonTokener.skipCommentAndWhitespace();
@@ -190,7 +199,7 @@ public class JsonValueConverter {
 
                 if (next != ',') {
                     throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
-                                                                   jsonTokener.getIndex()));
+                                                                 jsonTokener.getIndex()));
                 }
 
                 jsonTokener.skipCommentAndWhitespace();
@@ -205,8 +214,8 @@ public class JsonValueConverter {
     }
 
     /**
-     * Extracts the JSON object beginning at the next char of the passed {@link JsonTokener JsonTokener} and returns
-     * its Java representation.
+     * Extracts the JSON object beginning at the next char of the passed {@link JsonTokener JsonTokener} and returns its
+     * Java representation.
      *
      * @param jsonTokener
      *         the {@link JsonTokener JsonTokener}
@@ -237,7 +246,7 @@ public class JsonValueConverter {
 
                 if (next != ',') {
                     throw new JsonParsingException(String.format(EXPECTED_CHAR_ERR_TMPL, ',', next,
-                                                                   jsonTokener.getIndex()));
+                                                                 jsonTokener.getIndex()));
                 }
 
                 jsonTokener.skipCommentAndWhitespace();
@@ -263,5 +272,6 @@ public class JsonValueConverter {
 
         throw new JsonParsingException("Unexpected end of JSON object");
     }
+
 
 }
