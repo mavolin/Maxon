@@ -5,10 +5,7 @@ import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.convert.JsonParser;
 import com.github.mavolin.maxon.converter.*;
 import com.github.mavolin.maxon.exceptions.MissingAnnotationException;
-import com.github.mavolin.maxon.jsonvalues.JsonArray;
-import com.github.mavolin.maxon.jsonvalues.JsonObject;
-import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
-import com.github.mavolin.maxon.jsonvalues.JsonValue;
+import com.github.mavolin.maxon.jsonvalues.*;
 import com.github.mavolin.maxon.parsing.JsonValueConverter;
 import com.github.mavolin.maxon.utils.JsonPrinter;
 import com.github.mavolin.maxon.utils.PrintStyle;
@@ -143,6 +140,9 @@ public class Maxon {
             return jsonValueConverter.getFromJson(source, clazz);
         } else if (this.converter.containsKey(clazz)) {
             JsonValue jsonValue = jsonValueConverter.getFromJson(source);
+
+            if (new JsonElement(jsonValue).isNull())
+                return null;
 
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
         } else {

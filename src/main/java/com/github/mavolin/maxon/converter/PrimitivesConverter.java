@@ -74,6 +74,9 @@ public class PrimitivesConverter implements JsonConverter {
         }
         JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
+        if (jsonPrimitive.isNull()) {
+            return null;
+        }
 
         if (clazz.isAssignableFrom(Boolean.class) || clazz.isAssignableFrom(boolean.class)) {
             if (!jsonPrimitive.isBoolean()) {
