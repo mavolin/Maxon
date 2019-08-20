@@ -2,6 +2,10 @@ package com.github.mavolin.maxon.exceptions;
 
 import java.security.PrivilegedActionException;
 
+/**
+ * A {@code MissingAnnotationException} gets thrown when a {@link com.github.mavolin.maxon.convert.Converts Converts}
+ * annotation is missing on a {@link com.github.mavolin.maxon.convert.JsonConverter JsonConverter}.
+ */
 public class MissingAnnotationException extends RuntimeException {
 
 
