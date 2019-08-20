@@ -33,7 +33,7 @@ public interface JsonConverter {
      *
      * @return the extracted {@link Object Object}
      */
-    <T> T getFromJson(JsonElement source, Class<T> clazz);
+    <T> T getFromJson(JsonValue source, Class<T> clazz);
 
 
 }
