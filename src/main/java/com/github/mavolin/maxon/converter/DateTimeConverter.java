@@ -89,9 +89,7 @@ public class DateTimeConverter implements JsonConverter {
         }
         JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
-        if (jsonPrimitive.isNull()) {
-            return null;
-        }
+
         if (!jsonPrimitive.isString()) {
             throw new JsonParsingException("The provided JsonValue does not resemble a " + clazz.getName());
         }
