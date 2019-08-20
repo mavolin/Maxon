@@ -1,9 +1,8 @@
-package com.github.mavolin.maxon.datetime;
+package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.Maxon;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 /**

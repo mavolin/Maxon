@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.datetime;
+package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
