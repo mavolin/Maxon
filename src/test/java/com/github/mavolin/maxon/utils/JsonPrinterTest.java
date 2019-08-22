@@ -41,7 +41,7 @@ class JsonPrinterTest {
     }
 
     @Test
-    void printJsonArrayNoWhitespace() {
+    void printJsonArrayNoWhitespaceTest() {
 
         JsonArray testArray = new JsonArray();
         testArray
@@ -67,7 +67,7 @@ class JsonPrinterTest {
     }
 
     @Test
-    void printJsonArraySingleWhitespace() {
+    void printJsonArraySingleWhitespaceTest() {
 
         JsonArray testArray = new JsonArray();
         testArray
@@ -92,7 +92,99 @@ class JsonPrinterTest {
     }
 
     @Test
-    void printJsonObjectNoWhitespace() {
+    void printJsonArrayPrettyPrintedTest() {
+
+        JsonArray testArray = new JsonArray();
+        testArray
+                .add(123)
+                .add(new JsonArray()
+                             .add(new JsonObject()
+                                          .put("testKey1", "Hello World!")
+                                          .put("AnotherKey", 321)
+                                          .put("Null", (String) null))
+                             .add(true))
+                .add(false)
+                .add((String) null);
+
+        String testArrayStringNull = "[\n" +
+                                     "    123,\n" +
+                                     "    [\n" +
+                                     "        {\n" +
+                                     "            \"testKey1\": \"Hello World!\",\n" +
+                                     "            \"AnotherKey\": 321,\n" +
+                                     "            \"Null\": null\n" +
+                                     "        },\n" +
+                                     "        true\n" +
+                                     "    ],\n" +
+                                     "    false,\n" +
+                                     "    null\n" +
+                                     "]";
+        String testArrayStringNoNull = "[\n" +
+                                       "    123,\n" +
+                                       "    [\n" +
+                                       "        {\n" +
+                                       "            \"testKey1\": \"Hello World!\",\n" +
+                                       "            \"AnotherKey\": 321\n" +
+                                       "        },\n" +
+                                       "        true\n" +
+                                       "    ],\n" +
+                                       "    false\n" +
+                                       "]";
+
+        assertEquals(testArrayStringNull,
+                     JsonPrinter.printJsonArray(testArray, ' ', 4, false, PrintStyle.PRETTY_PRINTED));
+        assertEquals(testArrayStringNoNull,
+                     JsonPrinter.printJsonArray(testArray, ' ', 4, true, PrintStyle.PRETTY_PRINTED));
+    }
+
+    @Test
+    void printJsonArrayPrettyPrintedWhitespaceCharTest() {
+
+        JsonArray testArray = new JsonArray();
+        testArray
+                .add(123)
+                .add(new JsonArray()
+                             .add(new JsonObject()
+                                          .put("testKey1", "Hello World!")
+                                          .put("AnotherKey", 321)
+                                          .put("Null", (String) null))
+                             .add(true))
+                .add(false)
+                .add((String) null);
+
+        String testArrayStringNull = "[\n" +
+                                     "\t123,\n" +
+                                     "\t[\n" +
+                                     "\t\t{\n" +
+                                     "\t\t\t\"testKey1\": \"Hello World!\",\n" +
+                                     "\t\t\t\"AnotherKey\": 321,\n" +
+                                     "\t\t\t\"Null\": null\n" +
+                                     "\t\t},\n" +
+                                     "\t\ttrue\n" +
+                                     "\t],\n" +
+                                     "\tfalse,\n" +
+                                     "\tnull\n" +
+                                     "]";
+        String testArrayStringNoNull = "[\n" +
+                                       "\t123,\n" +
+                                       "\t[\n" +
+                                       "\t\t{\n" +
+                                       "\t\t\t\"testKey1\": \"Hello World!\",\n" +
+                                       "\t\t\t\"AnotherKey\": 321\n" +
+                                       "\t\t},\n" +
+                                       "\t\ttrue\n" +
+                                       "\t],\n" +
+                                       "\tfalse\n" +
+                                       "]";
+
+        assertEquals(testArrayStringNull,
+                     JsonPrinter.printJsonArray(testArray, '\t', 1, false, PrintStyle.PRETTY_PRINTED));
+        assertEquals(testArrayStringNoNull,
+                     JsonPrinter.printJsonArray(testArray, '\t', 1, true, PrintStyle.PRETTY_PRINTED));
+    }
+
+    @Test
+    void printJsonObjectNoWhitespaceTest() {
 
         JsonObject testObject = new JsonObject();
         testObject
@@ -121,7 +213,7 @@ class JsonPrinterTest {
     }
 
     @Test
-    void printJsonObjectSingleWhitespace() {
+    void printJsonObjectSingleWhitespaceTest() {
 
         JsonObject testObject = new JsonObject();
         testObject
@@ -148,6 +240,110 @@ class JsonPrinterTest {
                                                                        PrintStyle.SINGLE_WHITESPACE));
         assertEquals(testObjectStringNoNull, JsonPrinter.printJsonObject(testObject, ' ', 4, true,
                                                                          PrintStyle.SINGLE_WHITESPACE));
+    }
+
+    @Test
+    void printJsonObjectPrettyPrintedTest() {
+
+        JsonObject testObject = new JsonObject();
+        testObject
+                .put("1", "Hello World!")
+                .put("2", 123)
+                .put("3", new JsonArray()
+                        .add(321)
+                        .add((String) null)
+                        .add(true))
+                .put("4", new JsonObject()
+                        .put("4.1", false)
+                        .put("4.2", 'm')
+                        .put("4.3", 132))
+                .put("5", (String) null);
+
+        String testObjectStringNull = "{\n" +
+                                      "    \"1\": \"Hello World!\",\n" +
+                                      "    \"2\": 123,\n" +
+                                      "    \"3\": [\n" +
+                                      "        321,\n" +
+                                      "        null,\n" +
+                                      "        true\n" +
+                                      "    ],\n" +
+                                      "    \"4\": {\n" +
+                                      "        \"4.1\": false,\n" +
+                                      "        \"4.2\": \"m\",\n" +
+                                      "        \"4.3\": 132\n" +
+                                      "    },\n" +
+                                      "    \"5\": null\n" +
+                                      "}";
+        String testObjectStringNoNull = "{\n" +
+                                        "    \"1\": \"Hello World!\",\n" +
+                                        "    \"2\": 123,\n" +
+                                        "    \"3\": [\n" +
+                                        "        321,\n" +
+                                        "        true\n" +
+                                        "    ],\n" +
+                                        "    \"4\": {\n" +
+                                        "        \"4.1\": false,\n" +
+                                        "        \"4.2\": \"m\",\n" +
+                                        "        \"4.3\": 132\n" +
+                                        "    }\n" +
+                                        "}";
+
+        assertEquals(testObjectStringNull, JsonPrinter.printJsonObject(testObject, ' ', 4, false,
+                                                                       PrintStyle.PRETTY_PRINTED));
+        assertEquals(testObjectStringNoNull, JsonPrinter.printJsonObject(testObject, ' ', 4, true,
+                                                                         PrintStyle.PRETTY_PRINTED));
+    }
+
+    @Test
+    void printJsonObjectPrettyPrintedWhitespaceCharTest() {
+
+        JsonObject testObject = new JsonObject();
+        testObject
+                .put("1", "Hello World!")
+                .put("2", 123)
+                .put("3", new JsonArray()
+                        .add(321)
+                        .add((String) null)
+                        .add(true))
+                .put("4", new JsonObject()
+                        .put("4.1", false)
+                        .put("4.2", 'm')
+                        .put("4.3", 132))
+                .put("5", (String) null);
+
+        String testObjectStringNull = "{\n" +
+                                      "\t\"1\": \"Hello World!\",\n" +
+                                      "\t\"2\": 123,\n" +
+                                      "\t\"3\": [\n" +
+                                      "\t\t321,\n" +
+                                      "\t\tnull,\n" +
+                                      "\t\ttrue\n" +
+                                      "\t],\n" +
+                                      "\t\"4\": {\n" +
+                                      "\t\t\"4.1\": false,\n" +
+                                      "\t\t\"4.2\": \"m\",\n" +
+                                      "\t\t\"4.3\": 132\n" +
+                                      "\t},\n" +
+                                      "\t\"5\": null\n" +
+                                      "}";
+        String testObjectStringNoNull = "{\n" +
+                                        "\t\"1\": \"Hello World!\",\n" +
+                                        "\t\"2\": 123,\n" +
+                                        "\t\"3\": [\n" +
+                                        "\t\t321,\n" +
+                                        "\t\ttrue\n" +
+                                        "\t],\n" +
+                                        "\t\"4\": {\n" +
+                                        "\t\t\"4.1\": false,\n" +
+                                        "\t\t\"4.2\": \"m\",\n" +
+                                        "\t\t\"4.3\": 132\n" +
+                                        "\t}\n" +
+                                        "}";
+
+        assertEquals(testObjectStringNull, JsonPrinter.printJsonObject(testObject, '\t', 1, false,
+                                                                       PrintStyle.PRETTY_PRINTED));
+        assertEquals(testObjectStringNoNull, JsonPrinter.printJsonObject(testObject, '\t', 1, true,
+                                                                         PrintStyle.PRETTY_PRINTED));
     }
 
 
