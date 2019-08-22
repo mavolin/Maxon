@@ -5,6 +5,10 @@ import com.github.mavolin.maxon.utils.PrintStyle;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The {@code MaxonConfigurator} is used to create a {@link Maxon Maxon} object with a custom output. By configuring
+ * the desired settings and calling {@link #buildMaxon()} the custom can be constructed.
+ */
 public class MaxonConfigurator {
 
 
