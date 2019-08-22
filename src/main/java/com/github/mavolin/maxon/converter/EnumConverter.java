@@ -11,9 +11,9 @@ import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import java.lang.reflect.Field;
 
 /**
- * The {@code EnumConverter} is one of the two universal converters and is in charge of converting all enums. If an
- * enum field is annotated with a {@link com.github.mavolin.maxon.convert.SerializedName SerializedName} annotation,
- * it will use the provided name instead of the exact field name.
+ * The {@code EnumConverter} is one of the two universal converters and is in charge of converting all enums. If an enum
+ * field is annotated with a {@link com.github.mavolin.maxon.convert.SerializedName SerializedName} annotation, it will
+ * use the provided name instead of the exact field name.
  */
 @Converts(Enum.class)
 public class EnumConverter implements JsonConverter {
@@ -38,8 +38,9 @@ public class EnumConverter implements JsonConverter {
     @Override
     public JsonValue getAsJson(Object source) {
 
-        if (!(source instanceof Enum))
+        if (!(source instanceof Enum)) {
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
+        }
 
         Enum enu = (Enum) source;
 
