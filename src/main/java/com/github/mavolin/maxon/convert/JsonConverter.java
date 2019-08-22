@@ -1,6 +1,5 @@
 package com.github.mavolin.maxon.convert;
 
-import com.github.mavolin.maxon.jsonvalues.JsonElement;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
 /**
@@ -21,8 +20,8 @@ public interface JsonConverter {
     JsonValue getAsJson(Object source);
 
     /**
-     * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of
-     * the type {@code T} out of it.
+     * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of the
+     * type {@code T} out of it.
      *
      * @param <T>
      *         the type of the {@link Object Object} that is to be produced

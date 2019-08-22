@@ -60,8 +60,7 @@ public class DateFormatConfiguration {
 
     /**
      * Sets the {@link DateTimeFormatter DateTimeFormatter} for {@link java.time.LocalDate LocalDate} to the passed one
-     * . If
-     * the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be used.
+     * . If the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be used.
      *
      * @param localDateFormatter
      *         the {@link DateTimeFormatter DateTimeFormatter}
@@ -73,8 +72,8 @@ public class DateFormatConfiguration {
 
     /**
      * Sets the {@link DateTimeFormatter DateTimeFormatter} for {@link java.time.LocalDateTime LocalDateTime} to the
-     * passed
-     * one. If the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be used.
+     * passed one. If the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be
+     * used.
      *
      * @param localDateTimeFormatter
      *         the {@link DateTimeFormatter DateTimeFormatter}
@@ -99,8 +98,8 @@ public class DateFormatConfiguration {
 
     /**
      * Sets the {@link DateTimeFormatter DateTimeFormatter} for {@link java.time.ZonedDateTime ZonedDateTime} to the
-     * passed
-     * on . If the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be used.
+     * passed on . If the passed {@link DateTimeFormatter DateTimeFormatter} is null, the default date format will be
+     * used.
      *
      * @param zonedDateTimeFormatter
      *         the {@link DateTimeFormatter DateTimeFormatter}
@@ -111,8 +110,8 @@ public class DateFormatConfiguration {
     }
 
     /**
-     * Sets the {@link DateFormat DateFormat} for {@link java.util.Date Date} to the passed
-     * on . If the passed {@link DateFormat DateFormat} is null, the default date format will be used.
+     * Sets the {@link DateFormat DateFormat} for {@link java.util.Date Date} to the passed on . If the passed {@link
+     * DateFormat DateFormat} is null, the default date format will be used.
      *
      * @param dateFormat
      *         the {@link DateFormat DateFormat}

@@ -14,12 +14,12 @@ public class JsonParserConversionManager implements JsonConverter {
 
 
     /**
-     * The registered {@link JsonParser JsonParser}
+     * The registered {@link JsonParser JsonParser}.
      */
     private final Map<Class<?>, JsonParser<?>> parser = new HashMap<>();
 
     /**
-     * Instantiates a new {@code JsonParserConversionHandler}
+     * Instantiates a new {@code JsonParserConversionHandler}.
      */
     public JsonParserConversionManager() {
 
@@ -60,8 +60,9 @@ public class JsonParserConversionManager implements JsonConverter {
 
         Class<?> clazz = source.getClass();
 
-        if (!this.parser.containsKey(clazz))
+        if (!this.parser.containsKey(clazz)) {
             throw new JsonParsingException("There is no JsonParser registered for the specified class");
+        }
 
         JsonParser jsonParser = this.parser.get(clazz);
 
@@ -83,8 +84,9 @@ public class JsonParserConversionManager implements JsonConverter {
     @SuppressWarnings("unchecked")
     public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
-        if (!this.parser.containsKey(clazz))
+        if (!this.parser.containsKey(clazz)) {
             throw new JsonParsingException("There is no JsonParser registered for the specified class");
+        }
 
         JsonParser jsonParser = this.parser.get(clazz);
 

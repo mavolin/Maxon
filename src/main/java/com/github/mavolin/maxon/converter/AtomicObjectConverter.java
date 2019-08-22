@@ -80,16 +80,17 @@ public class AtomicObjectConverter implements JsonConverter {
 
         if (clazz.isAssignableFrom(AtomicBoolean.class)) {
             return (T) this.getAtomicBooleanFromJson(source);
-        } else if (clazz.isAssignableFrom(AtomicInteger.class))
+        } else if (clazz.isAssignableFrom(AtomicInteger.class)) {
             return (T) this.getAtomicIntegerFromJson(source);
-        else if (clazz.isAssignableFrom(AtomicIntegerArray.class))
+        } else if (clazz.isAssignableFrom(AtomicIntegerArray.class)) {
             return (T) this.getAtomicIntegerArrayFromJson(source);
-        else if (clazz.isAssignableFrom(AtomicLong.class))
+        } else if (clazz.isAssignableFrom(AtomicLong.class)) {
             return (T) this.getAtomicLongFromJson(source);
-        else if (clazz.isAssignableFrom(AtomicLongArray.class))
+        } else if (clazz.isAssignableFrom(AtomicLongArray.class)) {
             return (T) this.getAtomicLongArrayFromJson(source);
-        else
+        } else {
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
+        }
     }
 
     /**

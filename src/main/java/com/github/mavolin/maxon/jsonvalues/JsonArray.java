@@ -653,8 +653,9 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
             throw new IllegalArgumentException("The start index is bigger than the end index");
         }
 
-        for (int index = startIndex; index < endIndex; index++)
-            this.remove(startIndex); // removes startIndex to compensate for shifting
+        for (int index = startIndex; index < endIndex; index++) {
+            this.remove(startIndex); // always removes startIndex to compensate for shifting
+        }
     }
 
     /**

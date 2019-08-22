@@ -45,6 +45,7 @@ public class DateTimeConverter implements JsonConverter {
      *
      * @param source
      *         the {@link Object Object} that is to be converted
+     *
      * @return the JSON representation
      */
     public JsonValue getAsJson(Object source) {
@@ -56,12 +57,14 @@ public class DateTimeConverter implements JsonConverter {
         } else if (source instanceof LocalDate) {
             return this.getLocalDateAsJson((LocalDate) source, this.dateFormatConfiguration.localDateFormatter);
         } else if (source instanceof LocalDateTime) {
-            return this.getLocalDateTimeAsJson((LocalDateTime) source, this.dateFormatConfiguration.localDateTimeFormatter);
+            return this.getLocalDateTimeAsJson((LocalDateTime) source,
+                                               this.dateFormatConfiguration.localDateTimeFormatter);
         } else if (source instanceof OffsetDateTime) {
             return this.getOffsetDateTimeAsJson((OffsetDateTime) source,
                                                 this.dateFormatConfiguration.offsetDateTimeFormatter);
         } else if (source instanceof ZonedDateTime) {
-            return this.getZonedDateTimeAsJson((ZonedDateTime) source, this.dateFormatConfiguration.zonedDateTimeFormatter);
+            return this.getZonedDateTimeAsJson((ZonedDateTime) source,
+                                               this.dateFormatConfiguration.zonedDateTimeFormatter);
         } else if (source instanceof Date) {
             return this.getDateAsJson((Date) source, this.dateFormatConfiguration.dateFormat);
         } else {
@@ -79,6 +82,7 @@ public class DateTimeConverter implements JsonConverter {
      *         the {@link JsonValue JsonValue}
      * @param clazz
      *         the {@link Class Class}
+     *
      * @return the extracted {@link Object Object} of the type {@code T}.
      */
     @SuppressWarnings("unchecked")
