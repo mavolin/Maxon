@@ -89,7 +89,7 @@ public class Maxon {
 
 
     /**
-     * Returns the JSOn representation of the passed {@link Object Object}.
+     * Returns the JSON representation of the passed {@link Object Object}.
      *
      * @param source
      *         the {@link Object Object} that is to be converted.
