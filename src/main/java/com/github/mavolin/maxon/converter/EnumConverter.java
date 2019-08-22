@@ -38,7 +38,7 @@ public class EnumConverter implements JsonConverter {
     @Override
     public JsonValue getAsJson(Object source) {
 
-        if (!(source instanceof  Enum))
+        if (!(source instanceof Enum))
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");
 
         Enum enu = (Enum) source;
