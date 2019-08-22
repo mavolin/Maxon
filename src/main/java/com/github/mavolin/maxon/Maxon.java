@@ -289,7 +289,7 @@ public class Maxon {
                     jsonArray.add(this.getArrayAsJson(object));
                 }
             }
-            
+
         } else {
             jsonArray.add(this.getAsJsonValue(source));
         }
