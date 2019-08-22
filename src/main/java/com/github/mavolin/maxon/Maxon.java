@@ -126,7 +126,7 @@ public class Maxon {
 
     /**
      * Converts the passed {@link String String} to an {@link Object Object} of the specified {@link Class Class} and
-     * returns it
+     * returns it.
      *
      * @param <T>
      *         the type parameter
