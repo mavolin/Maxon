@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.utils;
+package com.github.mavolin.maxon;
 
 /**
  * The enum {@code PrintStyle} defines the style of the produce JSON String.
@@ -39,9 +39,9 @@ public enum PrintStyle {
      *     Example:<br>
      *     <code>
      *          {<br>
-     *              &nbsp&nbsp&nbsp&nbsp"firstKey": true,<br>
-     *              &nbsp&nbsp&nbsp&nbsp"secondKey": 123,<br>
-     *              &nbsp&nbsp&nbsp&nbsp"lastKey": "Hello World!"<br>
+     *              &nbsp;&nbsp;&nbsp;&nbsp;"firstKey": true,<br>
+     *              &nbsp;&nbsp;&nbsp;&nbsp;"secondKey": 123,<br>
+     *              &nbsp;&nbsp;&nbsp;&nbsp;"lastKey": "Hello World!"<br>
      *         }
      * </code>
      * </p>

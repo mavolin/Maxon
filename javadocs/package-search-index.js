@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.github.mavolin.maxon"},{"l":"com.github.mavolin.maxon.convert"},{"l":"com.github.mavolin.maxon.converter"},{"l":"com.github.mavolin.maxon.exceptions"},{"l":"com.github.mavolin.maxon.jsonvalues"},{"l":"com.github.mavolin.maxon.parsing"},{"l":"com.github.mavolin.maxon.utils"}]

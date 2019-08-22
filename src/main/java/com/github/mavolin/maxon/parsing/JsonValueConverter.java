@@ -46,8 +46,12 @@ public class JsonValueConverter {
     /**
      * Converts a JSON value saved in the passed {@link String String} to its Java representation
      *
+     * @param <T>
+     *         the type parameter
      * @param source
      *         the JSON value
+     * @param clazz
+     *         the {@link Class Class}
      *
      * @return the Java representation of the JSON value
      */

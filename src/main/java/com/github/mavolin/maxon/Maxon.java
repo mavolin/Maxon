@@ -8,7 +8,6 @@ import com.github.mavolin.maxon.exceptions.MissingAnnotationException;
 import com.github.mavolin.maxon.jsonvalues.*;
 import com.github.mavolin.maxon.parsing.JsonValueConverter;
 import com.github.mavolin.maxon.utils.JsonPrinter;
-import com.github.mavolin.maxon.utils.PrintStyle;
 
 import java.util.HashMap;
 import java.util.Map;
