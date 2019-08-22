@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
+import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
@@ -19,6 +20,8 @@ import java.util.Objects;
  * java.time.LocalDateTime LocalDateTime}, {@link OffsetDateTime OffsetDateTime} and {@link ZonedDateTime
  * ZonedDateTime}, as well as {@link Date Date}.
  */
+@Converts({Instant.class, LocalTime.class, LocalDate.class, LocalDateTime.class, OffsetDateTime.class,
+                  ZonedDateTime.class, Date.class})
 public class DateTimeConverter implements JsonConverter {
 
 
