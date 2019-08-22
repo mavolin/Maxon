@@ -2,7 +2,7 @@ package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.Maxon;
 import com.github.mavolin.maxon.convert.JsonConverter;
-import com.github.mavolin.maxon.convert.JsonParser;
+import com.github.mavolin.maxon.convert.ObjectConverter;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
@@ -10,38 +10,43 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class JsonParserConversionManager implements JsonConverter {
+/**
+ * The {@code ObjectConverterManager} manages all {@link ObjectConverter ObjectConverter} that are registered for a
+ * specific {@link Maxon Maxon}.
+ */
+public class ObjectConverterManager implements JsonConverter {
 
 
     /**
-     * The registered {@link JsonParser JsonParser}.
+     * The registered {@link ObjectConverter ObjectConverter}.
      */
-    private final Map<Class<?>, JsonParser<?>> parser = new HashMap<>();
+    private final Map<Class<?>, ObjectConverter<?>> parser = new HashMap<>();
 
     /**
-     * Instantiates a new {@code JsonParserConversionHandler}.
+     * Instantiates a new {@code ObjectConverterManager}.
      */
-    public JsonParserConversionManager() {
+    public ObjectConverterManager() {
 
     }
 
 
     /**
-     * Registers a {@link JsonParser JsonParser} with this {@code JsonParserConversionHandler} instance.
+     * Registers a {@link ObjectConverter ObjectConverter} with this {@code ObjectConverterManager} instance.
      *
      * @param <T>
      *         the type parameter
-     * @param jsonParser
-     *         the {@link JsonParser JsonParser}
+     * @param objectConverter
+     *         the {@link ObjectConverter ObjectConverter}
      * @param clazz
-     *         the {@link Class Class} of the {@link Object Object} the {@link JsonParser JsonParser} produces
+     *         the {@link Class Class} of the {@link Object Object} the {@link ObjectConverter ObjectConverter}
+     *         produces
      */
-    public <T> void registerParser(JsonParser<T> jsonParser, Class<T> clazz) {
+    public <T> void registerParser(ObjectConverter<T> objectConverter, Class<T> clazz) {
 
-        Objects.requireNonNull(jsonParser, "The provided JsonParser is null");
+        Objects.requireNonNull(objectConverter, "The provided ObjectConverter is null");
         Objects.requireNonNull(clazz, "The provided Class is null");
 
-        this.parser.put(clazz, jsonParser);
+        this.parser.put(clazz, objectConverter);
     }
 
 
@@ -61,12 +66,12 @@ public class JsonParserConversionManager implements JsonConverter {
         Class<?> clazz = source.getClass();
 
         if (!this.parser.containsKey(clazz)) {
-            throw new JsonParsingException("There is no JsonParser registered for the specified class");
+            throw new JsonParsingException("There is no ObjectConverter registered for the specified class");
         }
 
-        JsonParser jsonParser = this.parser.get(clazz);
+        ObjectConverter objectConverter = this.parser.get(clazz);
 
-        return jsonParser.getAsJson(source);
+        return objectConverter.getAsJson(source);
     }
 
     /**
@@ -85,12 +90,12 @@ public class JsonParserConversionManager implements JsonConverter {
     public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
         if (!this.parser.containsKey(clazz)) {
-            throw new JsonParsingException("There is no JsonParser registered for the specified class");
+            throw new JsonParsingException("There is no ObjectConverter registered for the specified class");
         }
 
-        JsonParser jsonParser = this.parser.get(clazz);
+        ObjectConverter objectConverter = this.parser.get(clazz);
 
-        return (T) jsonParser.getFromJson(source);
+        return (T) objectConverter.getFromJson(source);
     }
 
 

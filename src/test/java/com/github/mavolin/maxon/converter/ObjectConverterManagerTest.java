@@ -1,17 +1,16 @@
 package com.github.mavolin.maxon.converter;
 
-import com.github.mavolin.maxon.convert.JsonParser;
+import com.github.mavolin.maxon.convert.ObjectConverter;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JsonParserConversionManagerTest {
+class ObjectConverterManagerTest {
 
-    private final JsonParser exampleParser = new JsonParser<String>() {
+    private final ObjectConverter exampleParser = new ObjectConverter<String>() {
 
         @Override
         public JsonValue getAsJson(String source) {
@@ -29,30 +28,30 @@ class JsonParserConversionManagerTest {
     @Test
     void registerParserThrowsNullPointerExceptionTest() {
 
-        JsonParserConversionManager jsonParserConversionManager = new JsonParserConversionManager();
+        ObjectConverterManager objectConverterManager = new ObjectConverterManager();
 
         assertThrows(NullPointerException.class, () ->
-                jsonParserConversionManager.registerParser(null, String.class));
+                objectConverterManager.registerParser(null, String.class));
         assertThrows(NullPointerException.class, () ->
-                jsonParserConversionManager.registerParser(JsonParserConversionManagerTest.this.exampleParser, null));
+                objectConverterManager.registerParser(ObjectConverterManagerTest.this.exampleParser, null));
     }
 
     @Test
     void getAsJsonThrowsJsonParsingException() {
 
-        JsonParserConversionManager jsonParserConversionManager = new JsonParserConversionManager();
+        ObjectConverterManager objectConverterManager = new ObjectConverterManager();
 
         assertThrows(JsonParsingException.class, () ->
-                jsonParserConversionManager.getAsJson(""));
+                objectConverterManager.getAsJson(""));
     }
 
     @Test
     void getFromJsonThrowsJsonParsingException() {
 
-        JsonParserConversionManager jsonParserConversionManager = new JsonParserConversionManager();
+        ObjectConverterManager objectConverterManager = new ObjectConverterManager();
 
         assertThrows(JsonParsingException.class, () ->
-                jsonParserConversionManager.getFromJson(new JsonPrimitive(""), String.class));
+                objectConverterManager.getFromJson(new JsonPrimitive(""), String.class));
     }
 
 

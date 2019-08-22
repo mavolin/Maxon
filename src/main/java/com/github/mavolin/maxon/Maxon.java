@@ -2,8 +2,11 @@ package com.github.mavolin.maxon;
 
 import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.convert.JsonConverter;
-import com.github.mavolin.maxon.convert.JsonParser;
-import com.github.mavolin.maxon.converter.*;
+import com.github.mavolin.maxon.convert.ObjectConverter;
+import com.github.mavolin.maxon.converter.AtomicObjectConverter;
+import com.github.mavolin.maxon.converter.DateTimeConverter;
+import com.github.mavolin.maxon.converter.ObjectConverterManager;
+import com.github.mavolin.maxon.converter.PrimitivesConverter;
 import com.github.mavolin.maxon.exceptions.MissingAnnotationException;
 import com.github.mavolin.maxon.jsonvalues.*;
 import com.github.mavolin.maxon.parsing.JsonValueConverter;
@@ -47,10 +50,10 @@ public class Maxon {
     private final boolean ignoreNull;
 
     /**
-     * Holds the different {@link JsonParser JsonParser} and is called when a conversion is needed by one of those
-     * {@link JsonParser JsonParsers}.
+     * Holds the different {@link ObjectConverter ObjectConverter} and is called when a conversion is needed by one of
+     * those {@link ObjectConverter JsonParsers}.
      */
-    private final JsonParserConversionManager jsonParserConversionManager = new JsonParserConversionManager();
+    private final ObjectConverterManager objectConverterManager = new ObjectConverterManager();
 
     /**
      * Stores the {@link JsonConverter JsonConverter} that belongs to a specific {@link Class Class}.
@@ -141,8 +144,9 @@ public class Maxon {
         } else if (this.converter.containsKey(clazz)) {
             JsonValue jsonValue = jsonValueConverter.getFromJson(source);
 
-            if (new JsonElement(jsonValue).isNull())
+            if (new JsonElement(jsonValue).isNull()) {
                 return null;
+            }
 
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
         } else {
@@ -151,28 +155,28 @@ public class Maxon {
     }
 
     /**
-     * Registers a {@link JsonParser JsonParser} associated with the specified {@link Class Class}. If there is already
-     * a {@link JsonConverter JsonConverter} or a {@link JsonParser JsonParser} registered the specified {@link Class
-     * Class}, then the converter for that {@link Class Class} will be overwritten.
+     * Registers a {@link ObjectConverter ObjectConverter} associated with the specified {@link Class Class}. If there
+     * is already a {@link JsonConverter JsonConverter} or a {@link ObjectConverter ObjectConverter} registered the
+     * specified {@link Class Class}, then the converter for that {@link Class Class} will be overwritten.
      *
      * @param <T>
      *         the type parameter
-     * @param jsonParser
-     *         the {@link JsonParser JsonParser}
+     * @param objectConverter
+     *         the {@link ObjectConverter ObjectConverter}
      * @param clazz
-     *         the {@link Class Class} the {@link JsonParser JsonParser} can convert to and from
+     *         the {@link Class Class} the {@link ObjectConverter ObjectConverter} can convert to and from
      */
-    public <T> void registerParser(JsonParser<T> jsonParser, Class<T> clazz) {
+    public <T> void registerParser(ObjectConverter<T> objectConverter, Class<T> clazz) {
 
-        this.jsonParserConversionManager.registerParser(jsonParser, clazz);
+        this.objectConverterManager.registerParser(objectConverter, clazz);
 
-        this.converter.put(clazz, this.jsonParserConversionManager);
+        this.converter.put(clazz, this.objectConverterManager);
     }
 
     /**
      * Registers a {@link JsonConverter JsonConverter}. If there is already a {@link JsonConverter JsonConverter} or a
-     * {@link JsonParser JsonParser} registered for one of the convertible {@link Class Classes}, then the converter for
-     * that {@link Class Class} will be overwritten.
+     * {@link ObjectConverter ObjectConverter} registered for one of the convertible {@link Class Classes}, then the
+     * converter for that {@link Class Class} will be overwritten.
      *
      * @param converter
      *         the {@link JsonConverter JsonConverter}
