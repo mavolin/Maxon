@@ -1,4 +1,4 @@
-package com.github.mavolin.maxon.utils;
+package com.github.mavolin.maxon;
 
 /**
  * The enum {@code PrintStyle} defines the style of the produce JSON String.

@@ -1,7 +1,6 @@
 package com.github.mavolin.maxon;
 
 import com.github.mavolin.maxon.converter.DateFormatConfiguration;
-import com.github.mavolin.maxon.utils.PrintStyle;
 
 import java.time.format.DateTimeFormatter;
 

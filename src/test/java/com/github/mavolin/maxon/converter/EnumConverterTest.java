@@ -4,7 +4,7 @@ import com.github.mavolin.maxon.convert.SerializedName;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
-import com.github.mavolin.maxon.utils.PrintStyle;
+import com.github.mavolin.maxon.PrintStyle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

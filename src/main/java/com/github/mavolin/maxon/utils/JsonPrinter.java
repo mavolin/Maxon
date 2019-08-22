@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.utils;
 
+import com.github.mavolin.maxon.PrintStyle;
 import com.github.mavolin.maxon.jsonvalues.*;
 
 import java.util.Map;

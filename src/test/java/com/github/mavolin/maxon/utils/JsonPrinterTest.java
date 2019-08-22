@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.utils;
 
+import com.github.mavolin.maxon.PrintStyle;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
