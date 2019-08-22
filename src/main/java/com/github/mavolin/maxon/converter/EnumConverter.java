@@ -58,10 +58,8 @@ public class EnumConverter implements JsonConverter {
                 return new JsonPrimitive(serializedName.value());
             }
         } catch (NoSuchFieldException e) {
-
             // unreachable as we just extracted the correct name
             throw new JsonParsingException("An internal error occurred.");
-
         }
     }
 
