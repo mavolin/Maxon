@@ -1,6 +1,7 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.Maxon;
+import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.convert.SerializedName;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
@@ -14,6 +15,7 @@ import java.lang.reflect.Field;
  * enum field is annotated with a {@link com.github.mavolin.maxon.convert.SerializedName SerializedName} annotation,
  * it will use the provided name instead of the exact field name.
  */
+@Converts(Enum.class)
 public class EnumConverter implements JsonConverter {
 
 
