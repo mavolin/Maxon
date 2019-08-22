@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
+import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
@@ -19,6 +20,8 @@ import java.util.Objects;
  * java.time.LocalDateTime LocalDateTime}, {@link OffsetDateTime OffsetDateTime} and {@link ZonedDateTime
  * ZonedDateTime}, as well as {@link Date Date}.
  */
+@Converts({Instant.class, LocalTime.class, LocalDate.class, LocalDateTime.class, OffsetDateTime.class,
+                  ZonedDateTime.class, Date.class})
 public class DateTimeConverter implements JsonConverter {
 
 
@@ -100,19 +103,19 @@ public class DateTimeConverter implements JsonConverter {
         String date = jsonPrimitive.getAsString();
 
 
-        if (clazz.isAssignableFrom(Instant.class)) {
+        if (Instant.class.isAssignableFrom(clazz)) {
             return (T) this.getInstantFromJson(date);
-        } else if (clazz.isAssignableFrom(LocalTime.class)) {
+        } else if (LocalTime.class.isAssignableFrom(clazz)) {
             return (T) this.getLocalTimeFromJson(date, this.dateFormatConfiguration.localTimeFormatter);
-        } else if (clazz.isAssignableFrom(LocalDate.class)) {
+        } else if (LocalDate.class.isAssignableFrom(clazz)) {
             return (T) this.getLocalDateFromJson(date, this.dateFormatConfiguration.localDateFormatter);
-        } else if (clazz.isAssignableFrom(LocalDateTime.class)) {
+        } else if (LocalDateTime.class.isAssignableFrom(clazz)) {
             return (T) this.getLocalDateTimeFromJson(date, this.dateFormatConfiguration.localDateTimeFormatter);
-        } else if (clazz.isAssignableFrom(OffsetDateTime.class)) {
+        } else if (OffsetDateTime.class.isAssignableFrom(clazz)) {
             return (T) this.getOffsetDateTimeFromJson(date, this.dateFormatConfiguration.offsetDateTimeFormatter);
-        } else if (clazz.isAssignableFrom(ZonedDateTime.class)) {
+        } else if (ZonedDateTime.class.isAssignableFrom(clazz)) {
             return (T) this.getZonedDateTimeFromJson(date, this.dateFormatConfiguration.zonedDateTimeFormatter);
-        } else if (clazz.isAssignableFrom(Date.class)) {
+        } else if (Date.class.isAssignableFrom(clazz)) {
             return (T) this.getDateFromJson(date, this.dateFormatConfiguration.dateFormat);
         } else {
             throw new JsonParsingException(clazz.getName() + " is not convertible with this converter");

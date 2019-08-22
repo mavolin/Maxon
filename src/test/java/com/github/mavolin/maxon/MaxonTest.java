@@ -4,6 +4,7 @@ import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
+import com.github.mavolin.maxon.utils.PrintStyle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +19,7 @@ class MaxonTest {
 
         assertEquals("null", maxon.getAsJson((Object) null));
         assertEquals("123456.789", maxon.getAsJson(123456.789));
+        assertEquals("\"PRETTY_PRINTED\"", maxon.getAsJson(PrintStyle.PRETTY_PRINTED));
         assertThrows(UnsupportedOperationException.class, () ->
                 maxon.getAsJson(maxon));
     }
@@ -26,12 +28,14 @@ class MaxonTest {
     void getAsJsonJsonValueTest() {
 
         Maxon maxon = new Maxon();
-        JsonValue fakeValue = new JsonValue(){};
+        JsonValue fakeValue = new JsonValue() {
+
+        };
 
         assertEquals("123456.789", maxon.getAsJson(new JsonPrimitive(123456.789)));
         assertEquals("[123, true, \"Hello World!\"]", maxon.getAsJson(new JsonArray()
                                                                               .add(123)
-                                                                              .add((String) null)
+                                                                              .add(true)
                                                                               .add("Hello World!")));
         assertEquals("{\"1\": 321, \"2\": \"Hello World!\", \"3\": false}", maxon.getAsJson(new JsonObject()
                                                                                                     .put("1", 321)
@@ -47,9 +51,10 @@ class MaxonTest {
 
         Maxon maxon = new Maxon();
 
+        assertNull(maxon.getFromJson("null", Object.class));
         assertEquals(new JsonPrimitive(123), maxon.getFromJson("123", JsonPrimitive.class));
-        assertNull(maxon.getFromJson("null", String.class));
         assertEquals(123, maxon.getFromJson("123", int.class));
+        assertEquals(PrintStyle.PRETTY_PRINTED, maxon.getFromJson("\"PRETTY_PRINTED\"", PrintStyle.class));
         assertThrows(UnsupportedOperationException.class, () ->
                 maxon.getFromJson("123", Maxon.class));
     }

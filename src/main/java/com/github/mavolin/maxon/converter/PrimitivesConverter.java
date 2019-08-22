@@ -74,67 +74,67 @@ public class PrimitivesConverter implements JsonConverter {
         }
         JsonPrimitive jsonPrimitive = (JsonPrimitive) source;
 
-        if (clazz.isAssignableFrom(Boolean.class) || clazz.isAssignableFrom(boolean.class)) {
+        if (Boolean.class.isAssignableFrom(clazz) || boolean.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isBoolean()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, "Boolean"));
             }
             return (T) jsonPrimitive.getAsBoolean();
-        } else if (clazz.isAssignableFrom(Character.class) || clazz.isAssignableFrom(char.class)) {
+        } else if (Character.class.isAssignableFrom(clazz) || char.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isCharacter()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, "Character"));
             }
             return (T) jsonPrimitive.getAsCharacter();
-        } else if (clazz.isAssignableFrom(Byte.class) || clazz.isAssignableFrom(byte.class)) {
+        } else if (Byte.class.isAssignableFrom(clazz) || byte.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, "Byte"));
             }
             return (T) jsonPrimitive.getAsByte();
-        } else if (clazz.isAssignableFrom(Short.class) || clazz.isAssignableFrom(short.class)) {
+        } else if (Short.class.isAssignableFrom(clazz) || short.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, "Short"));
             }
             return (T) jsonPrimitive.getAsShort();
-        } else if (clazz.isAssignableFrom(Integer.class) || clazz.isAssignableFrom(int.class)) {
+        } else if (Integer.class.isAssignableFrom(clazz) || int.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsInteger();
-        } else if (clazz.isAssignableFrom(Long.class) || clazz.isAssignableFrom(long.class)) {
+        } else if (Long.class.isAssignableFrom(clazz) || long.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsLong();
-        } else if (clazz.isAssignableFrom(Float.class) || clazz.isAssignableFrom(float.class)) {
+        } else if (Float.class.isAssignableFrom(clazz) || float.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsFloat();
-        } else if (clazz.isAssignableFrom(Double.class) || clazz.isAssignableFrom(double.class)) {
+        } else if (Double.class.isAssignableFrom(clazz) || double.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsDouble();
-        } else if (clazz.isAssignableFrom(BigInteger.class)) {
+        } else if (BigInteger.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsBigInteger();
-        } else if (clazz.isAssignableFrom(BigDecimal.class)) {
+        } else if (BigDecimal.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isNumber()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
             }
             return (T) jsonPrimitive.getAsBigDecimal();
-        } else if (clazz.isAssignableFrom(String.class)) {
+        } else if (String.class.isAssignableFrom(clazz)) {
             if (!jsonPrimitive.isString()) {
                 throw new IllegalTypeRequestedException(
                         String.format(PROVIDED_JSON_VALUE_NOT_RESEMBLE_CLASS, clazz.getName()));
