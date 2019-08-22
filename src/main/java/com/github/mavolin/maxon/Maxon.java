@@ -146,11 +146,11 @@ public class Maxon {
             return null;
         }
 
-        if (clazz.isAssignableFrom(JsonValue.class)) {
+        if (JsonValue.class.isAssignableFrom(clazz)) {
             return jsonValueConverter.getFromJson(source, clazz);
         } else if (this.converter.containsKey(clazz)) {
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
-        } else if (clazz.isAssignableFrom(Enum.class)) {
+        } else if (Enum.class.isAssignableFrom(clazz)) {
             return enumConverter.getFromJson(jsonValue, clazz);
         } else {
             throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
