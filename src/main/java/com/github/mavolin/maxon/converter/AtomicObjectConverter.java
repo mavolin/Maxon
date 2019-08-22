@@ -78,15 +78,15 @@ public class AtomicObjectConverter implements JsonConverter {
     @SuppressWarnings("unchecked")
     public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
-        if (clazz.isAssignableFrom(AtomicBoolean.class)) {
+        if (AtomicBoolean.class.isAssignableFrom(clazz)) {
             return (T) this.getAtomicBooleanFromJson(source);
-        } else if (clazz.isAssignableFrom(AtomicInteger.class)) {
+        } else if (AtomicInteger.class.isAssignableFrom(clazz)) {
             return (T) this.getAtomicIntegerFromJson(source);
-        } else if (clazz.isAssignableFrom(AtomicIntegerArray.class)) {
+        } else if (AtomicIntegerArray.class.isAssignableFrom(clazz)) {
             return (T) this.getAtomicIntegerArrayFromJson(source);
-        } else if (clazz.isAssignableFrom(AtomicLong.class)) {
+        } else if (AtomicLong.class.isAssignableFrom(clazz)) {
             return (T) this.getAtomicLongFromJson(source);
-        } else if (clazz.isAssignableFrom(AtomicLongArray.class)) {
+        } else if (AtomicLongArray.class.isAssignableFrom(clazz)) {
             return (T) this.getAtomicLongArrayFromJson(source);
         } else {
             throw new JsonParsingException(source.getClass().getName() + " is not convertible with this converter");

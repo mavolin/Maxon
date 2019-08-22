@@ -20,7 +20,7 @@ public class ObjectConverterManager implements JsonConverter {
     /**
      * The registered {@link ObjectConverter ObjectConverter}.
      */
-    private final Map<Class<?>, ObjectConverter<?>> parser = new HashMap<>();
+    private final Map<Class<?>, ObjectConverter<?>> converter = new HashMap<>();
 
     /**
      * Instantiates a new {@code ObjectConverterManager}.
@@ -46,7 +46,7 @@ public class ObjectConverterManager implements JsonConverter {
         Objects.requireNonNull(objectConverter, "The provided ObjectConverter is null");
         Objects.requireNonNull(clazz, "The provided Class is null");
 
-        this.parser.put(clazz, objectConverter);
+        this.converter.put(clazz, objectConverter);
     }
 
 
@@ -65,11 +65,11 @@ public class ObjectConverterManager implements JsonConverter {
 
         Class<?> clazz = source.getClass();
 
-        if (!this.parser.containsKey(clazz)) {
+        if (!this.converter.containsKey(clazz)) {
             throw new JsonParsingException("There is no ObjectConverter registered for the specified class");
         }
 
-        ObjectConverter objectConverter = this.parser.get(clazz);
+        ObjectConverter objectConverter = this.converter.get(clazz);
 
         return objectConverter.getAsJson(source);
     }
@@ -89,11 +89,11 @@ public class ObjectConverterManager implements JsonConverter {
     @SuppressWarnings("unchecked")
     public <T> T getFromJson(JsonValue source, Class<T> clazz) {
 
-        if (!this.parser.containsKey(clazz)) {
+        if (!this.converter.containsKey(clazz)) {
             throw new JsonParsingException("There is no ObjectConverter registered for the specified class");
         }
 
-        ObjectConverter objectConverter = this.parser.get(clazz);
+        ObjectConverter objectConverter = this.converter.get(clazz);
 
         return (T) objectConverter.getFromJson(source);
     }
