@@ -3,27 +3,28 @@ package com.github.mavolin.maxon.exceptions;
 import java.security.PrivilegedActionException;
 
 /**
- * A {@code JsonParsingException} is thrown whenever there was an error, when attempting to parse a JSON value.
+ * A {@code MissingAnnotationException} gets thrown when a {@link com.github.mavolin.maxon.convert.Converts Converts}
+ * annotation is missing on a {@link com.github.mavolin.maxon.convert.JsonConverter JsonConverter}.
  */
-public class JsonParsingException extends RuntimeException {
+public class MissingAnnotationException extends RuntimeException {
 
 
     /**
      * Constructs a new exception with {@code null} as its detail message. The cause is not initialized, and may
      * subsequently be initialized by a call to {@link #initCause}.
      */
-    public JsonParsingException() {
+    public MissingAnnotationException() {
 
     }
 
     /**
-     * Constructs a new exception with the specified detail message.  The cause is not initialized, and may subsequently
+     * Constructs a new exception with the specified detail message. The cause is not initialized, and may subsequently
      * be initialized by a call to {@link #initCause}.
      *
      * @param message
      *         the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
      */
-    public JsonParsingException(String message) {
+    public MissingAnnotationException(String message) {
 
         super(message);
     }
@@ -35,10 +36,10 @@ public class JsonParsingException extends RuntimeException {
      * @param message
      *         the detail message (which is saved for later retrieval by the {@link #getMessage()} method).
      * @param cause
-     *         the cause (which is saved for later retrieval by the {@link #getCause()} method).  (A {@code null} value
+     *         the cause (which is saved for later retrieval by the {@link #getCause()} method). (A {@code null} value
      *         is permitted, and indicates that the cause is nonexistent or unknown.)
      */
-    public JsonParsingException(String message, Throwable cause) {
+    public MissingAnnotationException(String message, Throwable cause) {
 
         super(message, cause);
     }
@@ -50,10 +51,10 @@ public class JsonParsingException extends RuntimeException {
      * PrivilegedActionException}).
      *
      * @param cause
-     *         the cause (which is saved for later retrieval by the {@link #getCause()} method).  (A {@code null} value
+     *         the cause (which is saved for later retrieval by the {@link #getCause()} method). (A {@code null} value
      *         is permitted, and indicates that the cause is nonexistent or unknown.)
      */
-    public JsonParsingException(Throwable cause) {
+    public MissingAnnotationException(Throwable cause) {
 
         super(cause);
     }
@@ -71,8 +72,8 @@ public class JsonParsingException extends RuntimeException {
      * @param writableStackTrace
      *         whether or not the stack trace should be writable
      */
-    public JsonParsingException(String message, Throwable cause, boolean enableSuppression,
-                                boolean writableStackTrace) {
+    public MissingAnnotationException(String message, Throwable cause, boolean enableSuppression,
+                                      boolean writableStackTrace) {
 
         super(message, cause, enableSuppression, writableStackTrace);
     }

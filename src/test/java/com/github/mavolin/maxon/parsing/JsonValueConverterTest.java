@@ -1,12 +1,11 @@
-package com.github.mavolin.maxon.converter;
+package com.github.mavolin.maxon.parsing;
 
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JsonValueConverterTest {
 
@@ -44,12 +43,14 @@ class JsonValueConverterTest {
         JsonPrimitive bool = (JsonPrimitive) jsonValueConverter.getFromJson(" true ");
         JsonPrimitive number = (JsonPrimitive) jsonValueConverter.getFromJson("123.4567e+2");
         JsonPrimitive string = (JsonPrimitive) jsonValueConverter.getFromJson("\"Hello World!\"");
+        JsonPrimitive aNull = (JsonPrimitive) jsonValueConverter.getFromJson("null");
         JsonArray jsonArrayConverted = (JsonArray) jsonValueConverter.getFromJson(jsonArrayJSON);
         JsonObject jsonObjectConverted = (JsonObject) jsonValueConverter.getFromJson(jsonObjectJSON);
 
         assertTrue(bool.getAsBoolean());
         assertEquals(12345.67, number.getAsDouble());
         assertEquals("Hello World!", string.getAsString());
+        assertTrue(aNull.isNull());
         assertEquals(jsonArrayJava, jsonArrayConverted);
         assertEquals(jsonObjectJava, jsonObjectConverted);
     }
