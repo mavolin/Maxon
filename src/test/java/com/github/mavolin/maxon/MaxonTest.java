@@ -26,7 +26,9 @@ class MaxonTest {
     void getAsJsonJsonValueTest() {
 
         Maxon maxon = new Maxon();
-        JsonValue fakeValue = new JsonValue(){};
+        JsonValue fakeValue = new JsonValue() {
+
+        };
 
         assertEquals("123456.789", maxon.getAsJson(new JsonPrimitive(123456.789)));
         assertEquals("[123, true, \"Hello World!\"]", maxon.getAsJson(new JsonArray()

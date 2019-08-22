@@ -282,17 +282,14 @@ public class Maxon {
                         jsonArray.add(this.getArrayAsJson(num));
                     }
                 }
-
             } else {
-
                 Object[] objects = (Object[]) source;
 
                 for (Object object : objects) {
                     jsonArray.add(this.getArrayAsJson(object));
                 }
             }
-
-
+            
         } else {
             jsonArray.add(this.getAsJsonValue(source));
         }
