@@ -3,10 +3,7 @@ package com.github.mavolin.maxon;
 import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.convert.JsonConverter;
 import com.github.mavolin.maxon.convert.ObjectConverter;
-import com.github.mavolin.maxon.converter.AtomicObjectConverter;
-import com.github.mavolin.maxon.converter.DateTimeConverter;
-import com.github.mavolin.maxon.converter.ObjectConverterManager;
-import com.github.mavolin.maxon.converter.PrimitivesConverter;
+import com.github.mavolin.maxon.converter.*;
 import com.github.mavolin.maxon.exceptions.MissingAnnotationException;
 import com.github.mavolin.maxon.jsonvalues.*;
 import com.github.mavolin.maxon.parsing.JsonValueConverter;
@@ -25,9 +22,13 @@ public class Maxon {
 
 
     /**
-     * The default {@link JsonValueConverter JsonValueConverter}.
+     * The {@link JsonValueConverter JsonValueConverter}.
      */
     private static final JsonValueConverter jsonValueConverter = new JsonValueConverter();
+    /**
+     * The {@link EnumConverter EnumConverter}.
+     */
+    private static final EnumConverter enumConverter = new EnumConverter();
 
     /**
      * The character used as whitespace when {@link PrintStyle#SINGLE_WHITESPACE PrintStyle.SINGLE_WHITESPACE} or {@link
@@ -139,16 +140,18 @@ public class Maxon {
      */
     public <T> T getFromJson(String source, Class<T> clazz) {
 
+        JsonValue jsonValue = jsonValueConverter.getFromJson(source);
+
+        if (new JsonElement(jsonValue).isNull()) {
+            return null;
+        }
+
         if (clazz.isAssignableFrom(JsonValue.class)) {
             return jsonValueConverter.getFromJson(source, clazz);
         } else if (this.converter.containsKey(clazz)) {
-            JsonValue jsonValue = jsonValueConverter.getFromJson(source);
-
-            if (new JsonElement(jsonValue).isNull()) {
-                return null;
-            }
-
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
+        } else if (clazz.isAssignableFrom(Enum.class)) {
+            return enumConverter.getFromJson(jsonValue, clazz);
         } else {
             throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
         }
@@ -212,7 +215,9 @@ public class Maxon {
 
         if (this.converter.containsKey(sourceClass)) {
             return this.converter.get(sourceClass).getAsJson(source);
-        } else {
+        } else if (source instanceof Enum) {
+            return enumConverter.getAsJson(source);
+        } else{
             throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
         }
     }
