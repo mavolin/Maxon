@@ -1,0 +1,10 @@
+# IntelliJ
+out/
+.idea
+maxon.iml
+
+# Sonarlint plugin
+.idea/sonarlint
+
+# maven
+/target/
