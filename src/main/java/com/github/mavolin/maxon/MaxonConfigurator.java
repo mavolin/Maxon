@@ -59,14 +59,18 @@ public class MaxonConfigurator {
      *
      * @param bool
      *         {@code true} to use tabulator as whitespace character; {@code false} to use a space
+     *
+     * @return itself
      */
-    public void toggleTabWhitespace(boolean bool) {
+    public MaxonConfigurator toggleTabWhitespace(boolean bool) {
 
         if (bool) {
             this.whitespaceChar = '\t';
         } else {
             this.whitespaceChar = ' ';
         }
+
+        return this;
     }
 
     /**
@@ -80,10 +84,14 @@ public class MaxonConfigurator {
      *
      * @param qty
      *         the quantity of whitespace characters in one indent
+     *
+     * @return itself
      */
-    public void setWhitespaceQuantity(int qty) {
+    public MaxonConfigurator setWhitespaceQuantity(int qty) {
 
         this.whitespaceCharQty = qty;
+
+        return this;
     }
 
     /**
@@ -98,10 +106,14 @@ public class MaxonConfigurator {
      *
      * @param printStyle
      *         the {@link PrintStyle PrintStyle}
+     *
+     * @return itself
      */
-    public void setPrintStyle(PrintStyle printStyle) {
+    public MaxonConfigurator setPrintStyle(PrintStyle printStyle) {
 
         this.printStyle = printStyle;
+
+        return this;
     }
 
     /**
@@ -115,10 +127,14 @@ public class MaxonConfigurator {
      *
      * @param ignoreNull
      *         {@code true} if {@code nulls} should be ignored; {@code false} otherwise
+     *
+     * @return itself
      */
-    public void setIgnoreNull(boolean ignoreNull) {
+    public MaxonConfigurator setIgnoreNull(boolean ignoreNull) {
 
         this.ignoreNull = ignoreNull;
+
+        return this;
     }
 
     /**
@@ -132,12 +148,21 @@ public class MaxonConfigurator {
      *
      * @param dateFormatConfiguration
      *         the date format configuration
+     *
+     * @return itself
      */
-    public void setDateFormatConfiguration(DateFormatConfiguration dateFormatConfiguration) {
+    public MaxonConfigurator setDateFormatConfiguration(DateFormatConfiguration dateFormatConfiguration) {
 
         this.dateFormatConfiguration = dateFormatConfiguration;
+
+        return this;
     }
 
+    /**
+     * Builds the {@link Maxon Maxon} with custom configuration.
+     *
+     * @return the custom {@link Maxon Maxon}
+     */
     public Maxon buildMaxon() {
 
         return new Maxon(this);
