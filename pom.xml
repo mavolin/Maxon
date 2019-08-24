@@ -9,7 +9,7 @@
 
     <name>maxon</name>
     <description>The maxon JSON converter</description>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/mavolin/maxon</url>
 
     <licenses>
         <license>
@@ -18,6 +18,21 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Maximilian von Lindern</name>
+            <email>maximilian.v.lindern@gmail.com</email>
+            <organization>com.github.mavolin</organization>
+            <organizationUrl>https://github.com/mavolin</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/mavolin/maxon.git</connection>
+        <developerConnection>scm:git:ssh://github.com:mavolin/maxon.git</developerConnection>
+        <url>https://github.com/mavolin/maxon</url>
+    </scm>
 
     <dependencies>
         <dependency>
