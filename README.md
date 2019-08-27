@@ -1,5 +1,7 @@
 # maxon
 
+[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)
+
 Maxon is a lightweight JSON converter. It features a high customizability due to the various ways, custom converters can be written and is easy to use.
 
 ## Natively Supported Classes
@@ -39,7 +41,7 @@ Maxon maxon = new MaxonConfigurator()
 				.setPrintStyle(PrintStyle.PRETTY_PRINTED)
 				.setIgnoreNull(true)
 				.setDateFormatConfiguration(someDateFormatConfiguration)
-				.build();
+				.buildMaxon();
 ```
 
 If you don't set a all config fields, the default configuration for those fields will be used.
