@@ -210,7 +210,7 @@ public class UniversalObjectConverter {
         }
 
         if (extractFields.isEmpty()) { // if no field was annotated deserialize all fields
-            for (Field field : clazz.getFields()) {
+            for (Field field : clazz.getDeclaredFields()) {
                 String name = field.getName();
 
                 if (extractFields.containsKey(name)) {
