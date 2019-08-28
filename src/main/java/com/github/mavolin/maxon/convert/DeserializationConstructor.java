@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * </p>
  * <p>
  *     To perform deserialization on a non-no-arg class, you have to specify the names
- *     corresponding to the values that are to be passed to the annotated constructor.
+ *     corresponding to the values, as found in the JSON object used during deserialization.
  * </p>
  */
 @Retention(RetentionPolicy.RUNTIME)
