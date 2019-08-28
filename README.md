@@ -1,4 +1,4 @@
-[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)
+[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)  ![Maven Central](https://img.shields.io/maven-central/v/com.github.mavolin/maxon)
 
 # maxon
 
