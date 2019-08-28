@@ -21,7 +21,7 @@ public @interface AbortOnMissingField {
      *
      * @return {@code true} if to abort; {@code false} otherwise
      */
-    boolean value() default false;
+    boolean value();
 
 
 }
