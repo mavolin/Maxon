@@ -43,46 +43,6 @@ public class JsonValueConverter {
         return extractedValue;
     }
 
-    /**
-     * Converts a JSON value saved in the passed {@link String String} to its Java representation
-     *
-     * @param <T>
-     *         the type parameter
-     * @param source
-     *         the JSON value
-     * @param clazz
-     *         the {@link Class Class}
-     *
-     * @return the Java representation of the JSON value
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T getFromJson(String source, Class<T> clazz) {
-
-        JsonTokener jsonTokener = new JsonTokener(source);
-        jsonTokener.skipCommentAndWhitespace();
-
-        JsonValue extractedValue;
-
-        if (clazz.isAssignableFrom(JsonPrimitive.class)) {
-            extractedValue = this.getJsonPrimitiveFromJson(jsonTokener);
-        } else if (clazz.isAssignableFrom(JsonArray.class)) {
-            extractedValue = this.getJsonArrayFromJson(jsonTokener);
-        } else if (clazz.isAssignableFrom(JsonObject.class)) {
-            extractedValue = this.getJsonObjectFromJson(jsonTokener);
-        } else {
-            throw new JsonParsingException("Unsupported class " + clazz.getName());
-        }
-
-        jsonTokener.skipCommentAndWhitespace();
-
-        if (jsonTokener.hasNext()) {
-            throw new JsonParsingException(String.format(UNEXPECTED_TOKEN_ERR_TMPL, jsonTokener.next(),
-                                                         jsonTokener.getIndex()));
-        }
-
-        return (T) extractedValue;
-    }
-
 
     /**
      * Extracts the element at the next position of the passed {@link JsonTokener JsonTokener} and returns it
