@@ -91,7 +91,7 @@ public class UniversalObjectConverter {
             globalAbortOnMissing = false;
         }
 
-        for (Constructor constructor : clazz.getConstructors()) { // find the correct annotated constructor and use
+        for (Constructor constructor : clazz.getDeclaredConstructors()) { // find the correct annotated constructor and use
             // it to initialize object
             DeserializationConstructor deserializationConstructor = constructor.getDeclaredAnnotation(
                     DeserializationConstructor.class);
@@ -116,7 +116,12 @@ public class UniversalObjectConverter {
                 }
 
                 try {
+                    boolean accessible = constructor.canAccess(null);
+                    constructor.setAccessible(true);
+
                     object = (T) constructor.newInstance(initArgs);
+
+                    constructor.setAccessible(accessible);
                 } catch (InstantiationException e) {
                     throw new JsonParsingException("The underlying class is abstract", e);
                 } catch (IllegalAccessException e) {
@@ -129,7 +134,14 @@ public class UniversalObjectConverter {
 
         if (object == null) { // if no constructor is annotated with DeserializationConstructor...
             try {
-                object = clazz.getDeclaredConstructor().newInstance(); // ... try to use the no-arg constructor
+                Constructor<T> constructor = clazz.getDeclaredConstructor();
+
+                boolean accessible = constructor.canAccess(null);
+                constructor.setAccessible(true);
+
+                object = constructor.newInstance(); // ... try to use the no-arg constructor
+
+                constructor.setAccessible(accessible);
             } catch (InstantiationException e) {
                 throw new JsonParsingException("The underlying class is abstract", e);
             } catch (IllegalAccessException e) {
