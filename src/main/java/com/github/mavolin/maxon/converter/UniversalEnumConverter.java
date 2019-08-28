@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
  * field is annotated with a {@link com.github.mavolin.maxon.convert.SerializedName SerializedName} annotation, it will
  * use the provided name instead of the exact field name.
  */
-@Converts(Enum.class)
 public class UniversalEnumConverter implements JsonConverter {
 
 
