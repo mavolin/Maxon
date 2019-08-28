@@ -1,14 +1,24 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.Maxon;
-import com.github.mavolin.maxon.convert.JsonConverter;
+import com.github.mavolin.maxon.convert.AbortOnMissingField;
+import com.github.mavolin.maxon.convert.DeserializationConstructor;
+import com.github.mavolin.maxon.convert.Serialize;
+import com.github.mavolin.maxon.exceptions.JsonParsingException;
+import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * The {@code UniversalObjectConverter} is used to provide a way to convert all {@link Object Objects} by using
- * Java's reflection api.
+ * The {@code UniversalObjectConverter} is used to provide a way to convert all {@link Object Objects} by using Java's
+ * reflection api.
  */
-public class UniversalObjectConverter implements JsonConverter {
+public class UniversalObjectConverter {
 
 
     /**
@@ -20,7 +30,6 @@ public class UniversalObjectConverter implements JsonConverter {
      *
      * @return the converted {@link Object Object}
      */
-    @Override
     public JsonValue getAsJson(Object source) {
 
         return null;
@@ -37,10 +46,140 @@ public class UniversalObjectConverter implements JsonConverter {
      *
      * @return the extracted {@link Object Object}
      */
-    @Override
-    public <T> T getFromJson(JsonValue source, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public <T> T getFromJson(JsonValue source, Class<T> clazz, Maxon maxon) {
 
-        return null;
+        if (!(source instanceof JsonObject)) {
+            throw new JsonParsingException("The provided JsonValue does not resemble an Object");
+        }
+        JsonObject jsonObject = (JsonObject) source;
+
+        T object = null;
+        boolean globalAbortOnMissing;
+
+        Map<String, Field> extractFields = new HashMap<>(); // contains the name of the field as found in the JSON object and the field itself
+
+        AbortOnMissingField globalAbortOnMissingField = clazz.getDeclaredAnnotation(AbortOnMissingField.class);
+        if (globalAbortOnMissingField != null) {
+            globalAbortOnMissing= globalAbortOnMissingField.value();
+        } else {
+            globalAbortOnMissing = false;
+        }
+
+        for (Field field : clazz.getDeclaredFields()) {
+            Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
+
+            if (serialize != null) {
+                String serializeValue = serialize.value();
+
+                if (serializeValue.equals("[USE FIELD NAME]")) {
+                    serializeValue = field.getName();
+                }
+
+                if (extractFields.containsKey(serializeValue)) {
+                    throw new JsonParsingException("Duplicate name \"" + serializeValue + "\" found");
+                }
+
+                extractFields.put(serializeValue, field);
+            }
+        }
+
+        if (extractFields.isEmpty()) { // if no field was annotated deserialize all fields
+            for (Field field : clazz.getFields()) {
+                String name = field.getName();
+
+                if (extractFields.containsKey(name)) {
+                    throw new JsonParsingException("Duplicate name \"" + name + "\" found");
+                }
+
+                extractFields.put(name, field);
+            }
+        }
+
+        for (Constructor constructor : clazz.getConstructors()) { // find the correct annotated constructor and use
+            // it to instantiate a new T
+            DeserializationConstructor deserializationConstructor = constructor.getDeclaredAnnotation(
+                    DeserializationConstructor.class);
+
+            if (deserializationConstructor != null) {
+                String[] fieldNames = deserializationConstructor.value();
+
+                Object[] initArgs = new Object[fieldNames.length];
+                Class[] parameterTypes = constructor.getParameterTypes();
+
+                for (int i = 0; i < fieldNames.length; i++) {
+                    String fieldName = fieldNames[i];
+
+                    if (!jsonObject.has(fieldName)) {
+                        throw new JsonParsingException(
+                                "There is no field named \"" + fieldName + "\" in the passed JSON");
+                    }
+
+                    initArgs[i] = maxon.getFromJson(jsonObject.getAsJsonValue(fieldName), parameterTypes[i]);
+
+                    extractFields.remove(fieldName);
+                }
+
+                try {
+                    object = (T) constructor.newInstance(initArgs);
+                } catch (InstantiationException e) {
+                    throw new JsonParsingException("The underlying class is abstract", e);
+                } catch (IllegalAccessException e) {
+                    throw new JsonParsingException("Java Access control prevented instantiation");
+                } catch (InvocationTargetException e) {
+                    throw new JsonParsingException("The constructor has thrown an exception", e);
+                }
+            }
+        }
+
+        if (object == null) { // if no constructor is annotated with DeserializationConstructor...
+            try {
+                object = clazz.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException e) {
+                throw new JsonParsingException("The underlying class is abstract", e);
+            } catch (IllegalAccessException e) {
+                throw new JsonParsingException("Java Access control prevented instantiation of the object");
+            } catch (InvocationTargetException e) {
+                throw new JsonParsingException("The constructor has thrown an exception", e);
+            } catch (NoSuchMethodException e) {
+                throw new JsonParsingException("No matching method found", e);
+            }
+        }
+
+        for (Map.Entry<String, Field> entry : extractFields.entrySet()) {
+            String key = entry.getKey();
+            Field value = entry.getValue();
+
+            if (!jsonObject.has(key)) {
+                AbortOnMissingField abortOnMissingField = value.getDeclaredAnnotation(AbortOnMissingField.class);
+                if (abortOnMissingField == null) {
+                    if (globalAbortOnMissing) {
+                        throw new JsonParsingException("The passed JsonValue does not contain a field named \"" + key + "\"");
+                    } else {
+                        continue;
+                    }
+                } else if (abortOnMissingField.value()) {
+                    throw new JsonParsingException("The passed JsonValue does not contain a field named \"" + key + "\"");
+                } else {
+                    continue;
+                }
+            }
+
+            boolean accessible = value.canAccess(object);
+            value.setAccessible(true);
+
+            Object newFieldValue = maxon.getFromJson(jsonObject.getAsJsonValue(key), value.getType());
+
+            try {
+                value.set(object, newFieldValue);
+            } catch (IllegalAccessException e) {
+                throw new JsonParsingException("Java Access control prevented the field from being assigned a value");
+            }
+
+            value.setAccessible(accessible);
+        }
+
+        return object;
     }
 
 
