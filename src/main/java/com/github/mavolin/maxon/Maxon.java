@@ -23,11 +23,15 @@ public class Maxon {
     /**
      * The {@link JsonValueConverter JsonValueConverter}.
      */
-    private static final JsonValueConverter jsonValueConverter = new JsonValueConverter();
+    private static final JsonValueConverter JSON_VALUE_CONVERTER = new JsonValueConverter();
     /**
-     * The {@link EnumConverter EnumConverter}.
+     * The {@link UniversalEnumConverter EnumConverter}.
      */
-    private static final EnumConverter enumConverter = new EnumConverter();
+    private static final UniversalEnumConverter UNIVERSAL_ENUM_CONVERTER = new UniversalEnumConverter();
+    /**
+     * The {@link UniversalObjectConverter UniversalObjectConverter}.
+     */
+    private static final UniversalObjectConverter UNIVERSAL_OBJECT_CONVERTER = new UniversalObjectConverter();
 
     /**
      * The character used as whitespace when {@link PrintStyle#SINGLE_WHITESPACE PrintStyle.SINGLE_WHITESPACE} or {@link
@@ -125,6 +129,31 @@ public class Maxon {
     }
 
     /**
+     * Gets the specified {@link Object Object} as a {@link JsonValue JsonVaue}.
+     *
+     * @param source
+     *         the source
+     *
+     * @return the converted {@link Object Object}
+     */
+    public JsonValue getAsJsonValue(Object source) {
+
+        if (source == null) {
+            return JsonPrimitive.NULL;
+        }
+
+        Class sourceClass = source.getClass();
+
+        if (this.converter.containsKey(sourceClass)) {
+            return this.converter.get(sourceClass).getAsJson(source);
+        } else if (source instanceof Enum) {
+            return UNIVERSAL_ENUM_CONVERTER.getAsJson(source);
+        } else {
+            return UNIVERSAL_OBJECT_CONVERTER.getAsJson(source, this);
+        }
+    }
+
+    /**
      * Converts the passed {@link String String} to an {@link Object Object} of the specified {@link Class Class} and
      * returns it.
      *
@@ -139,20 +168,37 @@ public class Maxon {
      */
     public <T> T getFromJson(String source, Class<T> clazz) {
 
-        JsonValue jsonValue = jsonValueConverter.getFromJson(source);
+        JsonValue jsonValue = JSON_VALUE_CONVERTER.getFromJson(source);
+
+        return this.getFromJson(jsonValue, clazz);
+    }
+
+    /**
+     * Converts the passed {@link JsonValue JsonValue} to an {@link Object Object} of the specified {@link Class Class}
+     * and returns it.
+     *
+     * @param <T>
+     *         the type parameter
+     * @param clazz
+     *         the desired {@link Class Class} of the output {@link Object Object}
+     *
+     * @return the converted {@link Object Object}
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getFromJson(JsonValue jsonValue, Class<T> clazz) {
 
         if (new JsonElement(jsonValue).isNull()) {
             return null;
         }
 
-        if (JsonValue.class.isAssignableFrom(clazz)) {
-            return jsonValueConverter.getFromJson(source, clazz);
+        if (jsonValue.getClass().isAssignableFrom(clazz)) {
+            return (T) jsonValue;
         } else if (this.converter.containsKey(clazz)) {
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
         } else if (Enum.class.isAssignableFrom(clazz)) {
-            return enumConverter.getFromJson(jsonValue, clazz);
+            return UNIVERSAL_ENUM_CONVERTER.getFromJson(jsonValue, clazz);
         } else {
-            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
+            return UNIVERSAL_OBJECT_CONVERTER.getFromJson(jsonValue, clazz, this);
         }
     }
 
@@ -193,31 +239,6 @@ public class Maxon {
 
         for (Class convertibleClass : converts.value()) {
             this.converter.put(convertibleClass, converter);
-        }
-    }
-
-    /**
-     * Gets the specified {@link Object Object} as a {@link JsonValue JsonVaue}.
-     *
-     * @param source
-     *         the source
-     *
-     * @return the converted {@link Object Object}
-     */
-    private JsonValue getAsJsonValue(Object source) {
-
-        if (source == null) {
-            return JsonPrimitive.NULL;
-        }
-
-        Class sourceClass = source.getClass();
-
-        if (this.converter.containsKey(sourceClass)) {
-            return this.converter.get(sourceClass).getAsJson(source);
-        } else if (source instanceof Enum) {
-            return enumConverter.getAsJson(source);
-        } else{
-            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
         }
     }
 

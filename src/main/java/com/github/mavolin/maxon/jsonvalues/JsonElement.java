@@ -140,7 +140,7 @@ public class JsonElement {
      * @throws IllegalTypeRequestedException
      *         if this {@code JsonElement's} value is not an instance of {@code Boolean}
      */
-    public Boolean getAsBoolean() throws IllegalTypeRequestedException {
+    public Boolean getAsBoolean() {
 
         if (!(this.value instanceof JsonPrimitive)) {
             throw new IllegalTypeRequestedException("The JsonElement does not resemble a Boolean");

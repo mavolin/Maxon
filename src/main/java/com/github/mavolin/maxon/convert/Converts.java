@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  * JsonConverter JsonConverter}, that is annotated with this annotation. Note that this annotation is required in order
  * to register a {@link JsonConverter JsonConverter} at a {@link com.github.mavolin.maxon.Maxon Maxon}.
  */
-@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface Converts {
 
 

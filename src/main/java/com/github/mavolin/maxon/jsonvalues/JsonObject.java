@@ -605,6 +605,24 @@ public class JsonObject implements JsonValue {
     }
 
     /**
+     * Gets the {@link JsonValue JsonValue} associated with the provided key.
+     *
+     * @param key
+     *         the key belonging to the requested {@link JsonValue JsonValue}
+     *
+     * @return the {@link JsonValue JsonValue} associated with the specified key
+     *
+     * @throws NullPointerException
+     *         If the provided key is {@code null}
+     * @throws InvalidKeyException
+     *         if the specified key does not belong to a mapping
+     */
+    public JsonValue getAsJsonValue(String key) {
+
+        return this.checkKeyGet(key).getAsJsonValue();
+    }
+
+    /**
      * Performs the {@link Function Function} for the element belonging to the specified key and replaces the old
      * element with the result of the {@link Function Function}
      *

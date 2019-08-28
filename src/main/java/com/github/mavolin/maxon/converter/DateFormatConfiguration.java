@@ -6,8 +6,8 @@ import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code DateFormatConfiguration} is used by {@link Maxon Maxon} to convert date and time objects of the new {@link
- * java.time java.time} package to and from JSON.
+ * The {@code DateFormatConfiguration} is used by {@link Maxon Maxon} to convert date and time objects of the new {@code
+ * java.time} package to and from JSON.
  */
 public class DateFormatConfiguration {
 

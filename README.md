@@ -1,4 +1,4 @@
-[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)
+[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)  ![Maven Central](https://img.shields.io/maven-central/v/com.github.mavolin/maxon)
 
 # maxon
 
@@ -16,7 +16,7 @@ Add the following dependency to your ``pom.xml``
 <dependency>
   <groupId>com.github.mavolin</groupId>
   <artifactId>maxon</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ Add the following dependency to your ``pom.xml``
 Add this to your ``build.gradle`` file:
 
 ```
-implementation 'com.github.mavolin:maxon:1.0.0'
+implementation 'com.github.mavolin:maxon:1.1.0'
 ```
 
 ## Natively Supported Classes
