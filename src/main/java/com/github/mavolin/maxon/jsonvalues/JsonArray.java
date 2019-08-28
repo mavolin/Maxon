@@ -618,6 +618,19 @@ public class JsonArray implements JsonValue, Iterable<JsonElement> {
         return jsonElement.getAsJsonObject();
     }
 
+    /**
+     * Gets the {@link JsonValue JsonValue} at the specified index.
+     *
+     * @param index
+     *         the index of the requested element
+     *
+     * @return the {@link JsonValue JsonValue}
+     */
+    public JsonValue getAsJsonValue(int index) {
+        
+        return this.fields.get(index).getAsJsonValue();
+    }
+
 
     /**
      * Removes the element at the specified position in this {@code JsonArray} (optional operation). Shifts any
