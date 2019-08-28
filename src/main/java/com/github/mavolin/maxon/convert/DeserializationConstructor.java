@@ -1,5 +1,10 @@
 package com.github.mavolin.maxon.convert;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * <p>
  *     The {@code DeserializationConstructor} annotation is used to specify which constructor shall be used, while
@@ -13,6 +18,8 @@ package com.github.mavolin.maxon.convert;
  *     corresponding to the values that are to be passed to the annotated constructor.
  * </p>
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.CONSTRUCTOR)
 public @interface DeserializationConstructor {
 
 
