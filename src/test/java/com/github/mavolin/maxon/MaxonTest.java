@@ -1,5 +1,6 @@
 package com.github.mavolin.maxon;
 
+import com.github.mavolin.maxon.convert.Serialize;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
@@ -19,8 +20,7 @@ class MaxonTest {
         assertEquals("null", maxon.getAsJson((Object) null));
         assertEquals("123456.789", maxon.getAsJson(123456.789));
         assertEquals("\"PRETTY_PRINTED\"", maxon.getAsJson(PrintStyle.PRETTY_PRINTED));
-        assertThrows(UnsupportedOperationException.class, () ->
-                maxon.getAsJson(maxon));
+        assertEquals("{\"str\": \"Hello World!\", \"i\": 3}", maxon.getAsJson(new TestObject1()));
     }
 
     @Test
@@ -54,8 +54,19 @@ class MaxonTest {
         assertEquals(new JsonPrimitive(123), maxon.getFromJson("123", JsonPrimitive.class));
         assertEquals(123, maxon.getFromJson("123", int.class));
         assertEquals(PrintStyle.PRETTY_PRINTED, maxon.getFromJson("\"PRETTY_PRINTED\"", PrintStyle.class));
-        assertThrows(UnsupportedOperationException.class, () ->
-                maxon.getFromJson("123", Maxon.class));
+        assertEquals(new TestObject1(),
+                     maxon.getFromJson("{ \"str\": \"Hello World!\", \"i\": 3 }", TestObject1.class));
+    }
+
+
+    class TestObject1 {
+
+
+        int this$0 = 1;
+        public String str = "Hello World!";
+        int i = 3;
+
+
     }
 
 

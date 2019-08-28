@@ -11,7 +11,7 @@ import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -189,7 +189,7 @@ public class UniversalObjectConverter {
      */
     private Map<String, Field> getExtractFields(Class clazz) {
 
-        Map<String, Field> extractFields = new HashMap<>();
+        Map<String, Field> extractFields = new LinkedHashMap<>();
 
         for (Field field : clazz.getDeclaredFields()) {
             Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
