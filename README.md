@@ -16,7 +16,7 @@ Add the following dependency to your ``pom.xml``
 <dependency>
   <groupId>com.github.mavolin</groupId>
   <artifactId>maxon</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.2</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ Add the following dependency to your ``pom.xml``
 Add this to your ``build.gradle`` file:
 
 ```
-implementation 'com.github.mavolin:maxon:1.1.0'
+implementation 'com.github.mavolin:maxon:1.1.2'
 ```
 
 ## Natively Supported Classes

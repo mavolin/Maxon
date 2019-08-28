@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mavolin</groupId>
     <artifactId>maxon</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>maxon</name>
@@ -46,6 +46,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.5.0-M1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
