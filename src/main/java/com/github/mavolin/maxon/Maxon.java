@@ -23,11 +23,15 @@ public class Maxon {
     /**
      * The {@link JsonValueConverter JsonValueConverter}.
      */
-    private static final JsonValueConverter jsonValueConverter = new JsonValueConverter();
+    private static final JsonValueConverter JSON_VALUE_CONVERTER = new JsonValueConverter();
     /**
      * The {@link UniversalEnumConverter EnumConverter}.
      */
     private static final UniversalEnumConverter UNIVERSAL_ENUM_CONVERTER = new UniversalEnumConverter();
+    /**
+     * The {@link UniversalObjectConverter UniversalObjectConverter}.
+     */
+    private static final UniversalObjectConverter UNIVERSAL_OBJECT_CONVERTER = new UniversalObjectConverter();
 
     /**
      * The character used as whitespace when {@link PrintStyle#SINGLE_WHITESPACE PrintStyle.SINGLE_WHITESPACE} or {@link
@@ -145,7 +149,7 @@ public class Maxon {
         } else if (source instanceof Enum) {
             return UNIVERSAL_ENUM_CONVERTER.getAsJson(source);
         } else {
-            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
+            return UNIVERSAL_OBJECT_CONVERTER.getAsJson(source, this);
         }
     }
 
@@ -164,7 +168,7 @@ public class Maxon {
      */
     public <T> T getFromJson(String source, Class<T> clazz) {
 
-        JsonValue jsonValue = jsonValueConverter.getFromJson(source);
+        JsonValue jsonValue = JSON_VALUE_CONVERTER.getFromJson(source);
 
         return this.getFromJson(jsonValue, clazz);
     }
@@ -194,7 +198,7 @@ public class Maxon {
         } else if (Enum.class.isAssignableFrom(clazz)) {
             return UNIVERSAL_ENUM_CONVERTER.getFromJson(jsonValue, clazz);
         } else {
-            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
+            return UNIVERSAL_OBJECT_CONVERTER.getFromJson(jsonValue, clazz, this);
         }
     }
 
