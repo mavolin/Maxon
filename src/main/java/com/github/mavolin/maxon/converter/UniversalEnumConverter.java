@@ -16,13 +16,13 @@ import java.lang.reflect.Field;
  * use the provided name instead of the exact field name.
  */
 @Converts(Enum.class)
-public class EnumConverter implements JsonConverter {
+public class UniversalEnumConverter implements JsonConverter {
 
 
     /**
      * Instantiates a new {@code EnumConverter}.
      */
-    public EnumConverter() {
+    public UniversalEnumConverter() {
 
     }
 
