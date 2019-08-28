@@ -1,5 +1,7 @@
 package com.github.mavolin.maxon.convert;
 
+import com.github.mavolin.maxon.converter.UniversalEnumConverter;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,7 +9,7 @@ import java.lang.annotation.Target;
 
 /**
  * The interface {@code SerializedName} can be used to annotate {@link Enum Enums}, that are to be converted with the
- * {@link com.github.mavolin.maxon.converter.EnumConverter EnumConverter}. If an enum constant is annotated with this
+ * {@link UniversalEnumConverter EnumConverter}. If an enum constant is annotated with this
  * annotation, the converter will use the provided name, instead of the exact name of the annotated field.
  */
 @Retention(RetentionPolicy.RUNTIME)

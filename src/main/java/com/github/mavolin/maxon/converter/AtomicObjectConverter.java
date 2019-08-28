@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.*;
 
 /**
  * The {@code AtomicObjectConverter} is used to provide a way of converting the different atomic numbers found in Java's
- * {@link java.util.concurrent java.util.concurrent} package.
+ * {@code java.util.concurrent} package.
  */
 @Converts({AtomicBoolean.class, AtomicInteger.class, AtomicIntegerArray.class, AtomicLong.class, AtomicLongArray.class})
 public class AtomicObjectConverter implements JsonConverter {

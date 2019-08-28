@@ -16,7 +16,7 @@ import java.util.Objects;
 
 /**
  * The {@code DateTimeConverter} is used for converting the various date and time representing objects of Java 8's
- * {@link java.time java.time} package, namely {@link LocalTime LocalTime}, {@link LocalDate LocalDate}, {@link
+ * {@code java.time} package, namely {@link LocalTime LocalTime}, {@link LocalDate LocalDate}, {@link
  * java.time.LocalDateTime LocalDateTime}, {@link OffsetDateTime OffsetDateTime} and {@link ZonedDateTime
  * ZonedDateTime}, as well as {@link Date Date}.
  */
