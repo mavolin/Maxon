@@ -125,6 +125,31 @@ public class Maxon {
     }
 
     /**
+     * Gets the specified {@link Object Object} as a {@link JsonValue JsonVaue}.
+     *
+     * @param source
+     *         the source
+     *
+     * @return the converted {@link Object Object}
+     */
+    public JsonValue getAsJsonValue(Object source) {
+
+        if (source == null) {
+            return JsonPrimitive.NULL;
+        }
+
+        Class sourceClass = source.getClass();
+
+        if (this.converter.containsKey(sourceClass)) {
+            return this.converter.get(sourceClass).getAsJson(source);
+        } else if (source instanceof Enum) {
+            return UNIVERSAL_ENUM_CONVERTER.getAsJson(source);
+        } else {
+            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
+        }
+    }
+
+    /**
      * Converts the passed {@link String String} to an {@link Object Object} of the specified {@link Class Class} and
      * returns it.
      *
@@ -210,31 +235,6 @@ public class Maxon {
 
         for (Class convertibleClass : converts.value()) {
             this.converter.put(convertibleClass, converter);
-        }
-    }
-
-    /**
-     * Gets the specified {@link Object Object} as a {@link JsonValue JsonVaue}.
-     *
-     * @param source
-     *         the source
-     *
-     * @return the converted {@link Object Object}
-     */
-    private JsonValue getAsJsonValue(Object source) {
-
-        if (source == null) {
-            return JsonPrimitive.NULL;
-        }
-
-        Class sourceClass = source.getClass();
-
-        if (this.converter.containsKey(sourceClass)) {
-            return this.converter.get(sourceClass).getAsJson(source);
-        } else if (source instanceof Enum) {
-            return UNIVERSAL_ENUM_CONVERTER.getAsJson(source);
-        } else {
-            throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
         }
     }
 
