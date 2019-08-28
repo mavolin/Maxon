@@ -30,9 +30,33 @@ public class UniversalObjectConverter {
      *
      * @return the converted {@link Object Object}
      */
-    public JsonValue getAsJson(Object source) {
+    public JsonValue getAsJson(Object source, Maxon maxon) {
 
-        return null;
+        Class<?> clazz = source.getClass();
+        JsonObject jsonObject = new JsonObject();
+
+        Map<String, Field> extractFields = getExtractFields(clazz);
+
+        for (Map.Entry<String, Field> entry : extractFields.entrySet()) {
+            String key = entry.getKey();
+            Field value = entry.getValue();
+
+            try {
+                boolean accessible = value.canAccess(source);
+                value.setAccessible(true);
+
+                Object valueValue = value.get(source);
+
+                value.setAccessible(accessible);
+
+                JsonValue valueAsJson = maxon.getAsJsonValue(valueValue);
+                jsonObject.put(key, valueAsJson);
+            } catch (IllegalAccessException e) {
+                throw new JsonParsingException("Java access control prevented access");
+            }
+        }
+
+        return jsonObject;
     }
 
     /**
@@ -57,43 +81,13 @@ public class UniversalObjectConverter {
         T object = null;
         boolean globalAbortOnMissing;
 
-        Map<String, Field> extractFields = new HashMap<>(); // contains the name of the field as found in the JSON object and the field itself
+        Map<String, Field> extractFields = getExtractFields(clazz); // contains the name of the field as found in the JSON object and the field itself
 
         AbortOnMissingField globalAbortOnMissingField = clazz.getDeclaredAnnotation(AbortOnMissingField.class);
         if (globalAbortOnMissingField != null) {
             globalAbortOnMissing= globalAbortOnMissingField.value();
         } else {
             globalAbortOnMissing = false;
-        }
-
-        for (Field field : clazz.getDeclaredFields()) {
-            Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
-
-            if (serialize != null) {
-                String serializeValue = serialize.value();
-
-                if (serializeValue.equals("[USE FIELD NAME]")) {
-                    serializeValue = field.getName();
-                }
-
-                if (extractFields.containsKey(serializeValue)) {
-                    throw new JsonParsingException("Duplicate name \"" + serializeValue + "\" found");
-                }
-
-                extractFields.put(serializeValue, field);
-            }
-        }
-
-        if (extractFields.isEmpty()) { // if no field was annotated deserialize all fields
-            for (Field field : clazz.getFields()) {
-                String name = field.getName();
-
-                if (extractFields.containsKey(name)) {
-                    throw new JsonParsingException("Duplicate name \"" + name + "\" found");
-                }
-
-                extractFields.put(name, field);
-            }
         }
 
         for (Constructor constructor : clazz.getConstructors()) { // find the correct annotated constructor and use
@@ -180,6 +174,44 @@ public class UniversalObjectConverter {
         }
 
         return object;
+    }
+
+
+    private Map<String, Field> getExtractFields(Class clazz) {
+
+        Map<String, Field> extractFields = new HashMap<>();
+
+        for (Field field : clazz.getDeclaredFields()) {
+            Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
+
+            if (serialize != null) {
+                String serializeValue = serialize.value();
+
+                if (serializeValue.equals("[USE FIELD NAME]")) {
+                    serializeValue = field.getName();
+                }
+
+                if (extractFields.containsKey(serializeValue)) {
+                    throw new JsonParsingException("Duplicate name \"" + serializeValue + "\" found");
+                }
+
+                extractFields.put(serializeValue, field);
+            }
+        }
+
+        if (extractFields.isEmpty()) { // if no field was annotated deserialize all fields
+            for (Field field : clazz.getFields()) {
+                String name = field.getName();
+
+                if (extractFields.containsKey(name)) {
+                    throw new JsonParsingException("Duplicate name \"" + name + "\" found");
+                }
+
+                extractFields.put(name, field);
+            }
+        }
+
+        return extractFields;
     }
 
 
