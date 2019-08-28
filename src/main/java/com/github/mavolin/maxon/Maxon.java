@@ -216,7 +216,7 @@ public class Maxon {
             return this.converter.get(sourceClass).getAsJson(source);
         } else if (source instanceof Enum) {
             return enumConverter.getAsJson(source);
-        } else{
+        } else {
             throw new UnsupportedOperationException("The provided Object cannot be converted by Maxon");
         }
     }
