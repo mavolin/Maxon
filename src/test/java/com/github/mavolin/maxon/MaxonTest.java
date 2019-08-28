@@ -7,6 +7,8 @@ import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaxonTest {
@@ -59,12 +61,24 @@ class MaxonTest {
     }
 
 
-    class TestObject1 {
+    static class TestObject1 {
 
 
-        int this$0 = 1;
         public String str = "Hello World!";
-        int i = 3;
+        private int i = 3;
+
+        @Override
+        public boolean equals(Object o) {
+
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            TestObject1 that = (TestObject1) o;
+            return i == that.i && str.equals(that.str);
+        }
 
 
     }
