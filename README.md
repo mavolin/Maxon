@@ -1,8 +1,10 @@
 [![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)  [![Maven Central](https://img.shields.io/maven-central/v/com.github.mavolin/maxon)](https://search.maven.org/artifact/com.github.mavolin/maxon)
 
+---
+
 # maxon
 
-Maxon is a lightweight JSON converter. It features universal ``Object`` conversion, whichs output can be customized by using a rcih set of configuration annotations.
+Maxon is a lightweight JSON converter. It features universal ``Object`` conversion, whichs output can be customized by using a rich set of configuration annotations (see Using the Universal Converter).
 
 ## Maven Central Repository
 
@@ -78,6 +80,7 @@ If you wish to convert objects other than those natively supported, you can eith
 
 If a ``Class`` is not known to maxon, the universal object converter will be used. While annotating is not necessary, it features ways of customizing the (de-)serialization process. Here is an example with explanation for all different annotaions:
 
+
 ```java
 /*
 If set to true, maxon will abort serialization if one of the fields annotated with the @Serialize annotation is not
@@ -91,29 +94,32 @@ public class Showcase {
 
 
     /*
-    If at least one field is annotated with @Serialize, only the fields annotated with @Serialize will be serialize. If
-    no field is annotated with @Serialize, all fields will be serialize.
+    If at least one field is annotated with @Serialize, only the fields annotated 
+    with @Serialize will be serialize. If no field is annotated with @Serialize,
+    all fields will be serialize.
      */
     @Serialize
     private String str;
     /*
-    If a String parameter is passed to the @Serialize annotation, the passed String will be used as name of the field
-    during serialization, instead of using the literal name of the field.
+    If a String parameter is passed to the @Serialize annotation, the passed String
+    will be used as name of the field during serialization, instead of using the
+    literal name of the field.
      */
     @Serialize("integer")
     private int anInt;
     /*
-    If a field is annotated with an @AbortOnMissingField, it overwrites the "global" setting, meaning the setting set at 
-    class level.
+    If a field is annotated with an @AbortOnMissingField, it overwrites the "global"
+    setting, meaning the setting set at class level.
      */
     @AbortOnMissingField(false)
     private boolean bool;
     
     
     /*
-    The @DeserializationConstructor annotation is required, if there is no no-arg constructor for the class. When using 
-    @DeserializationConstructor, it takes an array of String, which represent the names of the values as found in the 
-    JSON source.
+    The @DeserializationConstructor annotation is required, if there is no no-arg
+    constructor for the class. When using @DeserializationConstructor, it takes an
+    array of String, which represent the names of the values as found in the JSON 
+    source.
     Note that constructor code gets executed before field deserialization code.
      */
     @DeserializationConstructor("float")
