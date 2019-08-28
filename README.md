@@ -122,7 +122,8 @@ public class Showcase {
     constructor for the class. When using @DeserializationConstructor, it takes an
     array of String, which represent the names of the values as found in the JSON 
     source.
-    Note that constructor code gets executed before field deserialization code.
+    Note that if a value gets used as a parameter for a constructor, it will not
+    be used again during field deserialization.
      */
     @DeserializationConstructor("float")
     Showcase(float num) {
