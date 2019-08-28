@@ -1,8 +1,32 @@
-# maxon
-
 [![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)
 
+# maxon
+
 Maxon is a lightweight JSON converter. It features a high customizability due to the various ways, custom converters can be written and is easy to use.
+
+## Maven Central Repository
+
+Maxon is uploaded to the central repository and can be added to your project by following the steps below.
+
+### Maven
+
+Add the following dependency to your ``pom.xml``
+
+```xml
+<dependency>
+  <groupId>com.github.mavolin</groupId>
+  <artifactId>maxon</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### Gradle
+
+Add this to your ``build.gradle`` file:
+
+```
+implementation 'com.github.mavolin:maxon:1.0.0'
+```
 
 ## Natively Supported Classes
 
