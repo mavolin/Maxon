@@ -52,7 +52,7 @@ public class UniversalObjectConverter {
                 JsonValue valueAsJson = maxon.getAsJsonValue(valueValue);
                 jsonObject.put(key, valueAsJson);
             } catch (IllegalAccessException e) {
-                throw new JsonParsingException("Java access control prevented access");
+                throw new JsonParsingException("Java access control prevented access", e);
             }
         }
 
@@ -120,7 +120,7 @@ public class UniversalObjectConverter {
                 } catch (InstantiationException e) {
                     throw new JsonParsingException("The underlying class is abstract", e);
                 } catch (IllegalAccessException e) {
-                    throw new JsonParsingException("Java Access control prevented instantiation");
+                    throw new JsonParsingException("Java Access control prevented instantiation", e);
                 } catch (InvocationTargetException e) {
                     throw new JsonParsingException("The constructor has thrown an exception", e);
                 }
@@ -133,7 +133,7 @@ public class UniversalObjectConverter {
             } catch (InstantiationException e) {
                 throw new JsonParsingException("The underlying class is abstract", e);
             } catch (IllegalAccessException e) {
-                throw new JsonParsingException("Java Access control prevented instantiation of the object");
+                throw new JsonParsingException("Java Access control prevented instantiation of the object", e);
             } catch (InvocationTargetException e) {
                 throw new JsonParsingException("The constructor has thrown an exception", e);
             } catch (NoSuchMethodException e) {
