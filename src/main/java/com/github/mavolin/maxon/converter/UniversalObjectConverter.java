@@ -81,17 +81,18 @@ public class UniversalObjectConverter {
         T object = null;
         boolean globalAbortOnMissing;
 
-        Map<String, Field> extractFields = getExtractFields(clazz); // contains the name of the field as found in the JSON object and the field itself
+        Map<String, Field> extractFields = getExtractFields(
+                clazz); // contains the name of the field as found in the JSON object and the field itself
 
         AbortOnMissingField globalAbortOnMissingField = clazz.getDeclaredAnnotation(AbortOnMissingField.class);
         if (globalAbortOnMissingField != null) {
-            globalAbortOnMissing= globalAbortOnMissingField.value();
+            globalAbortOnMissing = globalAbortOnMissingField.value();
         } else {
             globalAbortOnMissing = false;
         }
 
         for (Constructor constructor : clazz.getConstructors()) { // find the correct annotated constructor and use
-            // it to instantiate a new T
+            // it to initialize object
             DeserializationConstructor deserializationConstructor = constructor.getDeclaredAnnotation(
                     DeserializationConstructor.class);
 
@@ -128,7 +129,7 @@ public class UniversalObjectConverter {
 
         if (object == null) { // if no constructor is annotated with DeserializationConstructor...
             try {
-                object = clazz.getDeclaredConstructor().newInstance();
+                object = clazz.getDeclaredConstructor().newInstance(); // ... try to use the no-arg constructor
             } catch (InstantiationException e) {
                 throw new JsonParsingException("The underlying class is abstract", e);
             } catch (IllegalAccessException e) {
@@ -148,12 +149,14 @@ public class UniversalObjectConverter {
                 AbortOnMissingField abortOnMissingField = value.getDeclaredAnnotation(AbortOnMissingField.class);
                 if (abortOnMissingField == null) {
                     if (globalAbortOnMissing) {
-                        throw new JsonParsingException("The passed JsonValue does not contain a field named \"" + key + "\"");
+                        throw new JsonParsingException(
+                                "The passed JsonValue does not contain a field named \"" + key + "\"");
                     } else {
                         continue;
                     }
                 } else if (abortOnMissingField.value()) {
-                    throw new JsonParsingException("The passed JsonValue does not contain a field named \"" + key + "\"");
+                    throw new JsonParsingException(
+                            "The passed JsonValue does not contain a field named \"" + key + "\"");
                 } else {
                     continue;
                 }
@@ -176,7 +179,14 @@ public class UniversalObjectConverter {
         return object;
     }
 
-
+    /**
+     * Returns a map populated with the fields that are included in the JSON object, with their JSON name as key.
+     *
+     * @param clazz
+     *         The {@link Class Class} of the {@link Field Fields}
+     *
+     * @return a map populated with the fields that are included in the JSON object, with their JSON name as key
+     */
     private Map<String, Field> getExtractFields(Class clazz) {
 
         Map<String, Field> extractFields = new HashMap<>();
