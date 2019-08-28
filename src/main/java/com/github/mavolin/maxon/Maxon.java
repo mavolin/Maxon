@@ -141,12 +141,29 @@ public class Maxon {
 
         JsonValue jsonValue = jsonValueConverter.getFromJson(source);
 
+        return this.getFromJson(jsonValue, clazz);
+    }
+
+    /**
+     * Converts the passed {@link JsonValue JsonValue} to an {@link Object Object} of the specified {@link Class Class}
+     * and returns it.
+     *
+     * @param <T>
+     *         the type parameter
+     * @param clazz
+     *         the desired {@link Class Class} of the output {@link Object Object}
+     *
+     * @return the converted {@link Object Object}
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getFromJson(JsonValue jsonValue, Class<T> clazz) {
+
         if (new JsonElement(jsonValue).isNull()) {
             return null;
         }
 
-        if (JsonValue.class.isAssignableFrom(clazz)) {
-            return jsonValueConverter.getFromJson(source, clazz);
+        if (jsonValue.getClass().isAssignableFrom(clazz)) {
+            return (T) jsonValue;
         } else if (this.converter.containsKey(clazz)) {
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
         } else if (Enum.class.isAssignableFrom(clazz)) {
