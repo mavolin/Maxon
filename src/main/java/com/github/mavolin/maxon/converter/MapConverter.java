@@ -42,7 +42,7 @@ public class MapConverter {
                 first.set(false);
                 mapObject
                         .put("keyClass", key.getClass().getName())
-                        .put("valueClass", key.getClass().getName());
+                        .put("valueClass", value.getClass().getName());
             }
 
             JsonObject mapEntry = new JsonObject();
