@@ -25,7 +25,7 @@ class MaxonTest {
         map.put("two", 2);
         map.put("three", 3);
         String jsonMap
-                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\":" +
+                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\": " +
                   "\"one\", \"value\": 1}, {\"key\": \"two\", \"value\": 2}, {\"key\": \"three\", \"value\": 3}]}";
 
         assertEquals("null", maxon.getAsJson((Object) null));
@@ -68,7 +68,7 @@ class MaxonTest {
         map.put("two", 2);
         map.put("three", 3);
         String jsonMap
-                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\":" +
+                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\": " +
                   "\"one\", \"value\": 1}, {\"key\": \"two\", \"value\": 2}, {\"key\": \"three\", \"value\": 3}]}";
 
         assertNull(maxon.getFromJson("null", Object.class));
