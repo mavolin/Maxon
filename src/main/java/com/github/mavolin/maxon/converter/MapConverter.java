@@ -1,7 +1,6 @@
 package com.github.mavolin.maxon.converter;
 
 import com.github.mavolin.maxon.Maxon;
-import com.github.mavolin.maxon.convert.Converts;
 import com.github.mavolin.maxon.exceptions.JsonParsingException;
 import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
@@ -15,9 +14,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * The {@code MapConverter} is used to convert {@link Map Maps} into JSON objects and vice versa.
  */
-@Converts({HashMap.class, Hashtable.class, EnumMap.class, IdentityHashMap.class, LinkedHashMap.class, Properties.class,
-                  TreeMap.class, WeakHashMap.class,
-                  ConcurrentHashMap.class, ConcurrentSkipListMap.class})
 public class MapConverter {
 
 
@@ -85,72 +81,55 @@ public class MapConverter {
         String valueClassString = jsonMap.getAsString("valueClass");
         JsonArray arrayMap = jsonMap.getAsJsonArray("map");
 
-        Class<?> keyClass = null;
-        Class<?> valueClass = null;
+        Class<?> keyClass;
+        Class<?> valueClass;
         try {
             keyClass = Class.forName(keyClassString);
         } catch (ClassNotFoundException e) {
             throw new JsonParsingException("Could not find the class of the key", e);
         }
         try {
-            valueClass = Class.forName(keyClassString);
+            valueClass = Class.forName(valueClassString);
         } catch (ClassNotFoundException e) {
             throw new JsonParsingException("Could not find the class of the key", e);
         }
 
 
+        Map map;
+
         if (HashMap.class.isAssignableFrom(clazz)) {
-            HashMap map = new HashMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-            
-            return (T) map;
+            map = new HashMap();
         } else if (LinkedHashMap.class.isAssignableFrom(clazz)) {
             return (T) this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass);
         } else if (Hashtable.class.isAssignableFrom(clazz)) {
-            Hashtable map = new Hashtable();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-            
-            return (T) map;
+            map = new Hashtable();
         } else if (IdentityHashMap.class.isAssignableFrom(clazz)) {
-            IdentityHashMap map = new IdentityHashMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new IdentityHashMap();
         } else if (TreeMap.class.isAssignableFrom(clazz)) {
-            TreeMap map = new TreeMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new TreeMap();
         } else if (WeakHashMap.class.isAssignableFrom(clazz)) {
-            WeakHashMap map = new WeakHashMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new WeakHashMap();
         } else if (ConcurrentHashMap.class.isAssignableFrom(clazz)) {
-            ConcurrentHashMap map = new ConcurrentHashMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new ConcurrentHashMap();
         } else if (ConcurrentSkipListMap.class.isAssignableFrom(clazz)) {
-            ConcurrentSkipListMap map = new ConcurrentSkipListMap();
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new ConcurrentSkipListMap();
         } else if (EnumMap.class.isAssignableFrom(clazz)) {
             if (!Enum.class.isAssignableFrom(keyClass)) {
                 throw new JsonParsingException("Expected Enum as key class for EnumMap, but found " + keyClassString);
             }
 
-            EnumMap map = new EnumMap(keyClass);
-            map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
-
-            return (T) map;
+            map = new EnumMap(keyClass);
         } else {
             throw new JsonParsingException(clazz.getName() + " is not convertible with this converter");
         }
+
+        map.putAll(this.getLinkedHashMapFromJson(arrayMap, maxon, keyClass, valueClass));
+
+        return (T) map;
     }
 
-    public Map getLinkedHashMapFromJson(JsonArray jsonMap, Maxon maxon, Class keyClass, Class valueClass) {
+    @SuppressWarnings("unchecked")
+    private Map getLinkedHashMapFromJson(JsonArray jsonMap, Maxon maxon, Class keyClass, Class valueClass) {
 
         Map<Object, Object> map = new LinkedHashMap<>();
 
