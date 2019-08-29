@@ -37,6 +37,7 @@ implementation 'com.github.mavolin:maxon:1.2.0'
 - ``String``
 - ``AtomicBoolean``, ``AtomicInteger``, ``AtomicIntegerArray``, ``AtomicLong`` and ``AtomicLongArray``
 - ``Instant``, ``LocalTime``, ``LocalDate``, ``LocalDateTime``, ``OffsetDateTime``, ``ZonedDateTime`` and ``Date``
+- ``HashMap``, ``LinkedHashMap``, ``Hashtable``, ``IdentityHashMap``, ``TreeMap``, ``WeakHashMap``, ``ConcurrentHashMap``, ``ConcurrentSkipListMap`` and ``EnumMap``
 - all enums
 
 ## Usage
