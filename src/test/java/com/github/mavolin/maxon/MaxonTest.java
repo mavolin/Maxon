@@ -7,6 +7,7 @@ import com.github.mavolin.maxon.jsonvalues.JsonPrimitive;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,9 +20,18 @@ class MaxonTest {
 
         Maxon maxon = new Maxon();
 
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("one", 1);
+        map.put("two", 2);
+        map.put("three", 3);
+        String jsonMap
+                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\":" +
+                  "\"one\", \"value\": 1}, {\"key\": \"two\", \"value\": 2}, {\"key\": \"three\", \"value\": 3}]}";
+
         assertEquals("null", maxon.getAsJson((Object) null));
         assertEquals("123456.789", maxon.getAsJson(123456.789));
         assertEquals("\"PRETTY_PRINTED\"", maxon.getAsJson(PrintStyle.PRETTY_PRINTED));
+        assertEquals(jsonMap, maxon.getAsJson(map));
         assertEquals("{\"str\": \"Hello World!\", \"i\": 3}", maxon.getAsJson(new TestObject1()));
     }
 
@@ -29,6 +39,7 @@ class MaxonTest {
     void getAsJsonJsonValueTest() {
 
         Maxon maxon = new Maxon();
+
         JsonValue fakeValue = new JsonValue() {
 
         };
@@ -52,10 +63,19 @@ class MaxonTest {
 
         Maxon maxon = new Maxon();
 
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("one", 1);
+        map.put("two", 2);
+        map.put("three", 3);
+        String jsonMap
+                = "{\"keyClass\": \"java.lang.String\", \"valueClass\": \"java.lang.Integer\", \"map\": [{\"key\":" +
+                  "\"one\", \"value\": 1}, {\"key\": \"two\", \"value\": 2}, {\"key\": \"three\", \"value\": 3}]}";
+
         assertNull(maxon.getFromJson("null", Object.class));
         assertEquals(new JsonPrimitive(123), maxon.getFromJson("123", JsonPrimitive.class));
         assertEquals(123, maxon.getFromJson("123", int.class));
         assertEquals(PrintStyle.PRETTY_PRINTED, maxon.getFromJson("\"PRETTY_PRINTED\"", PrintStyle.class));
+        assertEquals(map, maxon.getFromJson(jsonMap, HashMap.class));
         assertEquals(new TestObject1(),
                      maxon.getFromJson("{ \"str\": \"Hello World!\", \"i\": 3 }", TestObject1.class));
     }
