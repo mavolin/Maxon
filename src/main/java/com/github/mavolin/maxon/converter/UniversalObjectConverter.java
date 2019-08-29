@@ -11,6 +11,8 @@ import com.github.mavolin.maxon.jsonvalues.JsonValue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -204,32 +206,36 @@ public class UniversalObjectConverter {
         Map<String, Field> extractFields = new LinkedHashMap<>();
 
         for (Field field : clazz.getDeclaredFields()) {
-            Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
+            if (!Modifier.isStatic(field.getModifiers())) {
+                Serialize serialize = field.getDeclaredAnnotation(Serialize.class);
 
-            if (serialize != null) {
-                String serializeValue = serialize.value();
+                if (serialize != null) {
+                    String serializeValue = serialize.value();
 
-                if (serializeValue.equals("[USE FIELD NAME]")) {
-                    serializeValue = field.getName();
+                    if (serializeValue.equals("[USE FIELD NAME]")) {
+                        serializeValue = field.getName();
+                    }
+
+                    if (extractFields.containsKey(serializeValue)) {
+                        throw new JsonParsingException("Duplicate name \"" + serializeValue + "\" found");
+                    }
+
+                    extractFields.put(serializeValue, field);
                 }
-
-                if (extractFields.containsKey(serializeValue)) {
-                    throw new JsonParsingException("Duplicate name \"" + serializeValue + "\" found");
-                }
-
-                extractFields.put(serializeValue, field);
             }
         }
 
         if (extractFields.isEmpty()) { // if no field was annotated deserialize all fields
             for (Field field : clazz.getDeclaredFields()) {
-                String name = field.getName();
+                if (!Modifier.isStatic(field.getModifiers())) {
+                    String name = field.getName();
 
-                if (extractFields.containsKey(name)) {
-                    throw new JsonParsingException("Duplicate name \"" + name + "\" found");
+                    if (extractFields.containsKey(name)) {
+                        throw new JsonParsingException("Duplicate name \"" + name + "\" found");
+                    }
+
+                    extractFields.put(name, field);
                 }
-
-                extractFields.put(name, field);
             }
         }
 
