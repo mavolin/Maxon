@@ -9,9 +9,9 @@ import com.github.mavolin.maxon.jsonvalues.*;
 import com.github.mavolin.maxon.parsing.JsonValueConverter;
 import com.github.mavolin.maxon.utils.JsonPrinter;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * The {@code Maxon} class is the heart of this JSON converter. Using the {@code getAsJson} and {@code getFromJson}
@@ -32,6 +32,10 @@ public class Maxon {
      * The {@link UniversalObjectConverter UniversalObjectConverter}.
      */
     private static final UniversalObjectConverter UNIVERSAL_OBJECT_CONVERTER = new UniversalObjectConverter();
+    /**
+     * The {@link MapConverter MapConverter}.
+     */
+    private static final MapConverter MAP_CONVERTER = new MapConverter();
 
     /**
      * The character used as whitespace when {@link PrintStyle#SINGLE_WHITESPACE PrintStyle.SINGLE_WHITESPACE} or {@link
@@ -142,12 +146,81 @@ public class Maxon {
             return JsonPrimitive.NULL;
         }
 
+        JsonArray jsonArray = new JsonArray();
+
+        if (source.getClass().isArray()) {
+            Class<?> componentType = source.getClass().getComponentType();
+
+            if (componentType.isPrimitive()) {
+                if (boolean.class.isAssignableFrom(componentType)) {
+                    boolean[] booleans = (boolean[]) source;
+
+                    for (boolean bool : booleans) {
+                        jsonArray.add(this.getAsJsonValue(bool));
+                    }
+                } else if (char.class.isAssignableFrom(componentType)) {
+                    char[] chars = (char[]) source;
+
+                    for (char character : chars) {
+                        jsonArray.add(this.getAsJsonValue(character));
+                    }
+                } else if (byte.class.isAssignableFrom(componentType)) {
+                    byte[] bytes = (byte[]) source;
+
+                    for (byte num : bytes) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (short.class.isAssignableFrom(componentType)) {
+                    short[] shorts = (short[]) source;
+
+                    for (short num : shorts) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (int.class.isAssignableFrom(componentType)) {
+                    int[] ints = (int[]) source;
+
+                    for (int num : ints) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (long.class.isAssignableFrom(componentType)) {
+                    long[] longs = (long[]) source;
+
+                    for (long num : longs) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (float.class.isAssignableFrom(componentType)) {
+                    float[] floats = (float[]) source;
+
+                    for (float num : floats) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (double.class.isAssignableFrom(componentType)) {
+                    double[] doubles = (double[]) source;
+
+                    for (double num : doubles) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                }
+            } else {
+                Object[] objects = (Object[]) source;
+
+                for (Object object : objects) {
+                    jsonArray.add(this.getAsJsonValue(object));
+                }
+            }
+            return jsonArray;
+        }
+
         Class sourceClass = source.getClass();
 
         if (this.converter.containsKey(sourceClass)) {
             return this.converter.get(sourceClass).getAsJson(source);
         } else if (source instanceof Enum) {
             return UNIVERSAL_ENUM_CONVERTER.getAsJson(source);
+        } else if (source instanceof HashMap || source instanceof Hashtable || source instanceof EnumMap ||
+                   source instanceof IdentityHashMap || source instanceof TreeMap || source instanceof WeakHashMap ||
+                   source instanceof ConcurrentHashMap || source instanceof ConcurrentSkipListMap) {
+            return MAP_CONVERTER.getAsJson(source, this);
         } else {
             return UNIVERSAL_OBJECT_CONVERTER.getAsJson(source, this);
         }
@@ -197,6 +270,12 @@ public class Maxon {
             return this.converter.get(clazz).getFromJson(jsonValue, clazz);
         } else if (Enum.class.isAssignableFrom(clazz)) {
             return UNIVERSAL_ENUM_CONVERTER.getFromJson(jsonValue, clazz);
+        } else if (HashMap.class.isAssignableFrom(clazz) || LinkedHashMap.class.isAssignableFrom(clazz) ||
+                   Hashtable.class.isAssignableFrom(clazz) || IdentityHashMap.class.isAssignableFrom(clazz) ||
+                   TreeMap.class.isAssignableFrom(clazz) || WeakHashMap.class.isAssignableFrom(clazz) ||
+                   ConcurrentHashMap.class.isAssignableFrom(clazz) ||
+                   ConcurrentSkipListMap.class.isAssignableFrom(clazz) || EnumMap.class.isAssignableFrom(clazz)) {
+            return MAP_CONVERTER.getFromJson(jsonValue, clazz, this);
         } else {
             return UNIVERSAL_OBJECT_CONVERTER.getFromJson(jsonValue, clazz, this);
         }
@@ -240,86 +319,6 @@ public class Maxon {
         for (Class convertibleClass : converts.value()) {
             this.converter.put(convertibleClass, converter);
         }
-    }
-
-    /**
-     * Converts the passed Java array to a {@link JsonArray JsonArray}.
-     *
-     * @param source
-     *         the {@link Object Object} array
-     *
-     * @return the converted {@link JsonArray JsonArray}
-     */
-    private JsonArray getArrayAsJson(Object source) {
-
-        JsonArray jsonArray = new JsonArray();
-
-        if (source.getClass().isArray()) {
-            Class<?> componentType = source.getClass().getComponentType();
-
-            if (componentType.isPrimitive()) {
-                if (boolean.class.isAssignableFrom(componentType)) {
-                    boolean[] booleans = (boolean[]) source;
-
-                    for (boolean bool : booleans) {
-                        jsonArray.add(this.getArrayAsJson(bool));
-                    }
-                } else if (char.class.isAssignableFrom(componentType)) {
-                    char[] chars = (char[]) source;
-
-                    for (char character : chars) {
-                        jsonArray.add(this.getArrayAsJson(character));
-                    }
-                } else if (byte.class.isAssignableFrom(componentType)) {
-                    byte[] bytes = (byte[]) source;
-
-                    for (byte num : bytes) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (short.class.isAssignableFrom(componentType)) {
-                    short[] shorts = (short[]) source;
-
-                    for (short num : shorts) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (int.class.isAssignableFrom(componentType)) {
-                    int[] ints = (int[]) source;
-
-                    for (int num : ints) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (long.class.isAssignableFrom(componentType)) {
-                    long[] longs = (long[]) source;
-
-                    for (long num : longs) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (float.class.isAssignableFrom(componentType)) {
-                    float[] floats = (float[]) source;
-
-                    for (float num : floats) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (double.class.isAssignableFrom(componentType)) {
-                    double[] doubles = (double[]) source;
-
-                    for (double num : doubles) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                }
-            } else {
-                Object[] objects = (Object[]) source;
-
-                for (Object object : objects) {
-                    jsonArray.add(this.getArrayAsJson(object));
-                }
-            }
-
-        } else {
-            jsonArray.add(this.getAsJsonValue(source));
-        }
-
-        return null;
     }
 
     /**
