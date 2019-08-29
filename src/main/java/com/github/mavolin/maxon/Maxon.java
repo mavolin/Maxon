@@ -142,6 +142,71 @@ public class Maxon {
             return JsonPrimitive.NULL;
         }
 
+        JsonArray jsonArray = new JsonArray();
+
+        if (source.getClass().isArray()) {
+            Class<?> componentType = source.getClass().getComponentType();
+
+            if (componentType.isPrimitive()) {
+                if (boolean.class.isAssignableFrom(componentType)) {
+                    boolean[] booleans = (boolean[]) source;
+
+                    for (boolean bool : booleans) {
+                        jsonArray.add(this.getAsJsonValue(bool));
+                    }
+                } else if (char.class.isAssignableFrom(componentType)) {
+                    char[] chars = (char[]) source;
+
+                    for (char character : chars) {
+                        jsonArray.add(this.getAsJsonValue(character));
+                    }
+                } else if (byte.class.isAssignableFrom(componentType)) {
+                    byte[] bytes = (byte[]) source;
+
+                    for (byte num : bytes) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (short.class.isAssignableFrom(componentType)) {
+                    short[] shorts = (short[]) source;
+
+                    for (short num : shorts) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (int.class.isAssignableFrom(componentType)) {
+                    int[] ints = (int[]) source;
+
+                    for (int num : ints) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (long.class.isAssignableFrom(componentType)) {
+                    long[] longs = (long[]) source;
+
+                    for (long num : longs) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (float.class.isAssignableFrom(componentType)) {
+                    float[] floats = (float[]) source;
+
+                    for (float num : floats) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                } else if (double.class.isAssignableFrom(componentType)) {
+                    double[] doubles = (double[]) source;
+
+                    for (double num : doubles) {
+                        jsonArray.add(this.getAsJsonValue(num));
+                    }
+                }
+            } else {
+                Object[] objects = (Object[]) source;
+
+                for (Object object : objects) {
+                    jsonArray.add(this.getAsJsonValue(object));
+                }
+            }
+            return jsonArray;
+        }
+
         Class sourceClass = source.getClass();
 
         if (this.converter.containsKey(sourceClass)) {
@@ -240,86 +305,6 @@ public class Maxon {
         for (Class convertibleClass : converts.value()) {
             this.converter.put(convertibleClass, converter);
         }
-    }
-
-    /**
-     * Converts the passed Java array to a {@link JsonArray JsonArray}.
-     *
-     * @param source
-     *         the {@link Object Object} array
-     *
-     * @return the converted {@link JsonArray JsonArray}
-     */
-    private JsonArray getArrayAsJson(Object source) {
-
-        JsonArray jsonArray = new JsonArray();
-
-        if (source.getClass().isArray()) {
-            Class<?> componentType = source.getClass().getComponentType();
-
-            if (componentType.isPrimitive()) {
-                if (boolean.class.isAssignableFrom(componentType)) {
-                    boolean[] booleans = (boolean[]) source;
-
-                    for (boolean bool : booleans) {
-                        jsonArray.add(this.getArrayAsJson(bool));
-                    }
-                } else if (char.class.isAssignableFrom(componentType)) {
-                    char[] chars = (char[]) source;
-
-                    for (char character : chars) {
-                        jsonArray.add(this.getArrayAsJson(character));
-                    }
-                } else if (byte.class.isAssignableFrom(componentType)) {
-                    byte[] bytes = (byte[]) source;
-
-                    for (byte num : bytes) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (short.class.isAssignableFrom(componentType)) {
-                    short[] shorts = (short[]) source;
-
-                    for (short num : shorts) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (int.class.isAssignableFrom(componentType)) {
-                    int[] ints = (int[]) source;
-
-                    for (int num : ints) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (long.class.isAssignableFrom(componentType)) {
-                    long[] longs = (long[]) source;
-
-                    for (long num : longs) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (float.class.isAssignableFrom(componentType)) {
-                    float[] floats = (float[]) source;
-
-                    for (float num : floats) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                } else if (double.class.isAssignableFrom(componentType)) {
-                    double[] doubles = (double[]) source;
-
-                    for (double num : doubles) {
-                        jsonArray.add(this.getArrayAsJson(num));
-                    }
-                }
-            } else {
-                Object[] objects = (Object[]) source;
-
-                for (Object object : objects) {
-                    jsonArray.add(this.getArrayAsJson(object));
-                }
-            }
-
-        } else {
-            jsonArray.add(this.getAsJsonValue(source));
-        }
-
-        return null;
     }
 
     /**
