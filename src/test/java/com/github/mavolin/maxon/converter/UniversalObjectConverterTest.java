@@ -16,6 +16,16 @@ class UniversalObjectConverterTest {
 
 
     @Test
+    void getAsJsonStaticTest() {
+
+        UniversalObjectConverter universalObjectConverter = new UniversalObjectConverter();
+
+        assertEquals(new JsonObject()
+                             .put("i", 9), universalObjectConverter.getAsJson(new StaticMemberObject(), new Maxon()));
+
+    }
+
+    @Test
     void getAsJsonTest() {
 
         UniversalObjectConverter universalObjectConverter = new UniversalObjectConverter();
@@ -102,6 +112,16 @@ class UniversalObjectConverterTest {
             return i == that.i &&
                    str.equals(that.str);
         }
+
+
+    }
+
+
+    static class StaticMemberObject {
+
+
+        static String test = "Test";
+        int i = 9;
 
 
     }
