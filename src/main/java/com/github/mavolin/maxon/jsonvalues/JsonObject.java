@@ -142,8 +142,7 @@ public class JsonObject implements JsonValue {
             throw new NullPointerException(NULL_KEY_ERR_MSG);
         }
 
-        this.fields.put(key,
-                        Objects.requireNonNullElse(new JsonElement(jsonValue), new JsonElement(JsonPrimitive.NULL)));
+        this.fields.put(key, new JsonElement(jsonValue));
 
         return this;
     }
@@ -253,7 +252,7 @@ public class JsonObject implements JsonValue {
         }
 
         if (!this.fields.containsKey(key)) {
-            this.fields.put(key, Objects.requireNonNullElse(new JsonElement(jsonValue), new JsonElement(jsonValue)));
+            this.fields.put(key, new JsonElement(jsonValue));
         }
 
         return this;
