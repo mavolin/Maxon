@@ -146,9 +146,12 @@ public class Maxon {
             return JsonPrimitive.NULL;
         }
 
-        JsonArray jsonArray = new JsonArray();
+        if (source instanceof JsonValue) {
+            return (JsonValue) source;
+        }
 
         if (source.getClass().isArray()) {
+            JsonArray jsonArray = new JsonArray();
             Class<?> componentType = source.getClass().getComponentType();
 
             if (componentType.isPrimitive()) {
