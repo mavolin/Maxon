@@ -87,7 +87,7 @@ If a ``Class`` is not known to maxon, the universal object converter will be use
 If set to true, maxon will abort serialization if one of the fields annotated 
 with the @Serialize annotation is not contained in the JSON source. If no fields
 are annotated with @Serialize, abortion will happen when one of the objects fields
-is not represented in the passed JSON. When aborting a JsonParsingException will be
+is not present in the passed JSON. When aborting a JsonParsingException will be
 thrown.
 
 If no @AbortOnMissingField annotation is present, no abortion will happen.
