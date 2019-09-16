@@ -99,7 +99,7 @@ public class Showcase {
     /*
     If at least one field is annotated with @Serialize, only the fields annotated 
     with @Serialize will be serialize. If no field is annotated with @Serialize,
-    all fields will be serialize.
+    all fields will be serialized.
      */
     @Serialize
     private String str;
@@ -112,7 +112,8 @@ public class Showcase {
     private int anInt;
     /*
     If a field is annotated with an @AbortOnMissingField, it overwrites the "global"
-    setting, meaning the setting set at class level.
+    setting, meaning the setting set at class level. If the field is missing, a
+    JsonParsingException will be thrown.
      */
     @AbortOnMissingField(false)
     private boolean bool;
@@ -120,11 +121,11 @@ public class Showcase {
     
     /*
     The @DeserializationConstructor annotation is required, if there is no no-arg
-    constructor for the class. When using @DeserializationConstructor, it takes an
-    array of String, which represent the names of the values as found in the JSON 
+    constructor for the class. The @DeserializationConstructor, it takes an array
+    of Strings, which represent the names of the values, as found in the JSON
     source.
-    Note that if a value gets used as a parameter for a constructor, it will not
-    be used again during field deserialization.
+    Note that if a value gets used as a parameter for the constructor, the value will
+    not be used again during field deserialization.
      */
     @DeserializationConstructor("float")
     Showcase(float num) {
