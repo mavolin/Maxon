@@ -23,6 +23,8 @@ public class MapConverter {
      *
      * @param source
      *         the {@link Object Object} that is to be converted
+     * @param maxon
+     *         the {@link Maxon Maxon} object used to convert the elements of the map
      *
      * @return the converted {@link Object Object}
      */
@@ -62,10 +64,14 @@ public class MapConverter {
      * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of the
      * type {@code T} out of it.
      *
+     * @param <T>
+     *         the type parameter
      * @param source
      *         the JSON representation of the {@link Object Object}
      * @param clazz
      *         the {@link Class Class} of the {@link Object Object}
+     * @param maxon
+     *         the {@link Maxon Maxon} object used to convert the elements of the map
      *
      * @return the extracted {@link Object Object}
      */
