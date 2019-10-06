@@ -36,6 +36,10 @@ public class Maxon {
      * The {@link MapConverter MapConverter}.
      */
     private static final MapConverter MAP_CONVERTER = new MapConverter();
+    /**
+     * The {@link ListConverter ListConverter}.
+     */
+    private static final ListConverter LIST_CONVERTER = new ListConverter();
 
     /**
      * The character used as whitespace when {@link PrintStyle#SINGLE_WHITESPACE PrintStyle.SINGLE_WHITESPACE} or {@link
@@ -224,6 +228,8 @@ public class Maxon {
                    source instanceof IdentityHashMap || source instanceof TreeMap || source instanceof WeakHashMap ||
                    source instanceof ConcurrentHashMap || source instanceof ConcurrentSkipListMap) {
             return MAP_CONVERTER.getAsJson(source, this);
+        } else if (source instanceof ArrayList || source instanceof LinkedList || source instanceof Vector) {
+            return LIST_CONVERTER.getAsJson(source, this);
         } else {
             return UNIVERSAL_OBJECT_CONVERTER.getAsJson(source, this);
         }
@@ -279,6 +285,9 @@ public class Maxon {
                    ConcurrentHashMap.class.isAssignableFrom(clazz) ||
                    ConcurrentSkipListMap.class.isAssignableFrom(clazz) || EnumMap.class.isAssignableFrom(clazz)) {
             return MAP_CONVERTER.getFromJson(jsonValue, clazz, this);
+        } else if (ArrayList.class.isAssignableFrom(clazz) || LinkedList.class.isAssignableFrom(clazz) ||
+                   Vector.class.isAssignableFrom(clazz) || Stack.class.isAssignableFrom(clazz)) {
+            return LIST_CONVERTER.getFromJson(jsonValue, clazz, this);
         } else {
             return UNIVERSAL_OBJECT_CONVERTER.getFromJson(jsonValue, clazz, this);
         }

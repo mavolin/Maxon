@@ -36,8 +36,7 @@ public class ListConverter {
 
         JsonObject arrayObject = new JsonObject();
         JsonArray array = new JsonArray();
-        AtomicBoolean first  = new AtomicBoolean(false);
-
+        AtomicBoolean first  = new AtomicBoolean(true);
 
         list.forEach(item -> {
             if (first.get()) {
