@@ -76,7 +76,7 @@ public class ListConverter {
         JsonObject jsonMap = (JsonObject) source;
 
         String itemClassString = jsonMap.getAsString("itemClass");
-        JsonArray array = jsonMap.getAsJsonArray("map");
+        JsonArray array = jsonMap.getAsJsonArray("array");
 
         Class<?> type;
         try {
