@@ -6,7 +6,7 @@ import com.github.mavolin.maxon.jsonvalues.JsonArray;
 import com.github.mavolin.maxon.jsonvalues.JsonObject;
 import com.github.mavolin.maxon.jsonvalues.JsonValue;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -51,6 +51,69 @@ public class ListConverter {
         arrayObject.put("array", array);
 
         return arrayObject;
+    }
+
+    /**
+     * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of the
+     * type {@code T} out of it.
+     *
+     * @param <T>
+     *         the type parameter
+     * @param source
+     *         the JSON representation of the {@link Object Object}
+     * @param clazz
+     *         the {@link Class Class} of the {@link Object Object}
+     * @param maxon
+     *         the {@link Maxon Maxon} object used to convert the elements of the map
+     *
+     * @return the extracted {@link Object Object}
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getFromJson(JsonValue source, Class<T> clazz, Maxon maxon) {
+
+        if (!(source instanceof JsonObject)) {
+            throw new JsonParsingException(clazz.getName() + " is not convertible with this converter");
+        }
+        JsonObject jsonMap = (JsonObject) source;
+
+        String itemClassString = jsonMap.getAsString("itemClass");
+        JsonArray array = jsonMap.getAsJsonArray("map");
+
+        Class<?> type;
+        try {
+            type = Class.forName(itemClassString);
+        } catch (ClassNotFoundException e) {
+            throw new JsonParsingException("Could not find the class of the key", e);
+        }
+
+        List list;
+
+        if (ArrayList.class.isAssignableFrom(clazz)) {
+            list = new ArrayList();
+        } else if (LinkedList.class.isAssignableFrom(clazz)) {
+            list = new LinkedList();
+        } else if (Vector.class.isAssignableFrom(clazz)) {
+            list = new Vector();
+        } else if (Stack.class.isAssignableFrom(clazz)) {
+            list = new Stack();
+        } else {
+            throw new JsonParsingException(clazz.getName() + " is not convertible with this converter");
+        }
+
+        list.addAll(this.getLinkedListFromJson(array, maxon, type));
+
+        return (T) list;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List getLinkedListFromJson(JsonArray array, Maxon maxon, Class type) {
+
+        List<Object> list = new LinkedList<>();
+
+        array.forEach(element ->
+            list.add(maxon.getFromJson(element.getAsJsonValue(), type)));
+
+        return list;
     }
 
 
