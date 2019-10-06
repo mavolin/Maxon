@@ -261,6 +261,8 @@ public class Maxon {
      *
      * @param <T>
      *         the type parameter
+     * @param jsonValue
+     *         the {@link JsonValue JsonValue} source
      * @param clazz
      *         the desired {@link Class Class} of the output {@link Object Object}
      *
