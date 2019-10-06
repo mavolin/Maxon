@@ -29,6 +29,8 @@ public class UniversalObjectConverter {
      *
      * @param source
      *         the {@link Object Object} that is to be converted
+     * @param maxon
+     *         the {@link Maxon Maxon} converter
      *
      * @return the converted {@link Object Object}
      */
@@ -65,10 +67,14 @@ public class UniversalObjectConverter {
      * Extracts information from the passed {@link JsonValue JsonValue} and builds a new {@link Object Object} of the
      * type {@code T} out of it.
      *
+     * @param <T>
+     *         the type parameter
      * @param source
      *         the JSON representation of the {@link Object Object}
      * @param clazz
      *         the {@link Class Class} of the {@link Object Object}
+     * @param maxon
+     *         the {@link Maxon Maxon} converter
      *
      * @return the extracted {@link Object Object}
      */
