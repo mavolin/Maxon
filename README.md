@@ -18,7 +18,7 @@ Add the following dependency to your ``pom.xml``
 <dependency>
   <groupId>com.github.mavolin</groupId>
   <artifactId>maxon</artifactId>
-  <version>1.2.1</version>
+  <version>1.3.1</version>
 </dependency>
 ```
 
@@ -27,7 +27,7 @@ Add the following dependency to your ``pom.xml``
 Add this to your ``build.gradle`` file:
 
 ```
-implementation 'com.github.mavolin:maxon:1.2.1'
+implementation 'com.github.mavolin:maxon:1.3.1'
 ```
 
 ## Natively Supported Classes
@@ -38,6 +38,7 @@ implementation 'com.github.mavolin:maxon:1.2.1'
 - ``AtomicBoolean``, ``AtomicInteger``, ``AtomicIntegerArray``, ``AtomicLong`` and ``AtomicLongArray``
 - ``Instant``, ``LocalTime``, ``LocalDate``, ``LocalDateTime``, ``OffsetDateTime``, ``ZonedDateTime`` and ``Date``
 - ``HashMap``, ``LinkedHashMap``, ``Hashtable``, ``IdentityHashMap``, ``TreeMap``, ``WeakHashMap``, ``ConcurrentHashMap``, ``ConcurrentSkipListMap`` and ``EnumMap``
+- ``ArrayList``, ``LinkedList`` and ``Vector``
 - all enums
 
 ## Usage
