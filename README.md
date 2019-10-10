@@ -1,4 +1,4 @@
-[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)  [![Maven Central](https://img.shields.io/maven-central/v/com.github.mavolin/maxon)](https://search.maven.org/artifact/com.github.mavolin/maxon)
+[![Javadocs](https://www.javadoc.io/badge/com.github.mavolin/maxon.svg)](https://www.javadoc.io/doc/com.github.mavolin/maxon)  [![Maven Central](https://img.shields.io/maven-central/v/com.github.mavolin/maxon)](https://search.maven.org/artifact/com.github.mavolin/maxon) [![Build Status](https://travis-ci.org/mavolin/maxon.svg?branch=master)](https://travis-ci.org/mavolin/maxon)
 
 ---
 
@@ -43,7 +43,7 @@ implementation 'com.github.mavolin:maxon:1.3.1'
 
 ## Usage
 
-Conversions with maxon are easy and done by simply instantiating a ``Maxon`` object and calling the corresponding conversion method.
+Conversions with maxon are easy and done by simply instantiating a ``Maxon`` object and calling the corresponding conversion method
 A conversion to JSON would look like this:
 
 ```java
